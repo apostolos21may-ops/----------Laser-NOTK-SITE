@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Team Photos – NOTK Laser</title>
+  <link rel="icon" href="notk.png"/>
+
+  <style>
+    /* base */
+    body{
+      margin:0;
+      font-family:system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, 'Noto Sans', sans-serif;
+      color:#fff;
+      text-align:center;
+
+      background-image:url("90.jpg");
+      background-size:cover;
+      background-position:center;
+      background-attachment:fixed;
+
+      animation:fadeIn 1.5s ease-in-out;
+    }
+    @keyframes fadeIn{
+      from{opacity:0; transform:translateY(20px)}
+      to{opacity:1; transform:translateY(0)}
+    }
+
+    /* page title bar */
+    .photos-title{
+      background:rgba(11,42,102,0.8);
+      color:#fff;
+      padding:1rem 1.5rem;
+      margin:0;
+      font-size:1.2rem;
+      font-weight:700;
+      line-height:1.4;
+      text-shadow:0 2px 6px rgba(0,0,0,.7);
+      border-bottom:2px solid rgba(255,255,255,.3);
+      letter-spacing:.3px;
+    }
+
+    /* back button row */
+    .back-row{ margin:1rem 0 2rem; }
+    .back-link{
+      display:inline-block;
+      background:#fff;
+      color:#0b2a66;
+      font-weight:600;
+      font-size:.9rem;
+      text-decoration:none;
+      border-radius:6px;
+      padding:.5rem .75rem;
+      box-shadow:0 6px 18px rgba(0,0,0,.3);
+      border:1px solid rgba(0,0,0,.15);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .back-link:hover{
+      transform:translateY(-2px);
+      box-shadow:0 8px 20px rgba(0,0,0,.35);
+    }
+
+    /* grid */
+    .photo-grid{
+      max-width:1200px;
+      margin:0 auto 4rem;
+      padding:0 1rem 4rem;
+
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(min(260px,100%), 1fr));
+      gap:1.5rem;
+    }
+
+    /* card */
+    .photo-card{
+      background:rgba(255,255,255,0.08);
+      backdrop-filter:blur(6px);
+      -webkit-backdrop-filter:blur(6px);
+      border-radius:12px;
+      box-shadow:0 30px 60px rgba(0,0,0,.6), 0 2px 4px rgba(0,0,0,.4) inset;
+      border:1px solid rgba(255,255,255,.4);
+      overflow:hidden;
+      text-align:left;
+      color:#fff;
+    }
+    .photo-card img{
+      width:100%;
+      height:200px;
+      object-fit:cover;
+      display:block;
+      border-bottom:1px solid rgba(255,255,255,.3);
+      opacity:0;
+      transform:scale(.99);
+      animation:appear 1s forwards;
+    }
+    .photo-card:nth-child(1) img{ animation-delay:.3s; }
+    .photo-card:nth-child(2) img{ animation-delay:.6s; }
+    .photo-card:nth-child(3) img{ animation-delay:.9s; }
+    .photo-card:nth-child(4) img{ animation-delay:1.2s; }
+
+    @keyframes appear{
+      to{ opacity:1; transform:scale(1); }
+    }
+
+    .photo-card figcaption{
+      font-size:.9rem;
+      line-height:1.4;
+      padding:.75rem .9rem 1rem;
+      color:#fff;
+      text-shadow:0 2px 4px rgba(0,0,0,.8);
+    }
+
+    @media (min-width:768px){
+      .photos-title{ font-size:1.4rem; }
+      .photo-card img{ height:220px; }
+    }
+  </style>
+</head>
+
+<body>
+  <section class="photos-page">
+    <h1 class="photos-title">📸 NOTK Laser – Team Photos</h1>
+
+    <p class="back-row">
+      <a class="back-link" href="index.html">← Back to the Academy</a>
+    </p>
+
+    <div class="photo-grid">
+      <figure class="photo-card">
+        <img src="IMG_4251.JPG" alt="Laser dinghies training on the water">
+        <figcaption>Laser dinghies in training</figcaption>
+      </figure>
+
+      <figure class="photo-card">
+        <img src="IMG_4252.JPG" alt="Sailor trimming the Laser sail underway">
+        <figcaption>Moment on the Laser</figcaption>
+      </figure>
+
+      <figure class="photo-card">
+        <img src="IMG_4253.jpg" alt="Team sailing together at sea">
+        <figcaption>Team at sea</figcaption>
+      </figure>
+
+      <figure class="photo-card">
+        <img src="IMG_4254.JPG" alt="Single Laser dinghy sailing">
+        <figcaption>Solo Laser</figcaption>
+      </figure>
+    </div>
+  </section>
+</body>
+</html>

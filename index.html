@@ -1,0 +1,2328 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NOTK Sidebar Demo</title>
+<link rel="icon" type="image/png" href="notk.png" />
+<style>
+
+#celebration {
+  position: relative;
+  padding: 3rem 1rem;
+  background-image: url("IMG_4282.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat;
+  text-align: center;
+  color: #0b2a66;
+  border-top: 3px solid #ffe066;
+  border-bottom: 3px solid #ffe066;
+  box-shadow: 0 24px 48px rgba(0,0,0,0.25);
+  z-index: 10;
+}
+
+#celebration .celebration-banner {
+  display: inline-block;
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  border: 2px solid rgba(255,255,255,0.9);
+  box-shadow: 0 16px 32px rgba(0,0,0,0.25);
+}
+
+#celebration h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 800;
+  line-height: 1.4;
+  color: #0b2a66;
+  text-shadow: 0 1px 2px rgba(255,255,255,0.9);
+}
+
+/* λίγο πιο μεγάλο σε desktop */
+@media (min-width:768px){
+  #celebration h2{
+    font-size:1.6rem;
+  }
+}
+:root{
+  --navy:#0b2a66;
+  --navy-2:#123774;
+  --line:#e7edf6;
+  --soft:#f6f9fc;
+  --white:#fff;
+}
+
+/* ====== BASE ====== */
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Noto Sans',sans-serif
+}
+
+/* ====== TOPBAR (mobile only) ====== */
+.topbar{
+  display:none;
+  align-items:center;
+  gap:.75rem;
+  position:sticky;
+  top:0;
+  z-index:60;
+  background:var(--navy);
+  color:#fff;
+  padding:.6rem .8rem
+}
+.topbar__brand{
+  color:#e8f0ff;
+  text-decoration:none;
+  font-weight:700
+}
+.burger{
+  background:none;
+  border:1px solid #3a5aa0;
+  color:#e8f0ff;
+  border-radius:8px;
+  padding:.35rem .6rem;
+  font-size:1.1rem
+}
+
+/* ====== SIDEBAR ====== */
+.sidebar{
+  position:fixed;
+  inset:0 auto 0 0;
+  width:270px;
+  z-index:50;
+  border-right:1px solid var(--line);
+  display:flex;
+  flex-direction:column;
+  min-height:100dvh;
+  background-image:url("IMG_4043.jpg");
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  color:#fff;
+  border-right:1px solid rgba(255,255,255,.2)
+}
+.sidebar::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,40,.6);
+  z-index:0
+}
+.sidebar__header,
+.menu,
+.sidebar__footer{
+  position:relative;
+  z-index:1
+}
+.sidebar__header{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  padding:0.5rem 0.1rem;
+  border-bottom:1px solid var(--line);
+  background:var(--white)
+}
+.brand__img{
+  height:120px;
+  width:auto;
+  display:block
+}
+.menu{padding:.5rem}
+.menu__item{
+  display:block;
+  padding:.55rem .9rem;
+  border-radius:8px;
+  color:#e7f0ff;
+  text-decoration:none;
+  font-weight:600;
+  text-shadow:0 0 4px rgba(0,0,0,.6);
+
+  position:relative;
+  transition:all .25s ease;
+  border:1px solid transparent;
+  box-shadow:0 0 0 rgba(255,255,255,0);
+}
+.menu__item:hover{
+  background:rgba(255,255,255,.18);
+  color:#fff;
+  font-weight:700;
+  text-shadow:0 0 8px rgba(255,255,255,0.8);
+  box-shadow:0 0 12px rgba(255,255,255,0.5);
+  border:1px solid rgba(255,255,255,0.5);
+}
+.menu__item.active{
+  background:rgba(255,255,255,.22);
+  color:#fff;
+  font-weight:800;
+  text-shadow:0 0 10px rgba(255,255,255,0.9);
+  box-shadow:0 0 14px rgba(255,255,255,0.7);
+  border:1px solid rgba(255,255,255,0.7);
+}
+
+/* language switch special */
+#lang-switch{
+  cursor:pointer;
+}
+#lang-switch.menu__item.active{
+  box-shadow:none;
+  border:1px solid transparent;
+  background:#eef3ff;
+  color:#0b2a66;
+  text-shadow:none;
+  font-weight:600;
+}
+#lang-switch[aria-pressed="true"]{
+  background:#eef3ff;
+  color:#0b2a66;
+  text-shadow:none;
+}
+
+/* footer in sidebar */
+.sidebar__footer{
+  margin-top:auto;
+  padding:1rem;
+  border-top:1px solid var(--line);
+  background:transparent;
+  color:#e7f0ff;
+  text-shadow:0 0 4px rgba(0,0,0,.6)
+}
+
+/* ====== PAGE LAYOUT RIGHT SIDE ====== */
+.content{
+  margin-left:270px;
+  min-height:100dvh
+}
+.hero{
+  padding:2.5rem 1rem;
+  background:linear-gradient(180deg,var(--navy),var(--navy-2));
+  color:#fff
+}
+.btn{
+  display:inline-block;
+  padding:.8rem 1rem;
+  border-radius:10px;
+  border:1px solid transparent;
+  text-decoration:none;
+  font-weight:800
+}
+.btn--primary{
+  background:#2f5ca8;
+  color:#fff
+}
+.btn--ghost{
+  border-color:#9db8f3;
+  color:#d9e4ff
+}
+
+/* ====== TEAM SECTION ====== */
+#team{
+  position:relative;
+  border-radius:10px;
+  padding:4rem 1rem;
+  color:#fff;
+  overflow:hidden;
+  background-image:url("90.jpg");
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  box-shadow:0 24px 48px rgba(0,0,0,0.4);
+}
+#team::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(
+    circle at 30% 30%,
+    rgba(0,0,0,0.1) 0%,
+    rgba(0,0,0,0.65) 80%
+  );
+  pointer-events:none;
+}
+#team > *{
+  position:relative;
+  z-index:1;
+}
+#team h2{
+  margin:0 0 1rem;
+  font-size:2rem;
+  font-weight:800;
+  color:#fff;
+  text-shadow:0 0 10px rgba(0,0,0,0.9);
+}
+#team p{
+  max-width:700px;
+  font-size:1.1rem;
+  line-height:1.5;
+  color:#f0f0f0;
+  text-shadow:0 2px 6px rgba(0,0,0,0.8);
+}
+
+/* fade-in from left */
+.omada-animate{
+  opacity:0;
+  transform:translateX(-80px);
+  transition:all 1s ease-out;
+}
+.omada-visible{
+  opacity:1;
+  transform:translateX(0);
+}
+
+/* ====== CHAT SECTION WITH WAVES BG ====== */
+#chat{
+  position:relative;
+  border-radius:10px;
+  padding:4rem 1rem;
+  color:#fff;
+  overflow:hidden;
+  background-image:url("IMG_4235.jpg"); /* οι κυματάρες */
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  box-shadow:0 24px 48px rgba(0,0,0,0.4);
+
+  /* αυτό κάνει overlap πάνω στην επόμενη ενότητα */
+  margin-bottom:-2rem;
+  z-index:1;
+}
+#chat::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(
+    circle at 30% 30%,
+    rgba(0,0,0,0.15) 0%,
+    rgba(0,0,0,0.55) 80%
+  );
+  pointer-events:none;
+}
+#chat > *{
+  position:relative;
+  z-index:2;
+}
+#chat h2{
+  margin:0 0 1rem;
+  font-size:2rem;
+  font-weight:800;
+  text-shadow:0 0 10px rgba(0,0,0,0.9);
+}
+#chat p{
+  max-width:700px;
+  font-size:1.1rem;
+  line-height:1.5;
+  color:#f0f0f0;
+  text-shadow:0 2px 6px rgba(0,0,0,0.8);
+}
+
+/* animation σαν την ομάδα */
+.chat-animate{
+  opacity:0;
+  transform:translateX(-80px);
+  transition:all 1s ease-out;
+}
+.chat-visible{
+  opacity:1;
+  transform:translateX(0);
+}
+
+/* ====== ACADEMY SECTION (CARD FLOATING) ====== */
+#academy{
+  position:relative;
+  z-index:2;              /* κάρτα πάνω από τα κύματα */
+  margin-top:-2rem;       /* μπαίνει πάνω στο chat σαν να “επιπλέει” */
+  padding:2.5rem 1rem;
+
+  /* ΕΔΩ βάζουμε το μοτίβο με τα κύματα */
+  background-image: url("IMG_4235.jpg");
+  background-size: cover;        /* να γεμίζει */
+  background-position: center;   /* κεντράρισμα */
+  background-repeat: no-repeat;  /* να μην επαναλαμβάνεται σε tiles */
+
+  /* λίγο rounding και σκιά γύρω από όλο το block ώστε να φαίνεται σαν ενότητα */
+  border-radius:10px;
+  box-shadow:0 24px 48px rgba(0,0,0,0.4);
+}
+
+.academy-card{
+  background:#f6f9fc;
+  border-radius:10px;
+  box-shadow:0 24px 48px rgba(0,0,0,0.2);
+  border:1px solid rgba(0,0,0,0.1);
+  max-width:900px;
+  margin:0 auto;
+  padding:1.5rem 1rem 2rem;
+  line-height:1.5;
+  color:#1a2a4d;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width:980px){
+  .topbar{display:flex}
+  .sidebar{
+    transform:translateX(-100%);
+    transition:transform .25s ease;
+  }
+  .sidebar.is-open{
+    transform:translateX(0)
+  }
+  .content{
+    margin-left:0
+  }
+  body.menu-open::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.35);
+    z-index:40
+  }
+}
+
+/* Γενικά helpers */
+.red { color:#d02222; font-weight:600; }
+
+/* ====== SECTION LASER ====== */
+#laser {
+  display: flex;
+  justify-content: center;
+  margin: 3rem 0;
+}
+
+/* Κουτί με κόκκινο περίγραμμα */
+.rope-frame {
+  position: relative;
+  background: #ffffff; /* λευκό εσωτερικό */
+  border: 14px solid #d00000; /* κόκκινο περίγραμμα */
+  border-radius: 20px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+  padding: 3rem 2.5rem;
+  max-width: 950px;
+  width: 100%;
+  line-height: 1.8;
+  font-size: 1.05rem;
+  color: #1a1a1a;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Επικεφαλίδα */
+.rope-frame h2 {
+  text-align: center;
+  color: #0b2a66;
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  border-bottom: 3px solid #d22;
+  display: inline-block;
+  padding-bottom: 0.3rem;
+}
+
+/* Έντονα γράμματα κόκκινα */
+.rope-frame b {
+  color: #d00000;
+  font-weight: 700;
+}
+
+/* Εικόνες στο κείμενο */
+.rope-frame img {
+  display: block;
+  max-width: 600px;
+  width: 100%;
+  height: auto;
+  margin: 1rem auto;
+  border-radius: 10px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .rope-frame {
+    padding: 2rem 1.2rem;
+    border-width: 10px;
+  }
+
+  .rope-frame h2 {
+    font-size: 1.4rem;
+  }
+}
+
+/* Ίδια κεντρική στοίχιση για όλα τα rope-frame boxes */
+.rope-frame{ max-width: 980px; margin: 0 auto; }
+#rigging .rigging__block{ padding: 0 1rem 1.25rem; }
+
+/* Κενό πάνω και κάτω από κάθε κάρτα (rope-frame) */
+.rope-frame {
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+/* Για τις λίστες του parts */
+#parts .parts-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+  margin-top: 1.5rem;
+}
+
+#parts .parts-list {
+  list-style: decimal;
+  padding-left: 24px;
+  margin: 0;
+  line-height: 1.65;
+}
+
+#parts .parts-list li {
+  margin-bottom: 6px;
+  border-bottom: 1px dashed #ccc;
+  padding-bottom: 5px;
+}
+
+/* Οι αριθμοί να είναι κόκκινοι */
+#parts .parts-list li::marker {
+  color: #c60000;
+  font-weight: bold;
+}
+
+/* Σε κινητά, 1 στήλη */
+@media (max-width: 720px) {
+  #parts .parts-columns {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+/* ===== Κουμπί Laser σε κόκκινο ===== */
+#menu-laser{
+  border: 2px solid #c21a1a;         /* κόκκινο περίγραμμα */
+  background: rgba(194, 26, 26, .15); /* ελαφρύ κόκκινο φόντο */
+  color: #ffeaea;                     /* ανοιχτό κόκκινο-λευκό κείμενο */
+  border-radius: 10px;
+  transition: background .2s ease, color .2s ease, box-shadow .2s ease;
+}
+
+#menu-laser:hover{
+  background: rgba(194, 26, 26, .28);
+  color: #fff;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.25) inset;
+}
+
+#menu-laser[aria-expanded="true"]{
+  background: #c21a1a;  /* γεμάτο κόκκινο όταν είναι ανοιχτό */
+  color: #fff;
+}
+
+.menu .has-sub{
+  position: relative;
+  width: 100%;
+  text-align: left;
+}
+
+/* μικρό chevron */
+.menu .has-sub::after{
+  content: "▸";
+  position: absolute;
+  right: 10px;
+  transform: translateY(-1px);
+  opacity: .7;
+}
+.menu .has-sub[aria-expanded="true"]::after{
+  content: "▾";
+}
+
+
+/* ===== Υπομενού (γενικές ρυθμίσεις) ===== */
+.submenu {
+  margin: 6px 0 10px 12px;
+  padding-left: 8px;
+  border-left: 2px solid transparent; /* default */
+  transition: border-color .2s ease;
+}
+
+/* 🔴 Laser submenu - κόκκινο */
+#laser-submenu {
+  border-left-color: rgba(252, 8, 8, 0.92);
+}
+
+/* 🔵 Soling submenu - μπλε */
+#soling-submenu {
+  border-left-color: rgba(8, 92, 252, 0.92);
+}
+
+/* Όταν είναι ανοιχτό, μπορείς να προσθέσεις λίγο πιο έντονο χρώμα */
+#laser-submenu[hidden=false],
+#soling-submenu[hidden=false] {
+  border-width: 2px;
+}
+
+.submenu[hidden]{ display: none; }
+
+.submenu__item{
+  font-size: .95rem;
+  padding: 6px 10px;
+  border-radius: 8px;
+  display: inline-block;
+  margin: 4px 0;
+  opacity: .95;
+}
+.submenu__item.active{
+  background: rgba(255,255,255,0.18);
+}
+
+/* όταν κλείνει το burger σε μικρή οθόνη, να κλείνει και το υπομενού */
+@media (max-width: 980px){
+  .menu-open #laser-submenu[hidden] { display: none; }
+}
+
+/* ===== Κουμπί Soling σε μπλε ===== */
+#menu-soling {
+  border: 2px solid #1a4cc2;          /* μπλε περίγραμμα */
+  background: rgba(26, 76, 194, .15); /* ελαφρύ μπλε φόντο */
+  color: #eaf0ff;                     /* ανοιχτό μπλε-λευκό κείμενο */
+  border-radius: 10px;
+  transition: background .2s ease, color .2s ease, box-shadow .2s ease;
+}
+
+#menu-soling:hover {
+  background: rgba(26, 76, 194, .28);
+  color: #fff;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.25) inset;
+}
+
+#menu-soling[aria-expanded="true"] {
+  background: #1a4cc2; /* γεμάτο μπλε όταν είναι ανοιχτό */
+  color: #fff;
+}
+
+
+      GIA SOLING
+/* ===== Μπλε περίγραμμα μόνο για το Soling ===== */
+#soling .rope-frame {
+  border: 6px solid #0b5bd3;   /* μπλε περίγραμμα */
+  box-shadow: 0 0 0 2px #ffffff inset;  /* λευκή εσωτερική γραμμή όπως στις άλλες ενότητες */
+}
+
+/* αν έχεις και άλλα soling sections (π.χ. rigging-soling), να τα πιάσει κι αυτά */
+section[id^="soling"] .rope-frame {
+  border: 14px solid #0b5bd3;
+  box-shadow: 0 0 0 2px #ffffff inset;
+}
+
+/* μπλε έμφαση για Soling */
+.em-blue{ color:#0b5bd3; font-weight:700; }
+
+/* (προαιρετικό) λίγο κενό πάνω-κάτω όπως οι άλλες κάρτες */
+#soling{ margin-top:24px; }
+
+/* ===== Κουμπί Yngling σε μαύρο ===== */
+#menu-yngling{
+  border: 2px solid #111;            /* μαύρο περίγραμμα */
+  background: rgba(0, 0, 0, .18);    /* ελαφρύ μαύρο φόντο */
+  color: #f1f1f1;                    /* ανοιχτό κείμενο για κοντράστ */
+  border-radius: 10px;
+  transition: background .2s ease, color .2s ease, box-shadow .2s ease;
+}
+#menu-yngling:hover{
+  background: rgba(0, 0, 0, .30);
+  color: #fff;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.25) inset;
+}
+#menu-yngling[aria-expanded="true"]{
+  background: #000;                  /* γεμάτο μαύρο όταν είναι ανοιχτό */
+  color: #fff;
+}
+
+/* Μαύρο αριστερό border στο υπομενού του Yngling */
+.submenu--yngling{
+  border-left: 2px solid #000;
+}
+
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <button class="burger" aria-label="Άνοιγμα μενού" aria-controls="sidebar" aria-expanded="false">☰</button>
+  <a class="topbar__brand" href="#home">NOTK Laser Academy</a>
+</header>
+
+<aside id="sidebar" class="sidebar" aria-label="Κύριο μενού">
+  <div class="sidebar__header">
+    <a class="brand" href="#home">
+      <img src="notk-logo-gr.png" alt="NOTK Ακαδημία Laser" class="brand__img" />
+    </a>
+  </div>
+
+  <nav class="menu" role="navigation">
+  <a class="menu__item" href="#home" data-i18n="menu.home">Αρχική</a>
+  <a class="menu__item" href="#team" data-i18n="menu.team">Η ομάδα</a>
+  <a class="menu__item" href="#chat" data-i18n="menu.chat">Συνομιλία</a>
+
+  <div class="menu__group">
+    <!-- Κουμπί Laser -->
+<button
+  class="menu__item has-sub"
+  id="menu-laser"
+  aria-expanded="false"
+  aria-controls="laser-submenu"
+  data-i18n="menu.laser"
+>
+  Laser
+</button>
+
+
+  
+    <!-- Υπομενού Laser -->
+    <ul class="submenu" id="laser-submenu" hidden>
+      <li><a class="menu__item submenu__item" href="#rigging" data-i18n="menu.laser.rigging">Αρματωσιά</a></li>
+      <li><a class="menu__item submenu__item" href="#parts"   data-i18n="menu.laser.parts">Ονοματολογία</a></li>
+      <li><a class="menu__item submenu__item" href="#knots"   data-i18n="menu.laser.knots">Κόμποι</a></li>
+      <li><a class="menu__item submenu__item" href="#about-laser"  data-i18n="menu.laser.info">Πληροφορίες</a></li>
+      <li><a class="menu__item submenu__item" href="#terms"   data-i18n="menu.laser.terms">Ναυτικοί όροι</a></li><!-- ✅ ΝΕΟ -->
+      <li><a class="menu__item submenu__item" href="#maneuvers" data-i18n="menu.laser.maneuvers">Στροφές (Τακ/Πότζα)</a></li>
+    </ul>
+  </div>
+
+<div class="menu__group">
+  <!-- Κουμπί Soling -->
+  <button
+    class="menu__item has-sub"
+    id="menu-soling"
+    aria-expanded="false"
+    aria-controls="soling-submenu"
+    data-i18n="menu.soling"
+  >
+    Soling
+  </button>
+
+  <!-- Υπομενού Soling -->
+  <ul class="submenu" id="soling-submenu" hidden>
+    <li><a class="menu__item submenu__item" href="#soling-info"  data-i18n="menu.soling.info">Πληροφορίες</a></li>
+    <li><a class="menu__item submenu__item" href="#soling-rig"   data-i18n="menu.soling.rigging">Αρματωσιά</a></li>
+    <li><a class="menu__item submenu__item" href="#soling-parts" data-i18n="menu.soling.parts">Μέρη σκάφους</a></li>
+    <li><a class="menu__item submenu__item" href="#soling-crew"  data-i18n="menu.soling.crew">Πλήρωμα / Ρόλοι</a></li>
+  </ul>
+</div>
+
+<!-- ===== YNGLING (Τιρκουάζ) ===== -->
+<div class="menu__group">
+  <button
+    class="menu__item has-sub"
+    id="menu-yngling"
+    aria-controls="yngling-submenu"
+    aria-expanded="false"
+    data-i18n="menu.yngling"
+  >
+   
+    Yngling
+  </button>
+
+  <ul class="submenu submenu--yngling" id="yngling-submenu" hidden>
+    <li><a class="menu__item submenu__item" href="#yngling-info"  data-i18n="menu.yngling.info">Πληροφορίες</a></li>
+    <li><a class="menu__item submenu__item" href="#yngling-rig"   data-i18n="menu.yngling.rigging">Αρματωσιά</a></li>
+    <li><a class="menu__item submenu__item" href="#yngling-parts" data-i18n="menu.yngling.parts">Μέρη σκάφους</a></li>
+    <li><a class="menu__item submenu__item" href="#yngling-crew"  data-i18n="menu.yngling.crew">Πλήρωμα / Ρόλοι</a></li>
+  </ul>
+</div>
+
+  <!-- Εναλλαγή γλώσσας -->
+  <button id="lang-switch" class="menu__item" type="button" aria-pressed="false">English</button>
+</nav>
+
+  <div class="sidebar__footer">
+    <p class="small"><span data-i18n="footer.contact">info@notk.gr • +30 210 481-0390</span></p>
+  </div>
+</aside>
+
+<main class="content" id="home">
+
+  <section class="hero">
+    <h1 data-i18n="hero.title">Ιστιοπλοΐα Laser στην πράξη ⚓️</h1>
+    <p data-i18n="hero.subtitle">Ασφάλεια, τεχνική και διασκέδαση στα κύματα. Τμήματα ILCA 4/6/7.</p>
+    <a class="btn btn--primary" href="tel:+302104810390" data-i18n="hero.cta1">Κλείσε δοκιμαστικό</a>
+    <!-- ΜΟΝΙΜΗ ΛΥΣΗ: πάμε στο #programs -->
+    <a class="btn btn--ghost" href="#programs" data-i18n="hero.cta2">Δες προγράμματα</a>
+  </section>
+
+  <section id="team">
+    <h2 class="omada-animate" data-i18n="team.title">Η ομάδα</h2>
+    <p class="omada-animate" data-i18n="team.text">Ο προπονητής και το επιτελείο της Ακαδημίας NOTK Laser.</p>
+    <p class="omada-animate team-note-inline">
+      📸 <strong>
+        <a id="team-photos-link" href="team-photos.html" style="color:white; text-decoration:underline;" data-i18n="team.photos.link">
+          Πατήστε εδώ
+        </a>
+      </strong>
+      <span id="team-photos-text" data-i18n="team.photos.text">— εδώ θα ανεβάζουμε φωτογραφίες της ομάδας!</span>
+    </p>
+  </section>
+
+  <section id="chat">
+  <h2 class="chat-animate" data-i18n="chat.title">Συνομιλία</h2>
+  <p class="chat-animate" data-i18n="chat.text">💬 Ελάτε και εσείς στην παρέα μας στο Viber!</p>
+  <a class="btn btn--primary chat-animate"
+     href="https://invite.viber.com/?g=FoH1VCzGdEmEAtM7QOLcgJoSPg6whdKb"
+     target="_blank" rel="noopener"
+     data-i18n="chat.whatsapp">
+     Άνοιγμα ομαδικής Viber
+  </a>
+</section>
+
+  <!-- ΚΟΙΝΟ anchor για scroll (υπάρχει πάντα σε EL/EN) -->
+  <div id="programs" aria-hidden="true"></div>
+
+  <section id="academy">
+    <!-- ΕΛΛΗΝΙΚΑ -->
+    <div class="academy-card" data-lang="el">
+      <h2 style="color:#0b2a66; font-size:1.8rem; font-weight:800; margin-bottom:1rem;">⚓ Ακαδημία Ιστιοπλοΐας Laser NOTK</h2>
+
+      <p style="max-width:700px; line-height:1.6;">
+        Η <strong>Ακαδημία Ιστιοπλοΐας Ενηλίκων του Ναυτικού Ομίλου Τζιτζιφιών Καλλιθέας (NOTK)</strong>
+        προσφέρει προγράμματα εκμάθησης και προπόνησης για όσους αγαπούν τη θάλασσα και θέλουν
+        να γνωρίσουν την ιστιοπλοΐα στο δημοφιλέστερο σκάφος ενός ατόμου: το <strong>Laser</strong>.
+      </p>
+
+      <p style="max-width:700px; line-height:1.6;">
+        Τα μαθήματα απευθύνονται σε <strong>ενήλικες και εφήβους από 14 ετών και άνω</strong>, ανεξαρτήτως εμπειρίας.
+        Το πρόγραμμα περιλαμβάνει θεωρητική κατάρτιση και πρακτική εξάσκηση στη θάλασσα, πάντα με καθοδήγηση από έμπειρους προπονητές του Ομίλου.
+      </p>
+
+      <h3 style="color:#0b2a66; margin-top:2rem;">🚤 Σκάφη &amp; Εξοπλισμός</h3>
+      <ul style="line-height:1.7;">
+        <li><strong>Laser 4.7, Radial (RDL), Standard (STD)</strong> — τα κλασικά Laser σκάφη για όλα τα επίπεδα.</li>
+        <li><strong>Laser Baby</strong> — ειδική έκδοση με μικρότερο πανί, ιδανική για νέους ιστιοπλόους ή άτομα που προτιμούν ελαφρύτερο εξοπλισμό.</li>
+        <li><strong>Yngling, Soling, Hobie One 14, Manta 19</strong> — σκάφη ομαδικής ιστιοπλοΐας για πιο προχωρημένη εξάσκηση.</li>
+      </ul>
+
+      <h3 id="schedule" style="color:#0b2a66; margin-top:2rem;">🕘 Πρόγραμμα Μαθημάτων</h3>
+      <ul style="line-height:1.7;">
+        <li><strong>Κάθε Σάββατο &amp; Κυριακή</strong></li>
+        <li><strong>Ώρες:</strong> 09:00 – 13:00</li>
+        <li><strong>Τοποθεσία:</strong> Εγκαταστάσεις NOTK, Δέλτα Φαλήρου</li>
+      </ul>
+
+      <p style="max-width:700px; line-height:1.6;">
+        Οι συμμετέχοντες χωρίζονται σε ομάδες ανάλογα με το επίπεδο εμπειρίας τους… 
+      </p>
+
+      <h3 style="color:#0b2a66; margin-top:2rem;">🧭 Στόχος της Ακαδημίας</h3>
+      <ul style="line-height:1.7;">
+        <li>Να <strong>μάθει σωστές τεχνικές πλεύσης</strong>…</li>
+        <li>Να <strong>ασκηθεί σωματικά και πνευματικά</strong>…</li>
+        <li>Να <strong>ζήσει την εμπειρία της ιστιοπλοΐας</strong>…</li>
+      </ul>
+
+      <h3 style="color:#0b2a66; margin-top:2rem;">🌊 Γιατί να επιλέξετε την Ακαδημία NOTK</h3>
+      <ul style="line-height:1.7;">
+        <li>Έμπειροι και πιστοποιημένοι προπονητές</li>
+        <li>Πλήρως εξοπλισμένα Laser και βοηθητικά σκάφη</li>
+        <li>Εύκολη πρόσβαση στο Δέλτα Φαλήρου</li>
+        <li>Φιλικό και ομαδικό περιβάλλον</li>
+        <li>Εκπαίδευση με γνώμονα την ασφάλεια και την πρόοδο</li>
+      </ul>
+    </div>
+
+    <!-- ENGLISH -->
+    <div class="academy-card" data-lang="en" hidden>
+      <h2 style="color:#0b2a66; font-size:1.8rem; font-weight:800; margin-bottom:1rem;">⚓ NOTK Laser Sailing Academy</h2>
+
+      <p style="max-width:700px; line-height:1.6;">
+        The <strong>Adult Sailing Academy of the Nautical Club of Tzitzifies Kallithea (NOTK)</strong> offers training programs…
+      </p>
+
+      <p style="max-width:700px; line-height:1.6;">
+        The lessons are open to <strong>adults and teens aged 14 and above</strong>…
+      </p>
+
+      <h3 style="color:#0b2a66; margin-top:2rem;">🚤 Boats &amp; Equipment</h3>
+      <ul style="line-height:1.7;">
+        <li><strong>Laser 4.7, Radial (RDL), Standard (STD)</strong> — the classic Laser setups for all levels.</li>
+        <li><strong>Laser Baby</strong> — a special sail configuration with smaller area…</li>
+        <li><strong>Yngling, Soling, Hobie One 14, Manta 19</strong> — multi-crew boats for advanced training.</li>
+      </ul>
+
+      <h3 style="color:#0b2a66; margin-top:2rem;">🕘 Schedule</h3>
+      <ul style="line-height:1.7;">
+        <li><strong>Every Saturday &amp; Sunday</strong></li>
+        <li><strong>Time:</strong> 09:00 – 13:00</li>
+        <li><strong>Location:</strong> NOTK facilities, Delta Falirou</li>
+      </ul>
+
+      <p style="max-width:700px; line-height:1.6;">
+        Participants are divided into small groups according to experience level…
+      </p>
+
+      <h3 style="color:#0b2a66; margin-top:2rem;">🧭 Academy Goal</h3>
+      <ul style="line-height:1.7;">
+        <li>Learn <strong>proper sailing techniques</strong>…</li>
+        <li>Develop <strong>physical and mental balance</strong>…</li>
+        <li>Experience sailing as <strong>well-being, freedom, recreation</strong>.</li>
+      </ul>
+
+      <h3 style="color:#0b2a66; margin-top:2rem;">🌊 Why Choose NOTK Academy</h3>
+      <ul style="line-height:1.7;">
+        <li>Experienced and certified instructors</li>
+        <li>Fully equipped Laser and support boats</li>
+        <li>Easy access from Delta Falirou</li>
+        <li>Friendly, team-oriented environment</li>
+        <li>Focus on safety and continuous progress</li>
+      </ul>
+    </div>
+  </section>
+
+<section id="about-laser">
+  <div class="rope-frame">
+
+    <!-- ====== ΕΛΛΗΝΙΚΑ ====== -->
+    <div class="laser-text" data-lang="el">
+
+      <div style="text-align:left; margin: 1rem 0 2rem;">
+        <img src="IMG_4587.png" alt="Λίγα λόγια για να γνωρίσουμε το Laser"
+             style="max-width:560px; width:100%; height:auto; display:block; margin:auto;">
+      </div>
+
+      <p>Το Laser είναι το πιο δημοφιλές σκάφος παγκοσμίως, σχεδιάστηκε από τον Καναδό <b>(BRUCE KIRBY)</b> και παρουσιάστηκε στις αγορές στην αρχή της δεκαετίας του <b>(1970)</b>.</p>
+
+      <p>Σύντομα το αγκάλιασαν αθλητές, λάτρες της θάλασσας και ιστιοπλόοι κυρίως για την εύκολη χρήση του, το απλό του τριμμάρισμα και την εύκολη μεταφορά του, γιατί το άλμπουρό του <b>(καντάρτι)</b> χωρίζεται στα δύο. Τα οποία μαζί με τα υπόλοιπα και τη γάστρα τοποθετούνται εύκολα στη σχάρα ακόμη και σε ένα μικρό αυτοκίνητο.</p>
+
+      <p>Άλλο πλεονέκτημά του είναι ότι στην ίδια γάστρα τοποθετούμε τρεις διαφορετικές αρματωσιές. Αυτές αφορούν το μέγεθος του πανιού και το κάτω μέρος του άλμπουρου, έτσι μπορούμε να συμμετέχουμε σε τρεις διαφορετικές κατηγορίες αγώνων.</p>
+
+      <p>Το μεγαλύτερο πανί ονομάζεται <b>STANDARD (STD)</b> και έχει μέγεθος <b>7,06 τ.μ.</b> Το μεσαίο σε μέγεθος πανί λέγεται <b>RADIAL (RDL)</b> και έχει μέγεθος <b>5,76 τ.μ.</b> Το μικρότερο πανί έχει μέγεθος <b>4,7 τ.μ.</b> και για αυτό ονομάζεται κιόλας έτσι.</p>
+
+      <p>Ο όμιλός μας διαθέτει επιπλέον ένα μικρότερο πανί που το ονομάσαμε <b>BABY</b>, προορίζεται για ελαφρύτερα παιδιά βάρους κάτω από <b>50 κιλά</b>.</p>
+
+      <p>Το μήκος του σκάφους είναι <b>4,23 μ.</b>, το πλάτος <b>1,4 μ.</b> και το βάρος του μαζί με την αρματωσιά του ζυγίζει περίπου <b>57 κιλά</b>.</p>
+
+      <p>Τα σκάφη αυτά κατασκευάζονται αποκλειστικά στην <b>Αμερική</b>, την <b>Αγγλία</b>, την <b>Ιαπωνία</b> και την <b>Αυστραλία</b>.</p>
+
+      <p>Από το <b>1996</b> το Laser μπήκε στην Ολυμπιακή κατηγορία, όπου οι άνδρες συμμετέχουν με πανί <b>STANDARD</b> και οι γυναίκες με <b>RADIAL</b>.</p>
+    </div>
+
+    <!-- ====== ENGLISH ====== -->
+    <div class="laser-text" data-lang="en" hidden>
+      <img src="IMG_4625.jpg" alt="A few words to get to know the Laser"
+           style="max-width:600px; width:100%; height:auto; display:block; margin:0 auto 1rem;">
+
+      <p>The <b>Laser</b> is the most popular sailboat in the world. It was designed by the Canadian <b>Bruce Kirby</b> and was introduced to the market in the early <b>1970s</b>.</p>
+
+      <p>Soon it was embraced by athletes, sea lovers and sailors mainly for its ease of use, simple trimming and convenient transport, since its <b>mast</b> is divided into two parts. These, along with the hull and other components, can easily be placed on a roof rack — even on a small car.</p>
+
+      <p>Another advantage is that on the same hull we can use three different <b>rigs</b>, depending on the sail size and the lower mast section. This allows participation in three different racing categories.</p>
+
+      <p>The largest sail is called <b>STANDARD (STD)</b> and has an area of <b>7.06 m²</b>. The medium sail is <b>RADIAL (RDL)</b> with an area of <b>5.76 m²</b>, and the smallest sail measures <b>4.7 m²</b>, which is also its name.</p>
+
+      <p>Our club also provides an even smaller sail named <b>BABY</b>, designed for lighter sailors under <b>50 kg</b>.</p>
+
+      <p>The boat’s length is <b>4.23 m</b>, its width <b>1.4 m</b>, and its total weight with rigging is about <b>57 kg</b>.</p>
+
+      <p>These boats are manufactured exclusively in the <b>United States</b>, <b>United Kingdom</b>, <b>Japan</b>, and <b>Australia</b>.</p>
+
+      <p>Since <b>1996</b>, the Laser has been an <b>Olympic class</b>, with men competing using the <b>STANDARD</b> rig and women using the <b>RADIAL</b> rig.</p>
+    </div>
+
+  </div>
+</section>
+
+<section id="rigging">
+  <div class="rope-frame">
+
+    <!-- ============ ΕΛΛΗΝΙΚΑ ============ -->
+    <div class="rigging__block" data-lang="el">
+      <div class="rigging__heading" style="text-align:center; margin:0 0 1rem;">
+        <img src="IMG_4660.jpg" alt="Η αρματωσιά του Laser"
+             style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p><b>Αρματωσιά</b> λέγεται ο εξοπλισμός/η εξάρτηση του σκάφους. Στο <b>Laser</b> χωρίζεται σε δύο μέρη:</p>
+
+      <h4>α) Σκληρή αρματωσιά</h4>
+      <ul>
+        <li><b>Κατάρτι (άλμπουρο)</b> δύο τμημάτων: <i>άνω</i> και <i>κάτω</i> σωλήνας (STD / Radial / 4.7).</li>
+        <li><b>Μπούμα (boom)</b>.</li>
+        <li><b>Σέγκα (centerboard)</b> — όχι καρίνα.</li>
+        <li><b>Τιμόνι</b>: <i>πτερύγιο</i>, <i>κεφαλή</i>, <i>λαγουδέρα</i>, <i>προέκταση</i>.</li>
+      </ul>
+
+      <h4>β) Μαλακή αρματωσιά</h4>
+      <ul>
+        <li><b>Πανί</b>: Standard 7.06 m², Radial 5.76 m², 4.7 m².</li>
+        <li><b>Ζώνη κρεμάσματος</b> (hiking strap).</li>
+        <li><b>Σχοινιά & συστήματα</b>: σκότα, traveler, cunningham, outhaul, vang.</li>
+      </ul>
+
+      <p>Με τα σχοινιά φτιάχνουμε τα <b>συστήματα τριμαρίσματος</b> του Laser:</p>
+      <ul class="rigging__systems">
+        <li><b>Cunningham</b>: τεντώνει τη λούφα ⇒ πιο επίπεδο πανί / draft μπροστά.</li>
+        <li><b>Outhaul</b>: ρυθμίζει το άνοιγμα ποδιάς ⇒ fuller vs flatter.</li>
+        <li><b>Vang</b>: κρατά χαμηλά τη μπούμα, ελέγχει twist.</li>
+        <li><b>Σκότα</b>: ανοίγει/κλείνει πανί, άμεσος έλεγχος ισχύος.</li>
+        <li><b>Traveler</b>: σταθεροποιεί γωνία έλξης σκότας στην πρύμη.</li>
+      </ul>
+    </div>
+
+    <!-- ============ ENGLISH ============ -->
+    <div class="rigging__block" data-lang="en" hidden>
+      <div class="rigging__heading" style="text-align:center; margin:0 0 1rem;">
+        <img src="IMG_4661.jpg" alt="Setup of the Laser"
+             style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p><b>Rigging</b> is the full equipment of a boat. On the <b>Laser</b> it’s split in two:</p>
+
+      <h4>a) Hard rig</h4>
+      <ul>
+        <li><b>Mast</b> in two sections (upper/lower) per STD / Radial / 4.7.</li>
+        <li><b>Boom</b>.</li>
+        <li><b>Centerboard</b> (daggerboard) — slides in the case.</li>
+        <li><b>Rudder assembly</b>: blade, head, tiller, tiller extension.</li>
+      </ul>
+
+      <h4>b) Soft rig</h4>
+      <ul>
+        <li><b>Sail</b>: Standard 7.06 m², Radial 5.76 m², 4.7 m².</li>
+        <li><b>Hiking strap</b> in the cockpit.</li>
+        <li><b>Lines & controls</b>: mainsheet, traveler, cunningham, outhaul, vang.</li>
+      </ul>
+
+      <p>The lines form the Laser’s <b>trimming systems</b>:</p>
+      <ul class="rigging__systems">
+        <li><b>Cunningham</b>: tensions the luff ⇒ flattens / moves draft forward.</li>
+        <li><b>Outhaul</b>: sets foot depth ⇒ fuller vs flatter.</li>
+        <li><b>Vang</b>: pulls boom down, controls twist.</li>
+        <li><b>Mainsheet</b>: opens/closes sail, primary power control.</li>
+        <li><b>Traveler</b>: stabilizes sheet lead at the transom.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+
+
+<section id="parts" class="card card--redframe" style="margin-top:2rem;">
+  <div class="rope-frame">
+
+    <!-- ===== ΕΛΛΗΝΙΚΑ ===== -->
+    <div class="parts__block" data-lang="el">
+      <div style="text-align:center; margin: 1rem 0 2rem;">
+        <img src="IMG_4664.jpg" alt="Ονοματολογία του Laser"
+             style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <!-- ✳️ Εικόνα σχεδίου του Laser (π.χ. IMG_4676.jpg) -->
+      <div style="text-align:center; margin: 1.5rem 0 2rem;">
+        <img src="IMG_4676.jpg" alt="Σχεδιάγραμμα Ονοματολογίας Laser"
+             style="max-width:480px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <div class="parts-columns">
+        <ol class="parts-list" start="1">
+          <li>Κορυφή (Head) του πανιού</li>
+          <li>Tack του πανιού</li>
+          <li>Clew του πανιού</li>
+          <li>Αετός του πανιού</li>
+          <li>Καρίνα</li>
+          <li>Λάστιχο καρίνας</li>
+          <li>Τιμόνι</li>
+          <li>Κάσα τιμονιού ή θήκη</li>
+          <li>Βελόνια</li>
+          <li>Πίσω τάπα στεγανών</li>
+          <li>Δαγκάνες</li>
+          <li>Ζώνη κρεμάσματος</li>
+          <li>Χαβούζα σκάφους</li>
+          <li>Boom – Vang</li>
+          <li>Outhaul</li>
+          <li>Cunningham</li>
+          <li>Traveler (Τρίγωνο)</li>
+          <li>Λαγουδέρα</li>
+          <li>Προέκταση</li>
+          <li>Καθρέπτης σκάφους</li>
+        </ol>
+
+        <ol class="parts-list" start="21">
+          <li>Ανεμοδουράκια / μαλλάκια</li>
+          <li>Μάτσα (Boom)</li>
+          <li>Σκότα (Mainsheet)</li>
+          <li>Δαγκάνες Outhaul & Cunningham</li>
+          <li>Ράουλο Κρα-Κρα (Ratchet block)</li>
+          <li>Άλμπουρο (Mast)</li>
+          <li>Gooseneck</li>
+          <li>Πορτούζι του Cunningham</li>
+          <li>Clew tie-down</li>
+          <li>Κατάστρωμα (Deck)</li>
+          <li>Καρινoκουτί</li>
+          <li>Πλώρη</li>
+          <li>Πρύμνη</li>
+          <li>Μάπες</li>
+          <li>Μάπα πλώρης</li>
+          <li>Λάστιχο επαναφοράς Outhaul</li>
+          <li>Ρέλια (Gunwale)</li>
+          <li>Πορτούζι του Outhaul</li>
+          <li>Μπανέλα (Batten)</li>
+          <li>Windex (Ανεμοδείκτης)</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- ===== ENGLISH ===== -->
+    <div class="parts__block" data-lang="en" hidden>
+      <div style="text-align:center; margin: 1rem 0 2rem;">
+        <img src="IMG_4665.jpg" alt="Parts of the Laser"
+             style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <!-- ✳️ Laser diagram (same image) -->
+      <div style="text-align:center; margin: 1.5rem 0 2rem;">
+        <img src="IMG_4676.jpg" alt="Laser Parts Diagram"
+             style="max-width:480px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <div class="parts-columns">
+        <ol class="parts-list" start="1">
+          <li>Sail head</li>
+          <li>Sail tack</li>
+          <li>Sail clew</li>
+          <li>Sail luff (leading edge)</li>
+          <li>Keel line / centerline</li>
+          <li>Keel rubber strip</li>
+          <li>Rudder blade</li>
+          <li>Rudder case / stock</li>
+          <li>Tiller pin</li>
+          <li>Aft drain plug</li>
+          <li>Cam cleats</li>
+          <li>Hiking strap</li>
+          <li>Cockpit</li>
+          <li>Boom vang</li>
+          <li>Outhaul</li>
+          <li>Cunningham</li>
+          <li>Traveler</li>
+          <li>Tiller</li>
+          <li>Tiller extension</li>
+          <li>Transom</li>
+        </ol>
+
+        <ol class="parts-list" start="21">
+          <li>Tell-tales</li>
+          <li>Boom</li>
+          <li>Mainsheet</li>
+          <li>Outhaul & Cunningham cam cleats</li>
+          <li>Ratchet block</li>
+          <li>Mast</li>
+          <li>Gooseneck fitting</li>
+          <li>Cunningham fairlead</li>
+          <li>Clew tie-down</li>
+          <li>Deck</li>
+          <li>Daggerboard case</li>
+          <li>Bow</li>
+          <li>Stern</li>
+          <li>Fairleads</li>
+          <li>Bow fairlead</li>
+          <li>Outhaul return bungee</li>
+          <li>Gunwale</li>
+          <li>Outhaul fairlead</li>
+          <li>Batten</li>
+          <li>Windex</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="knots" class="card card--redframe" style="margin-top:2rem;">
+  <div class="rope-frame">
+
+    <!-- ===== ΕΛΛΗΝΙΚΑ ===== -->
+    <div class="knots__block" data-lang="el">
+      <!-- Επικεφαλίδα -->
+      <div style="text-align:center; margin: 1rem 0 2rem;">
+        <img src="IMG_4685.jpg" alt="Κόμποι για το Laser"
+             style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p style="text-align:center; font-weight:500; margin-bottom:1.5rem;">
+        Οι παρακάτω κόμποι είναι απαραίτητοι για κάθε ιστιοπλόο Laser.
+        Σου επιτρέπουν να ασφαλίζεις σχοινιά, να συνδέεις εξαρτήματα και να ρυθμίζεις την αρματωσιά με ασφάλεια.
+      </p>
+
+      <div class="knot-item" style="margin-bottom:2.5rem;">
+        <h3 style="color:#001a4d; text-align:center;">Καντιλίτσα (Figure-Eight Knot)</h3>
+        <img src="IMG_4679.jpg" alt="Καντιλίτσα"
+             style="max-width:420px;width:100%;height:auto;display:block;margin:1rem auto;">
+        <p style="max-width:700px;margin:0 auto;text-align:justify;">
+          Η καντιλίτσα είναι ο πιο βασικός κόμπος ασφαλείας. Τη χρησιμοποιούμε στις άκρες των σχοινιών
+          ώστε να μη φεύγουν από τις δαγκάνες ή τα ράουλα. Δημιουργεί ένα μικρό “στοπ” που δεν λύνει εύκολα.
+          Ιδανικός για το τέλος της σκότας ή του outhaul.
+        </p>
+      </div>
+
+      <div class="knot-item" style="margin-bottom:2.5rem;">
+        <h3 style="color:#001a4d; text-align:center;">Οκτάρι (Figure-Eight Loop)</h3>
+        <img src="IMG_4680.jpg" alt="Οκτάρι"
+             style="max-width:420px;width:100%;height:auto;display:block;margin:1rem auto;">
+        <p style="max-width:700px;margin:0 auto;text-align:justify;">
+          Ο κόμπος Οκτάρι δημιουργεί μια θηλιά που δεν “γλιστράει”. Είναι χρήσιμος για να συνδέουμε ένα σχοινί
+          σε κρίκο ή δαχτυλίδι χωρίς να φοβόμαστε ότι θα λυθεί. Στο Laser χρησιμοποιείται συχνά για τη σύνδεση
+          του πανιού ή της σκότας με τη μάτσα.
+        </p>
+      </div>
+
+      <div class="knot-item" style="margin-bottom:2.5rem;">
+        <h3 style="color:#001a4d; text-align:center;">Ψαλιδιά (Bowline)</h3>
+        <img src="IMG_4683.jpg" alt="Ψαλιδιά"
+             style="max-width:420px;width:100%;height:auto;display:block;margin:1rem auto;">
+        <p style="max-width:700px;margin:0 auto;text-align:justify;">
+          Η ψαλιδιά δημιουργεί μια σταθερή θηλιά που λύνει εύκολα ακόμη και μετά από πίεση.
+          Είναι ένας από τους πιο σημαντικούς κόμπους στην ιστιοπλοΐα και χρησιμοποιείται για να δέσουμε
+          τη σκότα στο πανί ή για γρήγορες συνδέσεις στο κατάρτι.
+        </p>
+      </div>
+
+      <div class="knot-item" style="margin-bottom:2rem;">
+        <h3 style="color:#001a4d; text-align:center;">Σταυρόκομπος (Reef Knot)</h3>
+        <img src="IMG_4681.jpg" alt="Σταυρόκομπος"
+             style="max-width:420px;width:100%;height:auto;display:block;margin:1rem auto;">
+        <p style="max-width:700px;margin:0 auto;text-align:justify;">
+          Ο σταυρόκομπος χρησιμοποιείται για να ενώσουμε δύο σχοινιά ίδιου πάχους.
+          Είναι απλός και αποτελεσματικός για προσωρινές ενώσεις, όπως για το δέσιμο βοηθητικών γραμμών
+          ή την προσαρμογή σχοινιών στην αρματωσιά.
+        </p>
+      </div>
+    </div>
+
+    <!-- ===== ENGLISH ===== -->
+    <div class="knots__block" data-lang="en" hidden>
+      <!-- Heading -->
+      <div style="text-align:center; margin: 1rem 0 2rem;">
+        <img src="IMG_4686.jpg" alt="Knots for the Laser"
+             style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p style="text-align:center; font-weight:500; margin-bottom:1.5rem;">
+        These knots are essential for every Laser sailor. They allow you to secure lines,
+        connect rigging, and ensure your setup is both safe and efficient.
+      </p>
+
+      <div class="knot-item" style="margin-bottom:2.5rem;">
+        <h3 style="color:#001a4d; text-align:center;">Figure-Eight Stopper Knot</h3>
+        <img src="IMG_4679.jpg" alt="Figure Eight Knot"
+             style="max-width:420px;width:100%;height:auto;display:block;margin:1rem auto;">
+        <p style="max-width:700px;margin:0 auto;text-align:justify;">
+          The Figure-Eight knot is a simple and secure stopper knot.
+          It prevents the end of a line from slipping through blocks or cleats.
+          Commonly used at the end of the mainsheet or control lines like the outhaul.
+        </p>
+      </div>
+
+      <div class="knot-item" style="margin-bottom:2.5rem;">
+        <h3 style="color:#001a4d; text-align:center;">Figure-Eight Loop</h3>
+        <img src="IMG_4680.jpg" alt="Figure Eight Loop"
+             style="max-width:420px;width:100%;height:auto;display:block;margin:1rem auto;">
+        <p style="max-width:700px;margin:0 auto;text-align:justify;">
+          The Figure-Eight Loop creates a strong, non-slip loop.
+          It’s perfect for attaching lines to rings or fittings and is often used
+          to connect the mainsheet or sail to the boom on a Laser.
+        </p>
+      </div>
+
+      <div class="knot-item" style="margin-bottom:2.5rem;">
+        <h3 style="color:#001a4d; text-align:center;">Bowline</h3>
+        <img src="IMG_4683.jpg" alt="Bowline"
+             style="max-width:420px;width:100%;height:auto;display:block;margin:1rem auto;">
+        <p style="max-width:700px;margin:0 auto;text-align:justify;">
+          The Bowline creates a fixed loop that is easy to untie even after being under load.
+          It’s one of the most useful sailing knots, commonly used to attach the sheet to the sail
+          or to secure lines around fittings on the mast.
+        </p>
+      </div>
+
+      <div class="knot-item" style="margin-bottom:2rem;">
+        <h3 style="color:#001a4d; text-align:center;">Reef Knot</h3>
+        <img src="IMG_4681.jpg" alt="Reef Knot"
+             style="max-width:420px;width:100%;height:auto;display:block;margin:1rem auto;">
+        <p style="max-width:700px;margin:0 auto;text-align:justify;">
+          The Reef Knot is used to join two ropes of equal thickness.
+          It’s simple, flat, and effective for quick temporary joins —
+          ideal for tying spare lines or quick rigging fixes on the Laser.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="terms" class="card card--redframe">
+  <div class="rope-frame">
+
+    <!-- 🇬🇷 ΕΛΛΗΝΙΚΑ -->
+    <div class="terms__block" data-lang="el">
+      <div style="text-align:center; margin-bottom:1rem;">
+        <img src="IMG_4695.jpg" alt="Ναυτικοί όροι του Laser"
+             style="max-width:640px; width:100%; height:auto; display:block; margin:0 auto;">
+      </div>
+
+      <div class="terms-grid">
+        <dl>
+          <dt>Κατάρτι (Άλμπουρο)</dt><dd>Κάθετος σωλήνας που κρατάει το πανί.</dd>
+          <dt>Μπούμα</dt><dd>Οριζόντιος σωλήνας που απλώνει τη βάση του πανιού.</dd>
+          <dt>Πανί</dt><dd>Το ιστίο του Laser (STD, Radial ή 4.7).</dd>
+          <dt>Καρίνα</dt><dd>Το σώμα του σκάφους.</dd>
+          <dt>Σκότα</dt><dd>Σχοινί που ρυθμίζει το πανί.</dd>
+          <dt>Τιμόνι</dt><dd>Κατευθύνει το σκάφος.</dd>
+          <dt>Λαγουδέρα</dt><dd>Μπάρα πάνω στο τιμόνι.</dd>
+          <dt>Προέκταση</dt><dd>Λαβή για χειρισμό όρθιος (tiller extension).</dd>
+          <dt>Σέντρα / Πηδάλιο</dt><dd>Φέτα που μπαίνει στο καρινόκουτι και κρατά πορεία.</dd>
+          <dt>Ράουλο Κρα-Κρα</dt><dd>Μπλοκ με «κλικ» για τη σκότα (ratchet block).</dd>
+          <dt>Traveler</dt><dd>Τρίγωνο πρύμας που σταθεροποιεί τη σκότα.</dd>
+          <dt>Βάση καταρτιού</dt><dd>Σημείο όπου μπαίνει το άλμπουρο στο κατάστρωμα.</dd>
+          <dt>Πώμα στεγανών</dt><dd>Τάπα πίσω για έξοδο νερού.</dd>
+        </dl>
+
+        <dl>
+          <dt>Vang</dt><dd>Κρατά χαμηλά τη μπούμα – ελέγχει το twist του πανιού.</dd>
+          <dt>Outhaul</dt><dd>Ρυθμίζει το άνοιγμα στη βάση του πανιού.</dd>
+          <dt>Cunningham</dt><dd>Ρυθμίζει το τέντωμα στο μπροστινό μέρος του πανιού.</dd>
+          <dt>Traveler</dt><dd>Ελέγχει τη γωνία της σκότας στην πρύμνη.</dd>
+          <dt>Clew tie-down</dt><dd>Λουράκι που συνδέει το πανί με τη μπούμα πίσω.</dd>
+          <dt>Gooseneck</dt><dd>Άρθρωση που ενώνει άλμπουρο και μπούμα.</dd>
+          <dt>Όρτσα</dt><dd>Πλεύση κοντά στον άνεμο (close-hauled).</dd>
+          <dt>Πρίμα</dt><dd>Πλεύση με τον άνεμο από πίσω (downwind).</dd>
+          <dt>Πλάγια</dt><dd>Άνεμος από το πλάι (beam reach).</dd>
+          <dt>Τάκ</dt><dd>Στροφή μέσα στον άνεμο (tack).</dd>
+          <dt>Πότζα</dt><dd>Στροφή προς τα κάτω (gybe).</dd>
+          <dt>Λασκάρω</dt><dd>Αφήνω τη σκότα (ease).</dd>
+          <dt>Φερμάρω</dt><dd>Μαζεύω τη σκότα (sheet in).</dd>
+          <dt>Ορτσάρω</dt><dd>Στρέφω την πλώρη προς τον άνεμο (head up).</dd>
+          <dt>Ποδίζω</dt><dd>Στρέφω την πρύμη μακριά από τον άνεμο (bear away).</dd>
+          <dt>Κρεμάζομαι</dt><dd>Γέρνω έξω για ισορροπία (hiking).</dd>
+          <dt>Ριπή</dt><dd>Ξαφνική ενίσχυση ανέμου (gust).</dd>
+          <dt>Μπουνάτσα</dt><dd>Άπνοια / ήρεμη θάλασσα (calm).</dd>
+          <dt>Layline</dt><dd>Νοητή γραμμή προς σημαδούρα χωρίς νέο tack.</dd>
+          <dt>Start line</dt><dd>Γραμμή εκκίνησης αγώνα.</dd>
+        </dl>
+      </div>
+    </div>
+
+    <!-- 🇬🇧 ENGLISH -->
+    <div class="terms__block" data-lang="en" hidden>
+      <div style="text-align:center; margin-bottom:1rem;">
+        <img src="IMG_4696.jpg" alt="Nautical terms of the Laser"
+             style="max-width:640px; width:100%; height:auto; display:block; margin:0 auto;">
+      </div>
+
+      <div class="terms-grid">
+        <dl>
+          <dt>Mast</dt><dd>Vertical tube holding the sail.</dd>
+          <dt>Boom</dt><dd>Horizontal spar stretching the sail foot.</dd>
+          <dt>Sail</dt><dd>The Laser STD / Radial / 4.7 sail.</dd>
+          <dt>Hull</dt><dd>The boat’s main body.</dd>
+          <dt>Mainsheet</dt><dd>Line controlling the sail angle.</dd>
+          <dt>Rudder</dt><dd>Steers the boat.</dd>
+          <dt>Tiller</dt><dd>Bar attached to the rudder.</dd>
+          <dt>Tiller extension</dt><dd>Handle for steering while hiking.</dd>
+          <dt>Centerboard / Daggerboard</dt><dd>Foil inserted to prevent leeway.</dd>
+          <dt>Ratchet block</dt><dd>Block with ratchet for the sheet.</dd>
+          <dt>Traveler</dt><dd>Aft triangle controlling the sheet angle.</dd>
+          <dt>Mast step</dt><dd>Socket where the mast is placed.</dd>
+          <dt>Drain plug</dt><dd>Plug for draining water.</dd>
+        </dl>
+
+        <dl>
+          <dt>Vang / Kicker</dt><dd>Pulls boom down, controls twist.</dd>
+          <dt>Outhaul</dt><dd>Adjusts sail foot tension.</dd>
+          <dt>Cunningham / Downhaul</dt><dd>Adjusts luff tension.</dd>
+          <dt>Traveler</dt><dd>Controls mainsheet angle at the stern.</dd>
+          <dt>Clew tie-down</dt><dd>Strap connecting sail and boom aft.</dd>
+          <dt>Gooseneck fitting</dt><dd>Joint between mast and boom.</dd>
+          <dt>Close-hauled</dt><dd>Sailing close to the wind.</dd>
+          <dt>Downwind / Run</dt><dd>Sailing with the wind from astern.</dd>
+          <dt>Beam reach</dt><dd>Wind from the side.</dd>
+          <dt>Tack</dt><dd>Turn through the wind (bow through wind).</dd>
+          <dt>Gybe</dt><dd>Turn away from wind (boom crosses).</dd>
+          <dt>Ease</dt><dd>Let sheet out.</dd>
+          <dt>Sheet in</dt><dd>Trim sheet in.</dd>
+          <dt>Head up</dt><dd>Turn bow toward wind.</dd>
+          <dt>Bear away</dt><dd>Turn stern away from wind.</dd>
+          <dt>Hiking</dt><dd>Leaning out for balance.</dd>
+          <dt>Gust</dt><dd>Sudden increase in wind.</dd>
+          <dt>Calm</dt><dd>No wind / flat sea.</dd>
+          <dt>Layline</dt><dd>Imaginary line to reach the mark directly.</dd>
+          <dt>Start line</dt><dd>Racing starting line.</dd>
+        </dl>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+#terms .terms-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px 36px;
+}
+#terms dt{
+  color:#b40000;
+  font-weight:700;
+  margin-top:.4rem;
+}
+#terms dd{
+  margin:0 0 .6rem 0;
+  color:#222;
+}
+</style>
+
+<section id="maneuvers" class="card card--redframe">
+  <div class="rope-frame">
+
+    <!-- ===== Ελληνικά ===== -->
+    <div data-lang="el">
+      <div style="text-align:center; margin-bottom:1rem;">
+        <img src="IMG_4704.jpg" alt="Στροφές του Laser (Τακ / Πότζα)"
+             style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p><strong>Υπάρχουν δύο τρόποι να στρίψουμε:</strong> μπορούμε να ορτσάρουμε (Τακ) ή να ποδίσουμε (Πότζα).</p>
+
+      <h3 style="margin-top:1.25rem;">Πώς θα κάνω <u>Τακ</u></h3>
+      <ol style="margin-left:1.125rem;">
+        <li><strong>Βήμα 1:</strong> Πρώτα απ’ όλα ορτσάρουμε σπρώχνοντας το τιμόνι.</li>
+        <li><strong>Βήμα 2:</strong> Όταν το πανί έρθει προς το μέρος μας, περνάμε από την άλλη μεριά πρώτα με το πόδι που είναι κοντά στο τιμόνι, κοιτώντας πάντα μπροστά.</li>
+        <li><strong>Βήμα 3:</strong> Καθόμαστε από την άλλη μεριά, αλλάζοντας τη σκότα και το τιμόνι πίσω από την πλάτη.</li>
+        <li><strong>Βήμα 4:</strong> Κοιτάμε προσεκτικά τα μαλλάκια και ελέγχουμε αν ταξιδεύουμε την πλεύση που θέλουμε.</li>
+      </ol>
+
+      <h3 style="margin-top:1.25rem;">Πώς θα κάνω <u>Πότζα</u></h3>
+      <ol style="margin-left:1.125rem;">
+        <li><strong>Βήμα 1:</strong> Φερμάρω το πανί μέχρι τη μέση του σκάφους (πλαγιοδρομία).</li>
+        <li><strong>Βήμα 2:</strong> Ποδίζω τραβώντας το τιμόνι προς το μέρος μου.</li>
+        <li><strong>Βήμα 3:</strong> Τη στιγμή που βλέπω το πανί να θέλει να γυρίσει, τραβάω τη σκότα μια φορά απότομα για ελεγχόμενη αλλαγή.</li>
+        <li><strong>Βήμα 4:</strong> Περνάω από την άλλη με το πόδι κοντά στο τιμόνι, κοιτώντας πάντα μπροστά.</li>
+        <li><strong>Βήμα 5:</strong> Κάθομαι από την άλλη μεριά αλλάζοντας σκότα και τιμόνι πίσω από την πλάτη.</li>
+        <li><strong>Βήμα 6:</strong> Ελέγχω πανί και πλεύση (πρίμα/νέα πλαγιοδρομία).</li>
+      </ol>
+    </div>
+
+    <!-- ===== English ===== -->
+    <div data-lang="en" hidden>
+      <div style="text-align:center; margin-bottom:1rem;">
+        <img src="IMG_4705.jpg" alt="Laser Maneuvers (Tack / Gybe)"
+             style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p><strong>There are two ways to turn:</strong> head up to tack, or bear away to gybe.</p>
+
+      <h3 style="margin-top:1.25rem;">How to <u>Tack</u></h3>
+      <ol style="margin-left:1.125rem;">
+        <li><strong>Step 1:</strong> Head up by pushing the tiller.</li>
+        <li><strong>Step 2:</strong> As the sail comes towards you, cross to the new side with the foot near the tiller first, eyes forward.</li>
+        <li><strong>Step 3:</strong> Sit on the new side and swap mainsheet and tiller behind your back.</li>
+        <li><strong>Step 4:</strong> Check tell-tales and confirm the desired course.</li>
+      </ol>
+
+      <h3 style="margin-top:1.25rem;">How to <u>Gybe</u></h3>
+      <ol style="margin-left:1.125rem;">
+        <li><strong>Step 1:</strong> Sheet in to about mid-boat (on a reach).</li>
+        <li><strong>Step 2:</strong> Bear away by pulling the tiller towards you.</li>
+        <li><strong>Step 3:</strong> As the boom wants to cross, give one sharp mainsheet pull to control it.</li>
+        <li><strong>Step 4:</strong> Cross to the new side with the foot near the tiller first, eyes forward.</li>
+        <li><strong>Step 5:</strong> Sit on the new side and swap sheet and tiller behind your back.</li>
+        <li><strong>Step 6:</strong> Trim for the new run/broad reach.</li>
+      </ol>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== SOLING: ΠΛΗΡΟΦΟΡΙΕΣ ===================== -->
+<section id="soling-info">
+  <div class="rope-frame">
+
+    <!-- ============ ΕΛΛΗΝΙΚΑ ============ -->
+    <div class="soling__block" data-lang="el">
+      <div style="text-align:center; margin:0 0 1rem;">
+        <img src="IMG_4714.jpg" alt="Λίγα λόγια για το Soling"
+             style="max-width:720px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p>
+        Το <span class="em-blue">Soling</span> είναι ένα κλασικό <span class="em-blue">ιστιοπλοϊκό keelboat</span> (σκάφος με μόνιμη καρίνα),
+        σχεδιασμένο το <b>1965</b> από τον Νορβηγό ναυπηγό <span class="em-blue">Jan Linge</span>.
+        Το σκάφος έγινε αμέσως γνωστό για τη <span class="em-blue">σταθερότητα</span>, τη <span class="em-blue">ναυπηγική ακρίβεια</span>
+        και τον <span class="em-blue">ανταγωνιστικό του χαρακτήρα</span>, κερδίζοντας θέση ως <b>Ολυμπιακή κατηγορία</b> από το 1972 έως το 2000.
+      </p>
+
+      <p>
+        Το Soling κατασκευάζεται με φιλοσοφία “<span class="em-blue">One Design</span>” — όλα τα σκάφη έχουν ίδιες διαστάσεις και εξοπλισμό.
+        Έτσι, οι αγώνες κρίνουν αποκλειστικά την <span class="em-blue">ικανότητα του πληρώματος</span> και όχι τον εξοπλισμό.
+        Αυτό το χαρακτηριστικό το καθιστά ένα ιδανικό σκάφος για <span class="em-blue">εκπαίδευση, συνεργασία και τακτική</span>.
+      </p>
+
+      <p>
+        Με μήκος περίπου <b>8,2 μέτρα</b> και πλάτος <b>1,9 μέτρα</b>, το Soling έχει <b>καρίνα (keel)</b> βάρους περίπου <b>600 κιλών</b>,
+        εξασφαλίζοντας άψογη <span class="em-blue">ισορροπία</span> και σταθερότητα σε όλες τις συνθήκες.  
+        Η <span class="em-blue">γαστρα (hull)</span> του είναι λεία και γλιστρά αποτελεσματικά στο νερό,
+        ενώ η <span class="em-blue">μπούμα</span>, το <span class="em-blue">κατάρτι</span> και τα <span class="em-blue">σχοινιά</span>
+        έχουν σχεδιαστεί ώστε να αντέχουν δυνατούς ανέμους και έντονα φορτία.
+      </p>
+
+      <p>
+        Το πλήρωμα αποτελείται από <b>τρεις ιστιοπλόους</b> — κυβερνήτη, μεσαίο και μπροστινό — που συνεργάζονται
+        για τη ρύθμιση των πανιών και τη διατήρηση της ισορροπίας.
+        Οι ρόλοι είναι ξεκάθαροι: ο κυβερνήτης ελέγχει τη <span class="em-blue">μαΐστρα</span> και την πορεία,
+        ο μεσαίος διαχειρίζεται το <span class="em-blue">φλόκο (jib)</span> και τις ρυθμίσεις <span class="em-blue">vang, outhaul, cunningham</span>,
+        ενώ ο μπροστινός χειρίζεται το <span class="em-blue">spinnaker</span> και τη <span class="em-blue">σπινακερόμπα</span>.
+      </p>
+
+      <p>
+        Κατά την εκπαίδευση, το Soling προσφέρει εξαιρετική πλατφόρμα για
+        <span class="em-blue">συντονισμό πληρώματος</span>, <span class="em-blue">εκμάθηση τακτικής</span> και <span class="em-blue">σωστή επικοινωνία</span>.
+        Οι ασκήσεις περιλαμβάνουν αλλαγές πορείας (τάκ / πότζα), ρυθμίσεις πανιών,
+        καθώς και συνεργασία σε διαφορετικές συνθήκες ανέμου.
+      </p>
+
+      <ul style="margin-top:1rem;">
+        <li><span class="em-blue">Τύπος:</span> Keelboat, 3 άτομα πλήρωμα</li>
+        <li><span class="em-blue">Μήκος:</span> 8,2 μ. • <span class="em-blue">Πλάτος:</span> 1,9 μ. • <span class="em-blue">Καρίνα:</span> 600 κιλά</li>
+        <li><span class="em-blue">Κατασκευές:</span> Fiberglass / Epoxy composite</li>
+        <li><span class="em-blue">Πανιά:</span> Main, Jib, Spinnaker</li>
+        <li><span class="em-blue">Χρήση:</span> Αγωνιστικό, εκπαιδευτικό, τακτική ιστιοπλοΐα</li>
+      </ul>
+
+      <p style="margin-top:1rem;">
+        Με τη διαχρονική του σχεδίαση και την καθαρή πλεύση, το Soling παραμένει ένα από τα πιο <span class="em-blue">σεβαστά και αγαπημένα σκάφη</span>
+        παγκοσμίως, σύμβολο της <span class="em-blue">πειθαρχίας, συνεργασίας και ναυτικής ακρίβειας</span>.
+      </p>
+    </div>
+
+    <!-- ============ ENGLISH ============ -->
+    <div class="soling__block" data-lang="en" hidden>
+      <div style="text-align:center; margin:0 0 1rem;">
+        <img src="IMG_4715.jpg" alt="About the Soling"
+             style="max-width:720px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p>
+        The <span class="em-blue">Soling</span> is a classic <span class="em-blue">one-design keelboat</span> designed in <b>1965</b> by
+        Norwegian naval architect <span class="em-blue">Jan Linge</span>.  
+        It became famous for its <span class="em-blue">stability</span>, <span class="em-blue">durability</span>, and
+        <span class="em-blue">highly tactical racing character</span>, earning its place as an <b>Olympic class</b>
+        from 1972 to 2000.
+      </p>
+
+      <p>
+        Built under strict <span class="em-blue">one-design rules</span>, every Soling is identical in dimensions and rig,
+        ensuring that races are decided purely by <span class="em-blue">skill and teamwork</span> rather than equipment.
+        This makes it one of the most respected training and competition keelboats in the world.
+      </p>
+
+      <p>
+        Measuring <b>8.2 meters long</b> and <b>1.9 meters wide</b>, with a <b>600 kg fixed keel</b>, the Soling
+        is exceptionally balanced and stiff in all conditions.
+        Its smooth <span class="em-blue">fiberglass hull</span> cuts cleanly through waves, and its <span class="em-blue">mast</span> and
+        <span class="em-blue">boom</span> are designed for precise sail control even in strong winds.
+      </p>
+
+      <p>
+        The <span class="em-blue">three-person crew</span> — helmsman, middle crew, and bowman — must work in perfect harmony.
+        The helmsman trims the <span class="em-blue">mainsail</span> and steers, the middle manages the <span class="em-blue">jib</span>
+        and controls the <span class="em-blue">vang</span>, <span class="em-blue">outhaul</span>, and <span class="em-blue">cunningham</span>,
+        while the bowman operates the <span class="em-blue">spinnaker</span> and pole during maneuvers.
+      </p>
+
+      <p>
+        In training, the Soling is widely used for <span class="em-blue">crew coordination</span>, <span class="em-blue">race tactics</span>,
+        and <span class="em-blue">communication drills</span>.  
+        Its responsiveness and precise trim make it ideal for learning advanced sailing techniques.
+      </p>
+
+      <ul style="margin-top:1rem;">
+        <li><span class="em-blue">Type:</span> Keelboat, 3 crew</li>
+        <li><span class="em-blue">Length:</span> 8.2 m • <span class="em-blue">Beam:</span> 1.9 m • <span class="em-blue">Keel weight:</span> 600 kg</li>
+        <li><span class="em-blue">Construction:</span> Fiberglass / epoxy composite</li>
+        <li><span class="em-blue">Sails:</span> Mainsail, Jib, Spinnaker</li>
+        <li><span class="em-blue">Use:</span> Racing, training, tactical sailing</li>
+      </ul>
+
+      <p style="margin-top:1rem;">
+        With its timeless design and balanced feel, the Soling remains a <span class="em-blue">symbol of precision, teamwork, and seamanship</span>,
+        inspiring sailors around the world to master the art of coordinated sailing.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== SOLING: RIGGING ===================== -->
+<section id="soling-rig">
+  <div class="rope-frame">
+
+    <!-- ========= Ελληνικά ========= -->
+    <div class="soling-rig__block" data-lang="el">
+      <div style="text-align:center; margin:0 0 1rem;">
+        <!-- Επικεφαλίδα στα Ελληνικά -->
+        <img src="IMG_4728.jpg" alt="Αρματωσιά του Soling"
+             style="max-width:720px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p>
+        Το <span class="em-blue">Soling</span> είναι <span class="em-blue">keelboat</span> τριμελούς πληρώματος.
+        Η αρματωσιά του χωρίζεται σε <span class="em-blue">σκληρή</span> (spar-/hull-/standing rigging) και
+        <span class="em-blue">μαλακή</span> (sails & running rigging), ενώ διαθέτει πλήρες
+        σετ ρυθμίσεων για <span class="em-blue">main</span>, <span class="em-blue">jib</span>,
+        και <span class="em-blue">spinnaker</span>.
+      </p>
+
+      <h3 style="color:#0b2a66;margin-top:1rem;">α) Σκληρή αρματωσιά</h3>
+      <ul>
+        <li><span class="em-blue">Κατάρτι (mast)</span> αλουμινίου με <span class="em-blue">spreader(s)</span>.</li>
+        <li><span class="em-blue">Μπούμα (boom)</span>.</li>
+        <li><span class="em-blue">Μόνιμη καρίνα (keel)</span> με bulb – κεντρικό έρμα του σκάφους.</li>
+        <li><span class="em-blue">Τιμόνι (rudder)</span>, <span class="em-blue">λαγουδέρα</span> και προέκταση.</li>
+        <li><span class="em-blue">Σταθερή αρματωσιά</span> (standing rigging): <span class="em-blue">forestay</span>,
+            <span class="em-blue">upper/ lower shrouds</span>, <span class="em-blue">backstay</span>,
+            <span class="em-blue">chainplates</span>.</li>
+        <li><span class="em-blue">Spinnaker pole</span> με <span class="em-blue">topping-lift</span> & <span class="em-blue">foreguy/downhaul</span>.</li>
+        <li><span class="em-blue">Traveler/bridle</span> για τη main (ανάλογα την έκδοση).</li>
+      </ul>
+
+      <h3 style="color:#0b2a66;margin-top:1rem;">β) Μαλακή αρματωσιά</h3>
+      <ul>
+        <li><span class="em-blue">Ιστία</span>: <span class="em-blue">Mainsail</span>,
+            <span class="em-blue">Jib</span>, <span class="em-blue">Spinnaker</span>.</li>
+        <li><span class="em-blue">Halyards</span>: main, jib, spinnaker (με clutches/cleats).</li>
+        <li><span class="em-blue">Sheets</span>: mainsheet με <span class="em-blue">ratchet</span> &/ή traveler,
+            jib sheets σε <span class="em-blue">cars/rails</span>, spinnaker <span class="em-blue">sheets & guys</span>.</li>
+        <li><span class="em-blue">Controls</span>: <span class="em-blue">vang/kicker</span>,
+            <span class="em-blue">outhaul</span>, <span class="em-blue">cunningham/downhaul</span>,
+            <span class="em-blue">backstay adjuster</span>, <span class="em-blue">barber-haulers/tweakers</span>,
+            <span class="em-blue">topping-lift</span> & <span class="em-blue">foreguy</span> για το pole.</li>
+      </ul>
+
+      <h3 style="color:#0b2a66;margin-top:1rem;">Συστήματα & ρόλος τους</h3>
+      <ul class="rigging__systems">
+        <li><span class="em-blue">Vang/Kicker</span>: ρίχνει τη μπούμα, ελέγχει <i>twist</i> της μαΐστρας.
+            Περισσότερο vang ⇒ λιγότερο twist (σταθερό πανί όρτσα/πλάγια).</li>
+        <li><span class="em-blue">Outhaul</span>: ρυθμίζει το «φούσκωμα» στο πέλμα της main (fuller vs flatter).</li>
+        <li><span class="em-blue">Cunningham/Downhaul</span>: τεντώνει τη λούφα ⇒ φέρνει το draft μπροστά και πλαταίνει/ισιώνει ανάλογα.</li>
+        <li><span class="em-blue">Backstay</span>: λυγίζει το κατάρτι, ανοίγει/κλείνει το headstay tension.
+            Περισσότερο backstay ⇒ πιο επίπεδη main & πιο τεντωμένος πρότονος (κοφτερό jib όρτσα).</li>
+        <li><span class="em-blue">Jib cars / tracks</span>: μπρος-πίσω για θέση φύλλου. Μπροστά ⇒ πιο κλειστό leech,
+            πίσω ⇒ ανοίγει το leech (καλύτερο σε δυνατό αέρα).</li>
+        <li><span class="em-blue">Barber-haulers / tweakers</span>: αλλάζουν πλευρικά τη γωνία φύλλου (lead) του jib/
+            spinnaker για λεπτορύθμιση.</li>
+        <li><span class="em-blue">Spinnaker pole</span>:
+            <span class="em-blue">topping-lift</span> ανεβάζει ύψος, <span class="em-blue">foreguy</span> το κρατά χαμηλά/σταθερά,
+            <span class="em-blue">guy</span> ρυθμίζει τη γωνία, <span class="em-blue">sheet</span> το άνοιγμα.</li>
+        <li><span class="em-blue">Traveler / bridle</span>: ελέγχει την πλάγια θέση της σκότας main και την γωνία έλξης.</li>
+      </ul>
+
+      <h3 style="color:#0b2a66;margin-top:1rem;">Βασικές ρυθμίσεις (quick guide)</h3>
+      <ul>
+        <li><b class="em-blue">Ελαφρύς αέρας</b>: Λίγο <span class="em-blue">vang</span>, χαλαρό
+          <span class="em-blue">outhaul</span>, ελάχιστο <span class="em-blue">cunningham</span>.
+          <span class="em-blue">Backstay</span> χαλαρό για «γεμάτη» main. Jib cars λίγο μπροστά.</li>
+        <li><b class="em-blue">Μεσαίος</b>: Μέτριο <span class="em-blue">vang</span>, out­haul στο «μεσαίο»,
+          <span class="em-blue">cunningham</span> για να ισιώσει η μπροστινή ακμή. Backstay μέτριο.
+          Cars στο κέντρο ή λίγο πίσω.</li>
+        <li><b class="em-blue">Δυνατός</b>: Περισσότερο <span class="em-blue">backstay</span> (λύγισμα mast),
+          σφιχτό <span class="em-blue">vang</span>, out­haul τεντωμένο, αρκετό <span class="em-blue">cunningham</span>.
+          Cars πίσω για να «ανοίξει» το jib.</li>
+      </ul>
+
+      <h3 style="color:#0b2a66;margin-top:1rem;">Checklist πριν φύγεις</h3>
+      <ul>
+        <li>Έλεγχος <span class="em-blue">pin/σχισμών</span>, ασφάλειες σε <span class="em-blue">shrouds/forestay</span>.</li>
+        <li>Καθαρά, ξεμπερδεμένα <span class="em-blue">halyards/sheets</span>, κόμποι stop στα άκρα.</li>
+        <li>Ρύθμιση <span class="em-blue">backstay</span> να δουλεύει σε όλο το εύρος.</li>
+        <li>Spinnaker pole: <span class="em-blue">topping-lift</span> και <span class="em-blue">foreguy</span> ελεύθερα,
+            έτοιμα για ανέβασμα.</li>
+        <li><span class="em-blue">Σωσίβια</span> & επικοινωνία πληρώματος για ρόλους
+            (helm, middle, bow) σε <span class="em-blue">tack/gybe/hoist/douse</span>.</li>
+      </ul>
+    </div>
+
+    <!-- ========= English ========= -->
+    <div class="soling-rig__block" data-lang="en" hidden>
+      <div style="text-align:center; margin:0 0 1rem;">
+        <img src="IMG_4727.jpg" alt="Soling Rigging"
+             style="max-width:720px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p>
+        The <span class="em-blue">Soling</span> is a three-crew <span class="em-blue">keelboat</span>.
+        Its rig splits into <span class="em-blue">hard</span> (spar/hull/standing) and
+        <span class="em-blue">soft</span> (sails & running) parts, with full controls for
+        <span class="em-blue">main</span>, <span class="em-blue">jib</span>, and <span class="em-blue">spinnaker</span>.
+      </p>
+
+      <h3 style="color:#0b2a66;margin-top:1rem;">a) Hard rig</h3>
+      <ul>
+        <li><span class="em-blue">Aluminum mast</span> with <span class="em-blue">spreaders</span> and
+            <span class="em-blue">boom</span>.</li>
+        <li><span class="em-blue">Fixed keel</span> (ballast) and <span class="em-blue">rudder/tiller</span> with extension.</li>
+        <li><span class="em-blue">Standing rigging</span>: <span class="em-blue">forestay</span>,
+            <span class="em-blue">uppers/lowers</span>, <span class="em-blue">backstay</span>, chainplates.</li>
+        <li><span class="em-blue">Spinnaker pole</span> with <span class="em-blue">topping-lift</span> and
+            <span class="em-blue">foreguy/downhaul</span>.</li>
+        <li><span class="em-blue">Traveler/bridle</span> for mainsheet (depending on fit-out).</li>
+      </ul>
+
+      <h3 style="color:#0b2a66;margin-top:1rem;">b) Soft rig</h3>
+      <ul>
+        <li><span class="em-blue">Sails</span>: mainsail, jib, spinnaker.</li>
+        <li><span class="em-blue">Halyards</span>: main/jib/spi (to cleats or clutches).</li>
+        <li><span class="em-blue">Sheets</span>: mainsheet with <span class="em-blue">ratchet</span> and/or traveler,
+            jib sheets on <span class="em-blue">cars/tracks</span>, spinnaker <span class="em-blue">sheets & guys</span>.</li>
+        <li><span class="em-blue">Controls</span>: <span class="em-blue">vang</span>, <span class="em-blue">outhaul</span>,
+            <span class="em-blue">cunningham</span>, <span class="em-blue">backstay adjuster</span>,
+            <span class="em-blue">barber-haulers/tweakers</span>, <span class="em-blue">topping-lift</span> & <span class="em-blue">foreguy</span>.</li>
+      </ul>
+
+      <h3 style="color:#0b2a66;margin-top:1rem;">Controls & what they do</h3>
+      <ul class="rigging__systems">
+        <li><span class="em-blue">Vang</span>: reduces boom rise, controls mainsail <i>twist</i>.</li>
+        <li><span class="em-blue">Outhaul</span>: sets foot depth (full vs flat).</li>
+        <li><span class="em-blue">Cunningham</span>: luff tension ⇒ moves draft forward, flattens.</li>
+        <li><span class="em-blue">Backstay</span>: bends mast, tightens headstay; more backstay = flatter main, straighter jib luff.</li>
+        <li><span class="em-blue">Jib cars</span>: fore/aft sheeting angle; forward = tighter leech, aft = more open leech.</li>
+        <li><span class="em-blue">Barber-haulers</span>: lateral lead fine-tuning for jib/spi.</li>
+        <li><span class="em-blue">Spi pole</span>: <span class="em-blue">topping-lift</span> height,
+            <span class="em-blue">foreguy</span> down-force, <span class="em-blue">guy</span> angle, <span class="em-blue">sheet</span> fullness.</li>
+        <li><span class="em-blue">Traveler/bridle</span>: mainsheet sheeting angle & helm balance.</li>
+      </ul>
+
+      <h3 style="color:#0b2a66;margin-top:1rem;">Base settings by wind</h3>
+      <ul>
+        <li><b class="em-blue">Light</b>: soft vang, eased outhaul, barely any cunningham, loose backstay, cars slightly forward.</li>
+        <li><b class="em-blue">Medium</b>: moderate vang/outhaul/cunningham, medium backstay, cars mid or slightly aft.</li>
+        <li><b class="em-blue">Heavy</b>: firm backstay, strong vang, tight outhaul, solid cunningham, cars aft to open the jib leech.</li>
+      </ul>
+
+      <h3 style="color:#0b2a66;margin-top:1rem;">Pre-start checklist</h3>
+      <ul>
+        <li>Pins & split rings secured on all <span class="em-blue">shrouds/forestay</span>.</li>
+        <li>Halyards/sheets clear, stopper knots in ends.</li>
+        <li><span class="em-blue">Backstay</span> range checked.</li>
+        <li><span class="em-blue">Spinnaker pole</span>: topping-lift & foreguy free to run.</li>
+        <li>Crew roles brief: helm / middle / bow (tack, gybe, hoist, douse).</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== SOLING: ΜΕΡΗ ΣΚΑΦΟΥΣ ===================== -->
+<section id="soling-parts">
+  <div class="rope-frame">
+
+    <!-- ========= Ελληνικά ========= -->
+    <div class="soling-parts__block" data-lang="el">
+      <div style="text-align:center; margin:0 0 1rem;">
+        <img src="IMG_4735.jpg" alt="Μέρη του Soling"
+             style="max-width:720px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p>
+        Το <span class="em-blue">Soling</span> είναι ένα <span class="em-blue">μονοκάρινο σκάφος (keelboat)</span> μήκους περίπου 8,2 μέτρων.
+        Ο σχεδιασμός του είναι καθαρός και συμμετρικός, με κύριο στόχο την <span class="em-blue">απόδοση στον άνεμο</span>,
+        την <span class="em-blue">ισορροπία</span> και την <span class="em-blue">ανθεκτικότητα</span>.
+      </p>
+
+      <p>
+        Το κύτος (hull) είναι κατασκευασμένο συνήθως από fiberglass, με εσωτερικές ενισχύσεις και μόνιμη
+        <span class="em-blue">καρίνα (keel)</span> με βάρος περίπου 600 κιλά, που εξασφαλίζει σταθερότητα και επιτρέπει τη χρήση
+        μεγάλου πανιού χωρίς ανατροπή. Το Soling είναι γνωστό για τη στιβαρή του πλεύση και τη δυνατότητα να διατηρεί
+        <span class="em-blue">τέλεια ισορροπία</span> ακόμη και σε δυνατό άνεμο.
+      </p>
+
+      <h3 style="color:#0b2a66;margin-top:1rem;">Κύρια μέρη του σκάφους</h3>
+      <ul>
+        <li><span class="em-blue">Κατάστρωμα (deck):</span> η επάνω επιφάνεια του σκάφους, από όπου κινείται το πλήρωμα. Περιλαμβάνει cleats, fairleads και traveller.</li>
+        <li><span class="em-blue">Καρίνα (keel):</span> σταθερό έρμα κάτω από το κύτος, προσφέρει ισορροπία και αντιστέκεται στην πλευρική δύναμη του ανέμου.</li>
+        <li><span class="em-blue">Τιμόνι (rudder):</span> ελέγχει την πορεία, συνδέεται με τη <span class="em-blue">λαγουδέρα</span> και την <span class="em-blue">προέκταση (tiller extension)</span>.</li>
+        <li><span class="em-blue">Κάμαρα (cockpit):</span> η εσοχή όπου στέκεται το πλήρωμα, με θέσεις για τα χειριστήρια των πανιών.</li>
+        <li><span class="em-blue">Μπούμα (boom):</span> οριζόντιο δοκάρι της μαΐστρας. Ρυθμίζει το άνοιγμα και το twist του πανιού μέσω vang και outhaul.</li>
+        <li><span class="em-blue">Κατάρτι (mast):</span> κάθετο δοκάρι που στηρίζει τα πανιά. Φέρει τις αρματωσιές (stays, halyards, spreaders).</li>
+        <li><span class="em-blue">Πρότονος (forestay):</span> συγκρατεί το κατάρτι μπροστά και φέρει το <span class="em-blue">jib</span>.</li>
+        <li><span class="em-blue">Συρματόσχοινα (shrouds):</span> κρατούν το κατάρτι πλευρικά και ρυθμίζονται μέσω του <span class="em-blue">backstay</span> και των chainplates.</li>
+        <li><span class="em-blue">Σπινακερόμπα (spinnaker pole):</span> σωλήνας που προεκτείνει το πανί spinnaker μπροστά από το κατάρτι για μέγιστη ισχύ.</li>
+        <li><span class="em-blue">Πανιά:</span> <span class="em-blue">Mainsail</span> (μαΐστρα), <span class="em-blue">Jib</span> (φλόκος) και <span class="em-blue">Spinnaker</span> (μπαλόνι).</li>
+      </ul>
+
+      <h3 style="color:#0b2a66;margin-top:1rem;">Εσωτερικά και εξαρτήματα</h3>
+      <ul>
+        <li><span class="em-blue">Traveller:</span> οδηγός για τη σκότα της main, επιτρέπει αλλαγή γωνίας.</li>
+        <li><span class="em-blue">Cleats & blocks:</span> μηχανισμοί που κρατούν ή οδηγούν τα σχοινιά.</li>
+        <li><span class="em-blue">Bailer:</span> σύστημα που απομακρύνει νερά από το cockpit εν κινήσει.</li>
+        <li><span class="em-blue">Bulkheads:</span> εσωτερικά χωρίσματα που αυξάνουν την ακαμψία και επιπλευστότητα.</li>
+        <li><span class="em-blue">Drain plug:</span> άνοιγμα για άδειασμα νερών όταν το σκάφος βρίσκεται εκτός νερού.</li>
+      </ul>
+
+      <h3 style="color:#0b2a66;margin-top:1rem;">Ιδιαιτερότητες του Soling</h3>
+      <p>
+        Το Soling, σε αντίθεση με τα σκάφη τύπου Laser, διαθέτει <span class="em-blue">σταθερή καρίνα</span> και πλήρωμα τριών ατόμων.
+        Ο κυβερνήτης διαχειρίζεται το τιμόνι και τη μαΐστρα, ο μεσαίος το φλόκο και τα σχοινιά, ενώ ο μπροστινός χειρίζεται το spinnaker.
+        Η σωστή κατανομή βάρους, το <span class="em-blue">trim</span> και η ομαδικότητα είναι κρίσιμα στοιχεία για την ταχύτητα και την ισορροπία του σκάφους.
+      </p>
+    </div>
+
+    <!-- ========= English ========= -->
+    <div class="soling-parts__block" data-lang="en" hidden>
+      <div style="text-align:center; margin:0 0 1rem;">
+        <img src="IMG_4736.jpg" alt="Parts of the Soling"
+             style="max-width:720px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p>
+        The <span class="em-blue">Soling</span> is a <span class="em-blue">one-design keelboat</span> about 8.2 meters long,
+        built for balance, strength, and all-weather racing performance. Its clean lines and low freeboard make it
+        responsive and elegant in the water.
+      </p>
+
+      <p>
+        The hull is made of fiberglass with an integral <span class="em-blue">fixed keel</span> for stability,
+        weighing around 600 kg. This gives the Soling its famous stiffness and ability to carry full sail even in strong winds.
+      </p>
+
+      <h3 style="color:#0b2a66;margin-top:1rem;">Main parts of the boat</h3>
+      <ul>
+        <li><span class="em-blue">Deck:</span> the upper surface where the crew operates; includes cleats, fairleads, traveler track.</li>
+        <li><span class="em-blue">Keel:</span> permanent ballast fin that keeps the boat upright and resists sideways drift.</li>
+        <li><span class="em-blue">Rudder:</span> controls steering, connected to the tiller and tiller extension.</li>
+        <li><span class="em-blue">Cockpit:</span> recessed area where the crew sits and trims sails.</li>
+        <li><span class="em-blue">Boom:</span> horizontal spar for the mainsail, controlling twist and shape.</li>
+        <li><span class="em-blue">Mast:</span> vertical spar carrying the sails and rigging attachments.</li>
+        <li><span class="em-blue">Forestay:</span> supports the mast forward and carries the jib.</li>
+        <li><span class="em-blue">Shrouds:</span> side stays that stabilize the mast; tensioned via chainplates and backstay.</li>
+        <li><span class="em-blue">Spinnaker pole:</span> extends the spinnaker for downwind power.</li>
+        <li><span class="em-blue">Sails:</span> mainsail, jib, and spinnaker.</li>
+      </ul>
+
+      <h3 style="color:#0b2a66;margin-top:1rem;">Internal structure and fittings</h3>
+      <ul>
+        <li><span class="em-blue">Traveler:</span> allows sheeting angle adjustment of the mainsheet.</li>
+        <li><span class="em-blue">Cleats & blocks:</span> guide and secure ropes for halyards and sheets.</li>
+        <li><span class="em-blue">Bailer:</span> self-draining system that removes water from the cockpit underway.</li>
+        <li><span class="em-blue">Bulkheads:</span> internal partitions adding stiffness and buoyancy.</li>
+        <li><span class="em-blue">Drain plug:</span> drain port for emptying water when ashore.</li>
+      </ul>
+
+      <h3 style="color:#0b2a66;margin-top:1rem;">Unique features of the Soling</h3>
+      <p>
+        Unlike dinghies like the Laser, the Soling has a <span class="em-blue">fixed keel</span> and a three-person crew.
+        The helm steers and trims the mainsail, the middle manages the jib and balance,
+        and the bowman handles the <span class="em-blue">spinnaker</span> and foredeck.
+        <span class="em-blue">Trim</span>, weight balance, and teamwork are key for achieving speed and harmony under sail.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== SOLING: ΠΛΗΡΩΜΑ / ΡΟΛΟΙ ===================== -->
+<section id="soling-crew">
+  <div class="rope-frame">
+
+    <!-- ========= Ελληνικά ========= -->
+    <div class="soling-crew__block" data-lang="el">
+      <div style="text-align:center; margin:0 0 1rem;">
+        <img src="IMG_4739.jpg" alt="Πλήρωμα και Ρόλοι στο Soling"
+             style="max-width:720px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p>
+        Το <span class="em-blue">Soling</span> είναι ένα σκάφος που απαιτεί <span class="em-blue">τέλεια συνεργασία τριών ατόμων</span>.
+        Κάθε μέλος του πληρώματος έχει συγκεκριμένο ρόλο, αλλά η επιτυχία εξαρτάται από τη συνοχή, την επικοινωνία και τη
+        <span class="em-blue">συντονισμένη εκτέλεση των κινήσεων</span> κατά τη διάρκεια κάθε ιστιοδρομίας.
+      </p>
+
+      <h3 style="color:#0b2a66;margin-top:1rem;">Σύνθεση πληρώματος</h3>
+      <ul>
+        <li><span class="em-blue">Κυβερνήτης (Helmsman):</span> Κατευθύνει το σκάφος με τη λαγουδέρα και ελέγχει τη μαΐστρα.  
+          Είναι υπεύθυνος για τη γενική στρατηγική, την πορεία στο στίβο και τις αποφάσεις σχετικά με τη διεύθυνση του ανέμου.
+          Ο κυβερνήτης πρέπει να έχει άριστη αίσθηση της ισορροπίας και του <span class="em-blue">trim</span> του σκάφους.
+        </li>
+
+        <li><span class="em-blue">Μεσαίος (Middle crew):</span> Διαχειρίζεται το <span class="em-blue">φλόκο (jib)</span> και παρακολουθεί τη γωνία των πανιών.
+          Ελέγχει τα σχοινιά, τον <span class="em-blue">vang</span>, το <span class="em-blue">outhaul</span> και το <span class="em-blue">cunningham</span>.
+          Κατά τη διάρκεια των μανούβρων βοηθάει τον κυβερνήτη με τις ρυθμίσεις και τη μεταφορά βάρους.
+        </li>
+
+        <li><span class="em-blue">Μπροστινός (Bowman):</span> Είναι υπεύθυνος για τη <span class="em-blue">σπινακερόμπα (spinnaker pole)</span>,
+          το ανέβασμα και κατέβασμα του <span class="em-blue">spinnaker</span> και τις αλλαγές πανιών.
+          Ο ρόλος του απαιτεί ταχύτητα, δύναμη και ακρίβεια στις κινήσεις.
+          Επίσης φροντίζει για την τάξη των σχοινιών και τη ρύθμιση των πλόων.
+        </li>
+      </ul>
+
+      <h3 style="color:#0b2a66;margin-top:1rem;">Συντονισμός και επικοινωνία</h3>
+      <p>
+        Σε κάθε αλλαγή πορείας, είτε πρόκειται για <span class="em-blue">τάκ</span> είτε για <span class="em-blue">πότζα</span>,
+        το πλήρωμα πρέπει να κινείται σαν <span class="em-blue">ένα σώμα</span>.
+        Ο κυβερνήτης ανακοινώνει την εντολή (“Tack ready?” / “Gybe ho!”), ο μεσαίος απαντά όταν είναι έτοιμος,
+        και ο μπροστινός εκτελεί με ακρίβεια την αλλαγή πανιού.  
+        Η καθυστέρηση ή το λάθος βήμα μπορεί να κοστίσει πολύτιμα δευτερόλεπτα.
+      </p>
+
+      <h3 style="color:#0b2a66;margin-top:1rem;">Ισορροπία και θέση πληρώματος</h3>
+      <p>
+        Η <span class="em-blue">κατανομή βάρους</span> είναι κρίσιμη: το πλήρωμα πρέπει να μετακινείται
+        συνεχώς ανάλογα με την κλίση του σκάφους. Σε δυνατό άνεμο, τα μέλη “κρέμονται” προς τα έξω (hiking),
+        ενώ σε άπνοια συγκεντρώνονται στο κέντρο για μείωση αντίστασης.
+      </p>
+
+      <h3 style="color:#0b2a66;margin-top:1rem;">Ομαδικότητα</h3>
+      <p>
+        Το Soling είναι ίσως το πιο ομαδικό σκάφος της κατηγορίας του.  
+        Η επιτυχία του πληρώματος εξαρτάται από τη <span class="em-blue">συνεχή επικοινωνία</span>,
+        τη <span class="em-blue">συνεννόηση</span> και την <span class="em-blue">αλληλοβοήθεια</span> των μελών.
+        Κάθε αλλαγή πρέπει να είναι συντονισμένη, κάθε πανί να τριμάρεται την κατάλληλη στιγμή και κάθε χειρισμός να γίνεται με ακρίβεια.
+      </p>
+
+      <h3 style="color:#0b2a66;margin-top:1rem;">Συνοψίζοντας</h3>
+      <p>
+        Ο καλός κυβερνήτης εμπιστεύεται το πλήρωμά του, ο μεσαίος κρατά την ισορροπία και ο μπροστινός φέρνει την ταχύτητα.
+        Η <span class="em-blue">αρμονία</span> μεταξύ των τριών δημιουργεί το τέλειο αποτέλεσμα.
+      </p>
+    </div>
+
+    <!-- ========= English ========= -->
+    <div class="soling-crew__block" data-lang="en" hidden>
+      <div style="text-align:center; margin:0 0 1rem;">
+        <img src="IMG_4738.jpg" alt="Crew and Roles on the Soling"
+             style="max-width:720px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p>
+        The <span class="em-blue">Soling</span> is sailed by a <span class="em-blue">three-person crew</span>, each with distinct
+        yet closely interlinked duties. Teamwork and communication are the foundation of success in this demanding keelboat.
+      </p>
+
+      <h3 style="color:#0b2a66;margin-top:1rem;">Crew positions</h3>
+      <ul>
+        <li><span class="em-blue">Helmsman:</span> steers the boat and trims the mainsail. Responsible for tactics, direction,
+          and keeping the boat balanced through constant feedback from the crew. Needs excellent sensitivity to helm and trim.
+        </li>
+
+        <li><span class="em-blue">Middle crew:</span> trims the <span class="em-blue">jib</span>, handles the <span class="em-blue">vang</span>,
+          <span class="em-blue">outhaul</span>, and <span class="em-blue">cunningham</span>. During maneuvers assists the helm
+          and helps shift weight smoothly to keep the boat flat.
+        </li>
+
+        <li><span class="em-blue">Bowman:</span> manages the <span class="em-blue">spinnaker pole</span>, hoists and drops the
+          <span class="em-blue">spinnaker</span>, and coordinates the foredeck operations.  
+          Requires agility, precision, and fast reactions.
+        </li>
+      </ul>
+
+      <h3 style="color:#0b2a66;margin-top:1rem;">Communication & coordination</h3>
+      <p>
+        During every <span class="em-blue">tack</span> or <span class="em-blue">gybe</span>, all movements must be synchronized.
+        The helm calls the maneuver, the middle confirms readiness, and the bowman executes.  
+        Clear communication is vital to avoid loss of speed and maintain rhythm in strong winds.
+      </p>
+
+      <h3 style="color:#0b2a66;margin-top:1rem;">Balance and movement</h3>
+      <p>
+        Proper <span class="em-blue">weight distribution</span> is key to performance.  
+        In strong wind, the crew hikes out to balance the heel, while in light breeze they move inward to reduce drag.
+        Constant adjustment keeps the Soling fast and responsive.
+      </p>
+
+      <h3 style="color:#0b2a66;margin-top:1rem;">Teamwork and precision</h3>
+      <p>
+        The Soling rewards crews that act as one. Every maneuver, trim, and balance shift must be coordinated.
+        Communication is constant, and every second counts.  
+        Precision and mutual trust transform three sailors into one unified system of motion and control.
+      </p>
+
+      <h3 style="color:#0b2a66;margin-top:1rem;">Summary</h3>
+      <p>
+        The <span class="em-blue">helmsman</span> commands direction, the <span class="em-blue">middle</span> maintains power and balance,
+        and the <span class="em-blue">bowman</span> brings agility and timing.  
+        Together they embody the spirit of <span class="em-blue">team sailing</span> that defines the Soling.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<script>
+// ===== Burger menu logic =====
+const burger = document.querySelector('.burger');
+const sidebar = document.getElementById('sidebar');
+function setOpen(open){
+  if(!sidebar) return;
+  sidebar.classList.toggle('is-open',open);
+  document.body.classList.toggle('menu-open',open);
+  burger?.setAttribute('aria-expanded',String(open));
+}
+burger?.addEventListener('click',()=>setOpen(!sidebar.classList.contains('is-open')));
+document.addEventListener('click',(e)=>{
+  if (
+    window.innerWidth<=980 &&
+    sidebar.classList.contains('is-open') &&
+    !sidebar.contains(e.target) &&
+    !burger.contains(e.target)
+  ){
+    setOpen(false);
+  }
+});
+
+// === Laser & Soling submenu toggle ===
+const laserToggle = document.getElementById('menu-laser');
+const laserSub    = document.getElementById('laser-submenu');
+
+const solingToggle = document.getElementById('menu-soling');
+const solingSub    = document.getElementById('soling-submenu');
+
+// ===== Κοινή συνάρτηση για άνοιγμα/κλείσιμο =====
+function setSubmenuOpen(toggleBtn, submenu, open){
+  if (!toggleBtn || !submenu) return;
+  toggleBtn.setAttribute('aria-expanded', String(open));
+  submenu.hidden = !open;
+}
+
+
+
+// === Yngling submenu toggle ===
+const ynglingToggle = document.getElementById('menu-yngling');
+const ynglingSub    = document.getElementById('yngling-submenu');
+
+function setYnglingOpen(open){
+  if (!ynglingToggle || !ynglingSub) return;
+  ynglingToggle.setAttribute('aria-expanded', String(open));
+  ynglingSub.hidden = !open;
+}
+
+ynglingToggle?.addEventListener('click', (e)=>{
+  e.preventDefault();
+  const open = ynglingToggle.getAttribute('aria-expanded') === 'true';
+  setYnglingOpen(!open);
+});
+
+// κλείσιμο σε mobile όταν κάνεις κλικ εκτός sidebar
+document.addEventListener('click', (e)=>{
+  const sidebar = document.getElementById('sidebar');
+  const isOpen = document.body.classList.contains('menu-open');
+  if (window.innerWidth <= 980 && isOpen){
+    if (!sidebar.contains(e.target)) setYnglingOpen(false);
+  }
+});
+
+// ενεργό item με βάση το hash + auto-άνοιγμα υπομενού σε sections Yngling
+function highlightYnglingByHash(){
+  const hash = location.hash;
+  document.querySelectorAll('#yngling-submenu .submenu__item')
+    .forEach(a => a.classList.toggle('active', a.getAttribute('href') === hash));
+  if (['#yngling-info','#yngling-rig','#yngling-parts','#yngling-crew'].includes(hash)) {
+    setYnglingOpen(true);
+  }
+}
+window.addEventListener('hashchange', highlightYnglingByHash);
+window.addEventListener('load', highlightYnglingByHash);
+
+
+
+// ===== Toggle Laser =====
+laserToggle?.addEventListener('click', () => {
+  const open = laserToggle.getAttribute('aria-expanded') !== 'true';
+  // Κλείσε το Soling αν είναι ανοιχτό
+  setSubmenuOpen(solingToggle, solingSub, false);
+  setSubmenuOpen(laserToggle, laserSub, open);
+});
+
+// ===== Toggle Soling =====
+solingToggle?.addEventListener('click', () => {
+  const open = solingToggle.getAttribute('aria-expanded') !== 'true';
+  // Κλείσε το Laser αν είναι ανοιχτό
+  setSubmenuOpen(laserToggle, laserSub, false);
+  setSubmenuOpen(solingToggle, solingSub, open);
+});
+
+// άνοιγμα/κλείσιμο με κλικ
+laserToggle?.addEventListener('click', (e)=>{
+  e.preventDefault();
+  const open = laserToggle.getAttribute('aria-expanded') === 'true';
+  setLaserOpen(!open);
+});
+
+// κλείσιμο όταν κάνεις κλικ εκτός sidebar σε mobile (συνεργάζεται με το setOpen σου)
+document.addEventListener('click', (e)=>{
+  const sidebar = document.getElementById('sidebar');
+  const isOpen = document.body.classList.contains('menu-open');
+  if (window.innerWidth <= 980 && isOpen){
+    if (!sidebar.contains(e.target)) setLaserOpen(false);
+  }
+});
+
+// highlight ενεργού item από το hash
+function highlightLaserSubByHash(){
+  const hash = location.hash;
+  document.querySelectorAll('#laser-submenu .submenu__item')
+    .forEach(a => a.classList.toggle('active', a.getAttribute('href') === hash));
+  // αν πας σε section του Laser, άνοιξε το υπομενού
+  if (['#rigging','#parts','#laser'].includes(hash)) setLaserOpen(true);
+}
+window.addEventListener('hashchange', highlightLaserSubByHash);
+window.addEventListener('load', highlightLaserSubByHash);
+
+// όταν πατηθεί ένα item του υπομενού, σε mobile κλείσε το burger menu
+document.querySelectorAll('#laser-submenu .submenu__item').forEach(a=>{
+  a.addEventListener('click', ()=>{
+    if (window.innerWidth <= 980) {
+      // έχεις ήδη setOpen(open) στον burger σου
+      if (typeof setOpen === 'function') setOpen(false);
+    }
+  });
+});
+
+// ===== I18N =====
+const I18N = {
+  el: {
+    // ===== Μενού =====
+    "menu.home": "Αρχική",
+    "menu.team": "Η ομάδα",
+    "menu.chat": "Συνομιλία",
+
+    // ===== Υπομενού Laser =====
+    "menu.laser": "Laser",
+    "menu.laser.rigging": "Αρματωσιά",
+    "menu.laser.parts": "Ονοματολογία",
+    "menu.laser.terms": "Ναυτικοί όροι",
+    "menu.laser.knots": "Κόμποι",
+    "menu.laser.maneuvers": "Στροφές (Τακ/Πότζα)",
+    "menu.laser.info": "Πληροφορίες",
+
+    // ===== Υπομενού Soling =====
+    "menu.soling": "Soling",
+    "menu.soling.info": "Πληροφορίες",
+    "menu.soling.rigging": "Αρματωσιά",
+    "menu.soling.parts": "Μέρη σκάφους",
+    "menu.soling.crew": "Πλήρωμα / Ρόλοι",
+
+    // ===== Υπομενού Yngling =====
+    "menu.yngling": "Yngling",
+    "menu.yngling.info": "Πληροφορίες",
+    "menu.yngling.rigging": "Αρματωσιά",
+    "menu.yngling.parts": "Μέρη σκάφους",
+    "menu.yngling.crew": "Πλήρωμα / Ρόλοι",
+
+    // ===== Footer =====
+    "footer.contact": "info@notk.gr • +30 210 481-0390",
+
+    // ===== Hero Section =====
+    "hero.title": "Ιστιοπλοΐα Laser στην πράξη ⚓️",
+    "hero.subtitle": "Ασφάλεια, τεχνική και διασκέδαση στα κύματα. Τμήματα ILCA 4/6/7.",
+    "hero.cta1": "Κλείσε δοκιμαστικό",
+    "hero.cta2": "Δες προγράμματα",
+
+    // ===== Ομάδα / Συνομιλία =====
+    "team.title": "Η ομάδα",
+    "team.text": "Ο προπονητής και το επιτελείο της Ακαδημίας NOTK Laser.",
+    "team.photos.link": "Πατήστε εδώ",
+    "team.photos.text": "— εδώ θα ανεβάζουμε φωτογραφίες της ομάδας!",
+    "chat.title": "Συνομιλία",
+    "chat.text": "💬 Ελάτε και εσείς στην παρέα μας στο Viber!",
+    "chat.whatsapp": "Άνοιγμα ομαδικής Viber",
+    "chatViber": "Άνοιγμα ομαδικής Viber",
+
+    // ===== Τίτλοι Ενοτήτων (Laser) =====
+    "rigging.title": "Αρματωσιά του Laser",
+    "parts.title": "Ονοματολογία του Laser",
+    "terms.title": "Ναυτικοί όροι του Laser",
+    "knots.title": "Κόμποι για το Laser",
+    "maneuvers.title": "Στροφές: Τακ & Πότζα",
+    "info.title": "Πληροφορίες για το Laser",
+
+    // ===== Τίτλοι Ενοτήτων (Soling) =====
+    "soling.info.title": "Πληροφορίες για το Soling",
+    "soling.rigging.title": "Αρματωσιά του Soling",
+    "soling.parts.title": "Μέρη του Soling",
+    "soling.crew.title": "Πλήρωμα και Ρόλοι στο Soling",
+
+    // ===== Τίτλοι Ενοτήτων (Yngling) =====
+    "yngling.info.title": "Πληροφορίες για το Yngling",
+    "yngling.rigging.title": "Αρματωσιά του Yngling",
+    "yngling.parts.title": "Μέρη του Yngling",
+    "yngling.crew.title": "Πλήρωμα και Ρόλοι στο Yngling"
+  },
+
+  en: {
+    // ===== Menu =====
+    "menu.home": "Home",
+    "menu.team": "The Team",
+    "menu.chat": "Chat",
+
+    // ===== Laser Submenu =====
+    "menu.laser": "Laser",
+    "menu.laser.rigging": "Rigging",
+    "menu.laser.parts": "Parts",
+    "menu.laser.terms": "Nautical terms",
+    "menu.laser.knots": "Knots",
+    "menu.laser.maneuvers": "Maneuvers: Tack / Gybe",
+    "menu.laser.info": "Info",
+
+    // ===== Soling Submenu =====
+    "menu.soling": "Soling",
+    "menu.soling.info": "Info",
+    "menu.soling.rigging": "Rigging",
+    "menu.soling.parts": "Parts",
+    "menu.soling.crew": "Crew / Roles",
+
+    // ===== Yngling Submenu =====
+    "menu.yngling": "Yngling",
+    "menu.yngling.info": "Info",
+    "menu.yngling.rigging": "Rigging",
+    "menu.yngling.parts": "Parts",
+    "menu.yngling.crew": "Crew / Roles",
+
+    // ===== Footer =====
+    "footer.contact": "info@notk.gr • +30 210 481-0390",
+
+    // ===== Hero Section =====
+    "hero.title": "Laser Sailing in Action ⚓️",
+    "hero.subtitle": "Safety, technique and fun on the waves. ILCA 4/6/7 groups.",
+    "hero.cta1": "Book a trial",
+    "hero.cta2": "See programs",
+
+    // ===== Team / Chat =====
+    "team.title": "The Team",
+    "team.text": "Coach and support team of the NOTK Laser Academy.",
+    "team.photos.link": "Click here",
+    "team.photos.text": "— this is where we’ll upload team photos!",
+    "chat.title": "Chat",
+    "chat.text": "💬 Join our community on Viber!",
+    "chat.whatsapp": "Open group on Viber",
+    "chatViber": "Open group on Viber",
+
+    // ===== Section Titles (Laser) =====
+    "rigging.title": "Rigging of the Laser",
+    "parts.title": "Parts of the Laser",
+    "terms.title": "Nautical Terms of the Laser",
+    "knots.title": "Knots for the Laser",
+    "maneuvers.title": "Maneuvers: Tack & Gybe",
+    "info.title": "Laser Information",
+
+    // ===== Section Titles (Soling) =====
+    "soling.info.title": "About the Soling",
+    "soling.rigging.title": "Rigging of the Soling",
+    "soling.parts.title": "Parts of the Soling",
+    "soling.crew.title": "Crew and Roles on the Soling",
+
+    // ===== Section Titles (Yngling) =====
+    "yngling.info.title": "About the Yngling",
+    "yngling.rigging.title": "Rigging of the Yngling",
+    "yngling.parts.title": "Parts of the Yngling",
+    "yngling.crew.title": "Crew and Roles on the Yngling"
+  }
+};
+
+// ===== I18N storage key & refs =====
+const LANG_KEY = "notk_lang";
+const brandImg = document.querySelector(".brand__img");
+const langBtn  = document.getElementById("lang-switch");
+
+
+// === ΕΦΑΡΜΟΓΗ ΓΛΩΣΣΑΣ ===
+function applyLang(lang) {
+  // 1) Γέμισε όλα τα data-i18n
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.getAttribute("data-i18n");
+    const val = I18N?.[lang]?.[key];
+    if (val !== undefined) {
+      el.textContent = val;   // απλό κείμενο
+    }
+  });
+
+  // 2) Ειδική ρύθμιση για το link των φωτογραφιών
+  const photosLink = document.getElementById("team-photos-link");   // <a id="team-photos-link">
+  const photosText = document.getElementById("team-photos-text");   // <span id="team-photos-text" data-i18n="team.photos.text">
+  if (photosLink) {
+    photosLink.href = (lang === "en") ? "team-photos-en.html" : "team-photos.html";
+    photosLink.textContent = I18N[lang]["team.photos.link"];
+  }
+  // Το συνοδευτικό κειμενάκι (αν δεν καλύπτεται ήδη από το data-i18n πιο πάνω)
+  if (photosText) {
+    photosText.textContent = I18N[lang]["team.photos.text"];
+  }
+
+  // 3) Λογότυπο
+  if (brandImg){
+    brandImg.src = (lang === "en") ? "notk-logo-en.png" : "notk-logo-gr.png";
+    brandImg.alt = (lang === "en") ? "NOTK Laser Academy" : "NOTK Ακαδημία Laser";
+  }
+
+  // 4) Κουμπί γλώσσας (label & aria)
+  if (langBtn){
+    langBtn.textContent = (lang === "en") ? "Ελληνικά" : "English";
+    langBtn.setAttribute("aria-pressed", lang === "en" ? "true" : "false");
+  }
+
+  // 5) Εμφάνιση/απόκρυψη μπλοκ ανά γλώσσα, αν τα χρησιμοποιείς
+  document.querySelectorAll("[data-lang]").forEach(el=>{
+    el.hidden = el.getAttribute("data-lang") !== lang;
+  });
+
+  document.documentElement.setAttribute("lang", (lang === "en") ? "en" : "el");
+  localStorage.setItem(LANG_KEY, lang);
+}
+
+// Αρχικοποίηση
+const startLang = localStorage.getItem(LANG_KEY) || "el";
+applyLang(startLang);
+
+// Toggle γλώσσας
+langBtn?.addEventListener("click", () => {
+  const current = localStorage.getItem(LANG_KEY) || "el";
+  const next = current === "el" ? "en" : "el";
+  applyLang(next);
+});
+
+
+// ===== ACTIVE state στα links του μενού (anchor σελίδας) =====
+const menuLinks = document.querySelectorAll('.menu .menu__item');
+menuLinks.forEach(link => {
+  if (link.tagName.toLowerCase() === 'a' && link.getAttribute('href')?.startsWith('#')) {
+    link.addEventListener('click', () => {
+      menuLinks.forEach(l => { if (l.id !== 'lang-switch') l.classList.remove('active'); });
+      if (link.id !== 'lang-switch') link.classList.add('active');
+    });
+  }
+});
+
+// Hash on load
+window.addEventListener('load', () => {
+  const hash = window.location.hash;
+  if (hash) {
+    const activeLink = document.querySelector('.menu .menu__item[href="' + hash + '"]');
+    if (activeLink && activeLink.id !== 'lang-switch') {
+      menuLinks.forEach(l => { if (l.id !== 'lang-switch') l.classList.remove('active'); });
+      activeLink.classList.add('active');
+    }
+  }
+});
+
+// ===== Εμφάνιση animation για Ομάδα =====
+const omadaElements = document.querySelectorAll('#team .omada-animate');
+const omadaObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('omada-visible'); });
+}, { threshold:0.2 });
+omadaElements.forEach(el => omadaObserver.observe(el));
+
+// ===== Εμφάνιση animation για Chat =====
+const chatElements = document.querySelectorAll('#chat .chat-animate');
+const chatObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('chat-visible'); });
+}, { threshold:0.2 });
+chatElements.forEach(el => chatObserver.observe(el));
+
+</script>
+
+<script src="chat.js"></script>
+
+</body>
+</html>
