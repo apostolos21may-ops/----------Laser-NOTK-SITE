@@ -685,6 +685,306 @@ section[id^="soling"] .rope-frame {
   font-weight: 700;
 }
 
+.menu--yellow {
+  background-color: #f9d71c;
+  color: black;
+  border: 2px solid #f9d71c;
+}
+.menu--yellow:hover {
+  background-color: #ffe64a;
+}
+
+.menu--green {
+  background-color: #2cd47c;
+  color: black;
+  border: 2px solid #2cd47c;
+}
+.menu--green:hover {
+  background-color: #52ff9b;
+}
+
+
+
+
+
+/* Βασικό style για όλα τα menu κουμπιά */
+.menu__item.has-sub {
+  position: relative;
+  padding-left: 42px; /* αφήνει χώρο για το icon */
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+/* === ICONS ΜΕ ::before === */
+.menu__item.has-sub::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  width: 22px;
+  height: 22px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 4px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* hover εφέ */
+.menu__item.has-sub:hover::before {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* ===============================
+   Εικονίδια για κάθε σκάφος
+   (χρησιμοποιεί τα αρχεία που έχεις)
+   =============================== */
+
+/* LASER */
+#menu-laser::before {
+  background-image: url("IMG_4839.png");
+}
+
+/* SOLING */
+#menu-soling::before {
+  background-image: url("IMG_4838.png");
+}
+
+/* YNGLING */
+#menu-yngling::before {
+  background-image: url("IMG_4837.png");
+}
+
+/* MANTA 19 — Κίτρινο */
+#menu-manta::before {
+  background-image: url("IMG_4840.png");
+}
+#menu-manta {
+  border: 2px solid #d4aa00;
+  background: rgba(246, 198, 0, .15);
+  color: #fff;
+  border-radius: 10px;
+  transition: background .2s ease, color .2s ease;
+}
+#menu-manta:hover {
+  background: rgba(246, 198, 0, .28);
+}
+#menu-manta[aria-expanded="true"] {
+  background: #f6c600;
+  color: #111;
+}
+
+/* HOBBY ONE 14 — Πράσινο */
+#menu-hobby::before {
+  background-image: url("IMG_4836.png");
+}
+#menu-hobby {
+  border: 2px solid #1b7f3b;
+  background: rgba(27,127,59,.15);
+  color: #eafff0;
+  border-radius: 10px;
+  transition: background .2s ease, color .2s ease;
+}
+#menu-hobby:hover {
+  background: rgba(27,127,59,.28);
+}
+#menu-hobby[aria-expanded="true"] {
+  background:#1b7f3b;
+  color:#fff;
+}
+
+
+/* ===== Manta 19 — Κίτρινο ===== */
+#menu-manta{
+  border: 2px solid #d4aa00;              /* ζεστό κίτρινο περίγραμμα */
+  background: rgba(246, 198, 0, .15);     /* απαλό κίτρινο φόντο */
+  color: #fff;                             /* λευκό κείμενο (σκούρο sidebar) */
+  border-radius: 10px;
+  transition: background .2s ease, color .2s ease, box-shadow .2s ease;
+}
+#menu-manta:hover{
+  background: rgba(246, 198, 0, .28);
+  color:#fff;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.25) inset;
+}
+#menu-manta[aria-expanded="true"]{
+  background:#f6c600;                      /* γεμάτο κίτρινο όταν είναι ανοιχτό */
+  color:#111;
+}
+
+/* Στυλ για τα items του υπομενού (αριστερή γραμμή έμφασης + hover) */
+#manta-submenu .submenu__item{
+  border-left:3px solid #f6c600;
+}
+#manta-submenu .submenu__item:hover{
+  background: rgba(246,198,0,.12);
+}
+#manta-submenu .submenu__item.active{
+  background: rgba(246,198,0,.22);
+}
+
+/* ===== Hobby One 14 — Πράσινο ===== */
+#menu-hobby{
+  border: 2px solid #1b7f3b;              /* πράσινο περίγραμμα */
+  background: rgba(27,127,59,.15);        /* απαλό πράσινο φόντο */
+  color:#eafff0;                           /* ανοιχτό πράσινο-λευκό */
+  border-radius:10px;
+  transition: background .2s ease, color .2s ease, box-shadow .2s ease;
+}
+#menu-hobby:hover{
+  background: rgba(27,127,59,.28);
+  color:#fff;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.25) inset;
+}
+#menu-hobby[aria-expanded="true"]{
+  background:#1b7f3b;                      /* γεμάτο πράσινο όταν ανοίγει */
+  color:#fff;
+}
+
+/* Υπομενού hobby */
+#hobby-submenu .submenu__item{
+  border-left:3px solid #1b7f3b;
+}
+#hobby-submenu .submenu__item:hover{
+  background: rgba(27,127,59,.12);
+}
+#hobby-submenu .submenu__item.active{
+  background: rgba(27,127,59,.22);
+}
+
+/* Προαιρετικά: ίδια εμφάνιση για focus ώστε να είναι προσβάσιμο */
+#menu-manta:focus-visible,
+#menu-hobby:focus-visible,
+#manta-submenu .submenu__item:focus-visible,
+#hobby-submenu .submenu__item:focus-visible{
+  outline: 2px dashed rgba(255,255,255,.6);
+  outline-offset: 2px;
+}
+
+/* ===== Manta 19 Theme ===== */
+:root{
+  --manta-yellow: #f6c600;        /* βασικό κίτρινο */
+  --manta-yellow-20: rgba(246,198,0,.20);
+  --manta-yellow-28: rgba(246,198,0,.28);
+}
+
+/* 1) Κίτρινο περίγραμμα σε ΟΛΕΣ τις ενότητες Manta 19
+   (π.χ. #manta-info, #manta-rigging, #manta-parts κ.λπ.) */
+section[id^="manta-"] .rope-frame {
+  border: 2px solid var(--manta-yellow) !important;
+  border-radius: 14px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.18) inset, 
+              0 4px 18px rgba(0,0,0,.08);
+}
+
+/* Προαιρετικά: απαλή κίτρινη “αύρα” στο φόντο του frame */
+section[id^="manta-"] .rope-frame {
+  background: linear-gradient(0deg, var(--manta-yellow-20), var(--manta-yellow-20));
+}
+
+/* 2) Τονισμένες λέξεις/φράσεις σε κίτρινο */
+.em-yellow {
+  color: var(--manta-yellow);
+  font-weight: 700;
+}
+
+/* Προαιρετικά: κίτρινη υπογράμμιση (όμορφο highlight για λέξεις) */
+.em-yellow--underline {
+  background: linear-gradient(transparent 70%, var(--manta-yellow-28) 0);
+  font-weight: 700;
+}
+
+/* 3) Προαιρετικά για τίτλους μέσα στις ενότητες Manta 19 */
+section[id^="manta-"] h2,
+section[id^="manta-"] h3 {
+  color: #222;
+  text-shadow: 0 1px 0 #fff;
+  border-left: 6px solid var(--manta-yellow);
+  padding-left: .6rem;
+  border-radius: 2px;
+}
+
+/* 4) Αν έχεις call-to-action links/κουμπιά μέσα στις ενότητες */
+section[id^="manta-"] a.button,
+section[id^="manta-"] button.cta {
+  border: 2px solid var(--manta-yellow);
+  background: var(--manta-yellow-20);
+  color: #222;
+  border-radius: 10px;
+  padding: .55rem .9rem;
+  transition: background .2s ease, box-shadow .2s ease, color .2s ease;
+}
+section[id^="manta-"] a.button:hover,
+section[id^="manta-"] button.cta:hover {
+  background: var(--manta-yellow-28);
+  box-shadow: 0 0 0 1px rgba(255,255,255,.25) inset;
+}
+
+
+
+/* ===== Hobby One 14 Theme ===== */
+:root{
+  --hobby-green: #1cc48d;        /* βασικό πράσινο */
+  --hobby-green-20: rgba(28,196,141,.20);
+  --hobby-green-28: rgba(28,196,141,.28);
+}
+
+/* 1) Πράσινο περίγραμμα σε ΟΛΕΣ τις ενότητες Hobby One 14
+   (π.χ. #hobby-info, #hobby-rigging, #hobby-parts, #hobby-crew κ.λπ.) */
+section[id^="hobby-"] .rope-frame {
+  border: 2px solid var(--hobby-green) !important;
+  border-radius: 14px;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.18) inset, 
+              0 4px 18px rgba(0,0,0,.08);
+}
+
+/* Προαιρετικά: απαλή πράσινη “αύρα” στο φόντο του frame */
+section[id^="hobby-"] .rope-frame {
+  background: linear-gradient(0deg, var(--hobby-green-20), var(--hobby-green-20));
+}
+
+/* 2) Τονισμένες λέξεις/φράσεις σε πράσινο */
+.em-green {
+  color: var(--hobby-green);
+  font-weight: 700;
+}
+
+/* Πράσινη υπογράμμιση για highlight */
+.em-green--underline {
+  background: linear-gradient(transparent 70%, var(--hobby-green-28) 0);
+  font-weight: 700;
+}
+
+/* 3) Τίτλοι μέσα στις ενότητες Hobby One 14 */
+section[id^="hobby-"] h2,
+section[id^="hobby-"] h3 {
+  color: #1a1a1a;
+  text-shadow: 0 1px 0 #fff;
+  border-left: 6px solid var(--hobby-green);
+  padding-left: .6rem;
+  border-radius: 2px;
+}
+
+/* 4) Κουμπιά ή σύνδεσμοι (CTA) με πράσινο θέμα */
+section[id^="hobby-"] a.button,
+section[id^="hobby-"] button.cta {
+  border: 2px solid var(--hobby-green);
+  background: var(--hobby-green-20);
+  color: #1a1a1a;
+  border-radius: 10px;
+  padding: .55rem .9rem;
+  transition: background .2s ease, box-shadow .2s ease, color .2s ease;
+}
+
+section[id^="hobby-"] a.button:hover,
+section[id^="hobby-"] button.cta:hover {
+  background: var(--hobby-green-28);
+  box-shadow: 0 0 0 1px rgba(255,255,255,.25) inset;
+}
+
+
 
 </style>
 </head>
@@ -772,6 +1072,46 @@ section[id^="soling"] .rope-frame {
     <li><a class="menu__item submenu__item" href="#yngling-parts" data-i18n="menu.yngling.parts">Μέρη σκάφους</a></li>
     <li><a class="menu__item submenu__item" href="#yngling-crew"  data-i18n="menu.yngling.crew">Πλήρωμα / Ρόλοι</a></li>
     <li><a class="menu__item submenu__item" href="#yngling-specs"  data-i18n="menu.yngling.specs">Τεχνικά χαρακτηριστικά</a></li>
+  </ul>
+</div>
+
+<!-- ===================== Manta 19 ===================== -->
+<div class="menu__group">
+  <button
+    class="menu__item has-sub menu--yellow"
+    id="menu-manta"
+    aria-expanded="false"
+    aria-controls="manta-submenu"
+    data-i18n="menu.manta"
+  >
+    Manta 19
+  </button>
+
+  <ul class="submenu" id="manta-submenu" hidden>
+    <li><a class="menu__item submenu__item" href="#manta-info"  data-i18n="menu.manta.info">Πληροφορίες</a></li>
+    <li><a class="menu__item submenu__item" href="#manta-rigging"   data-i18n="menu.manta.rigging">Αρματωσιά</a></li>
+    <li><a class="menu__item submenu__item" href="#manta-parts" data-i18n="menu.manta.parts">Μέρη σκάφους</a></li>
+    <li><a class="menu__item submenu__item" href="#manta-crew"  data-i18n="menu.manta.crew">Πλήρωμα / Ρόλοι</a></li>
+  </ul>
+</div>
+
+<!-- ===================== Hobby One 14 ===================== -->
+<div class="menu__group">
+  <button
+    class="menu__item has-sub menu--green"
+    id="menu-hobby"
+    aria-expanded="false"
+    aria-controls="hobby-submenu"
+    data-i18n="menu.hobby"
+  >
+    Hobby One 14
+  </button>
+
+  <ul class="submenu" id="hobby-submenu" hidden>
+    <li><a class="menu__item submenu__item" href="#hobby-info"  data-i18n="menu.hobby.info">Πληροφορίες</a></li>
+    <li><a class="menu__item submenu__item" href="#hobby-rig"   data-i18n="menu.hobby.rigging">Αρματωσιά</a></li>
+    <li><a class="menu__item submenu__item" href="#hobby-parts" data-i18n="menu.hobby.parts">Μέρη σκάφους</a></li>
+    <li><a class="menu__item submenu__item" href="#hobby-crew"  data-i18n="menu.hobby.crew">Πλήρωμα / Ρόλοι</a></li>
   </ul>
 </div>
 
@@ -2620,50 +2960,850 @@ section[id^="soling"] .rope-frame {
   </div>
 </section>
 
+<section id="manta-info">
+  <div class="rope-frame">
+
+    <!-- ============ ΕΛΛΗΝΙΚΑ ============ -->
+    <div class="manta__block" data-lang="el">
+      <div style="text-align:center; margin:0 0 1rem;">
+        <!-- Επικεφαλίδα στα Ελληνικά -->
+        <img src="IMG_4829.jpg" alt="Σχετικά με το Manta 19"
+             style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p>
+        Το <span class="em-yellow">Manta 19</span> είναι ένα μικρό, αξιόπλοο και ευέλικτο <span class="em-yellow">keelboat</span>
+        (ιστιοπλοϊκό σκάφος με σταθερή καρίνα), σχεδιασμένο για εκπαίδευση αλλά και για απολαυστικές εξορμήσεις στη θάλασσα.
+        Παρά το μικρό του μέγεθος, το Manta 19 προσφέρει σταθερότητα, ασφάλεια και εξαιρετικές επιδόσεις υπό πανί.
+      </p>
+
+      <p>
+        Το σκάφος διαθέτει μία <span class="em-yellow">απλή αλλά αποδοτική ιστιοφορία</span> με κυρίως πανί και φλόκο,
+        επιτρέποντας εύκολο χειρισμό ακόμη και σε συνθήκες μέτριου αέρα. Η σχεδίασή του επιτρέπει την εκπαίδευση νέων
+        ιστιοπλόων αλλά και την ευχάριστη πλεύση για πιο έμπειρα πληρώματα.
+      </p>
+
+      <p>
+        Χάρη στη <span class="em-yellow">ρηχή του καρίνα</span> και το σχετικά ελαφρύ βάρος, το Manta 19 μπορεί να
+        ρυμουλκηθεί εύκολα με τρέιλερ και να καθελκυστεί από ράμπα, κάτι που το καθιστά ιδανικό για λέσχες, σχολές
+        ή ιδιώτες που αναζητούν ένα σκάφος “όλα σε ένα”.
+      </p>
+
+      <p>
+        Το κατάστρωμα προσφέρει επαρκή χώρο για δύο έως τρία άτομα, ενώ η μικρή καμπίνα του μπορεί να χρησιμοποιηθεί
+        για αποθήκευση εξοπλισμού ή ακόμα και για σύντομη διανυκτέρευση. Είναι ένα σκάφος που συνδυάζει
+        <span class="em-yellow">εκπαίδευση, αναψυχή και στυλ</span> με τρόπο μοναδικό.
+      </p>
+    </div>
+
+    <!-- ============ ENGLISH ============ -->
+    <div class="manta__block" data-lang="en" hidden>
+      <div style="text-align:center; margin:0 0 1rem;">
+        <!-- English Header -->
+        <img src="IMG_4832.jpg" alt="About the Manta 19"
+             style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p>
+        The <span class="em-yellow">Manta 19</span> is a compact yet highly capable <span class="em-yellow">keelboat</span>,
+        designed for both training and leisure sailing. Despite its small size, the Manta 19 provides impressive stability,
+        safety, and excellent sailing performance.
+      </p>
+
+      <p>
+        Its <span class="em-yellow">simple but efficient sail plan</span> — consisting of a mainsail and jib —
+        allows easy handling even in moderate wind conditions. This makes the Manta 19 an ideal boat for
+        sailing schools and beginners, while still enjoyable for more experienced sailors.
+      </p>
+
+      <p>
+        With its <span class="em-yellow">shallow keel</span> and light weight, the Manta 19 can be easily
+        transported on a trailer and launched from a ramp, making it a perfect option for clubs or private owners
+        who want a versatile and portable sailboat.
+      </p>
+
+      <p>
+        The deck provides enough space for two to three sailors, while the small cabin can be used for gear storage
+        or even for short overnight stays. The Manta 19 combines <span class="em-yellow">training, recreation, and elegance</span>
+        in a single design.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="manta-rigging">
+  <div class="rope-frame">
+
+    <!-- ============ ΕΛΛΗΝΙΚΑ ============ -->
+    <div class="manta__block" data-lang="el">
+      <div style="text-align:center; margin:0 0 1rem;">
+        <img src="IMG_4847.jpg" alt="Αρματωσιά του Manta 19"
+             style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p>
+        Η <span class="em-yellow">αρματωσιά του Manta 19</span> είναι απλή, λειτουργική και εύκολη στην κατανόηση,
+        καθιστώντας το σκάφος ιδανικό για εκπαίδευση και ερασιτεχνική ιστιοπλοΐα. Στόχος της είναι η <span class="em-yellow--underline">
+        σταθερότητα και η ασφάλεια</span> χωρίς να απαιτούνται περίπλοκοι μηχανισμοί.
+      </p>
+
+      <p>
+        Το σκάφος διαθέτει <span class="em-yellow">ένα κύριο πανί (main sail)</span> και έναν <span class="em-yellow">φλόκο (jib)</span>,
+        τα οποία τριμάρονται μέσω απλών μπλοκ και σκοινιών. Ο ιστός είναι ελαφρύς, αλουμινένιος και στερεώνεται
+        με συρματόσχοινα (stays) και σάγια, διασφαλίζοντας ακαμψία και ευκολία στη ρύθμιση.
+      </p>
+
+      <p>
+        Η <span class="em-yellow">σκότα</span> του κυρίου πανιού τοποθετείται κεντρικά, επιτρέποντας ακριβή έλεγχο της γωνίας
+        του πανιού, ενώ ο φλόκος τριμάρεται μέσω δύο πλεύσιμων σημείων δεξιά και αριστερά.
+        Το boom διαθέτει ρυθμιζόμενο vang (κάθετη τάση), ενώ η <span class="em-yellow">cunningham</span> και το
+        <span class="em-yellow">outhaul</span> εξασφαλίζουν τον κατάλληλο έλεγχο του σχήματος του πανιού.
+      </p>
+
+      <p>
+        Η καρίνα είναι σταθερή και εσωτερικά πτυσσόμενη, κάτι που διευκολύνει την καθελκύση και την μεταφορά.
+        Το πηδάλιο αποσπάται εύκολα και μπορεί να ρυθμιστεί ανάλογα με το βάθος του νερού.
+      </p>
+
+      <p>
+        Χάρη στη <span class="em-yellow">σχεδίαση του εξαρτισμού</span>, η αρματωσιά μπορεί να ολοκληρωθεί μέσα σε λίγα λεπτά —
+        χαρακτηριστικό που κάνει το Manta 19 εξαιρετικό για λέσχες, εκπαιδευτικά προγράμματα και γρήγορες εξορμήσεις.
+      </p>
+    </div>
+
+    <!-- ============ ENGLISH ============ -->
+    <div class="manta__block" data-lang="en" hidden>
+      <div style="text-align:center; margin:0 0 1rem;">
+        <img src="IMG_4846.jpg" alt="Rigging of the Manta 19"
+             style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p>
+        The <span class="em-yellow">rigging system of the Manta 19</span> is simple, practical, and intuitive,
+        making the boat perfect for training and recreational sailing. It’s designed for
+        <span class="em-yellow--underline">stability and safety</span> rather than complex racing controls.
+      </p>
+
+      <p>
+        The Manta 19 carries a <span class="em-yellow">mainsail</span> and a <span class="em-yellow">jib</span>,
+        both trimmed through basic blocks and sheets. The aluminum mast is lightweight yet strong,
+        supported by wire stays and shrouds for a balanced and easily adjustable rig.
+      </p>
+
+      <p>
+        The <span class="em-yellow">mainsheet</span> runs to a central traveler for precise sail control,
+        while the jib sheets can be trimmed from both sides. The boom features a controllable
+        <span class="em-yellow">vang</span>, and both <span class="em-yellow">cunningham</span> and
+        <span class="em-yellow">outhaul</span> systems allow accurate sail shape adjustment.
+      </p>
+
+      <p>
+        The fixed keel is designed for stability and can be lifted partially for launching or transport.
+        The rudder can be easily detached and adjusted according to water depth, allowing smooth maneuvering in shallow areas.
+      </p>
+
+      <p>
+        Thanks to its <span class="em-yellow">efficient rigging layout</span>, the Manta 19 can be fully rigged in just a few minutes —
+        ideal for sailing clubs, training sessions, or quick afternoon outings.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="manta-parts">
+  <div class="rope-frame">
+
+    <!-- ============ ΕΛΛΗΝΙΚΑ ============ -->
+    <div class="manta__block" data-lang="el">
+      <div style="text-align:center; margin:0 0 1rem;">
+        <img src="IMG_4848.jpg" alt="Μέρη του Manta 19"
+             style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p>
+        Το <span class="em-yellow">Manta 19</span> είναι ένα κομψό και καλοσχεδιασμένο σκάφος, του οποίου κάθε μέρος
+        έχει δημιουργηθεί με σκοπό την <span class="em-yellow--underline">απλότητα και τη λειτουργικότητα</span>.
+        Ο σχεδιασμός του επιτρέπει τόσο την εκπαίδευση νέων ιστιοπλόων όσο και την άνετη πλεύση για πιο προχωρημένα πληρώματα.
+      </p>
+
+      <p>
+        Στην πλώρη, συναντάμε τον <span class="em-yellow">φλόκο (jib)</span> και τον <span class="em-yellow">πρότονο</span>,
+        που στηρίζουν τον ιστό και εξασφαλίζουν τη σωστή κατανομή των δυνάμεων του ανέμου. Το <span class="em-yellow">κατάστρωμα</span>
+        είναι επίπεδο και ευρύχωρο, παρέχοντας άνεση στο πλήρωμα και εύκολη μετακίνηση κατά τη διάρκεια των ελιγμών.
+      </p>
+
+      <p>
+        Ο <span class="em-yellow">ιστός</span> είναι αλουμινένιος και αφαιρούμενος, ενώ το <span class="em-yellow">boom</span>
+        (μπουμ) φέρει τα σημεία ελέγχου για την cunningham και το outhaul, ώστε να ρυθμίζεται το σχήμα του πανιού ανάλογα με τις συνθήκες.
+        Στο κέντρο του σκάφους βρίσκεται το <span class="em-yellow">cockpit</span>, όπου βρίσκονται οι σκότες, τα μπλοκ
+        και τα σημεία ρύθμισης.
+      </p>
+
+      <p>
+        Η <span class="em-yellow">καρίνα</span> είναι σταθερή και παρέχει εξαιρετική ισορροπία, μειώνοντας την κλίση
+        ακόμη και σε ισχυρό άνεμο. Το <span class="em-yellow">πηδάλιο</span> είναι αποσπώμενο και ελεγχόμενο με κοντό
+        tiller, εξασφαλίζοντας ακριβή χειρισμό στις στροφές.
+      </p>
+
+      <p>
+        Στο εσωτερικό του σκάφους υπάρχει μικρή <span class="em-yellow">καμπίνα αποθήκευσης</span>, που μπορεί να φιλοξενήσει
+        σωσίβια, σχοινιά και προσωπικό εξοπλισμό. Το Manta 19 ξεχωρίζει για τον εργονομικό του σχεδιασμό — κάθε εξάρτημα
+        είναι τοποθετημένο εκεί που πρέπει, για μέγιστη ευκολία και ασφάλεια.
+      </p>
+
+      <p>
+        Συνολικά, το <span class="em-yellow">Manta 19</span> συνδυάζει τα χαρακτηριστικά ενός εκπαιδευτικού σκάφους με εκείνα
+        ενός μικρού cruiser, προσφέροντας <span class="em-yellow--underline">άνεση, σταθερότητα και αποδοτικότητα</span>
+        σε κάθε πλεύση.
+      </p>
+    </div>
+
+    <!-- ============ ENGLISH ============ -->
+    <div class="manta__block" data-lang="en" hidden>
+      <div style="text-align:center; margin:0 0 1rem;">
+        <img src="IMG_4849.jpg" alt="Parts of the Manta 19"
+             style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p>
+        The <span class="em-yellow">Manta 19</span> is a sleek, well-balanced sailboat where every component has been designed
+        for <span class="em-yellow--underline">simplicity and efficiency</span>. Its construction allows both training and
+        relaxed cruising, making it ideal for sailors of all levels.
+      </p>
+
+      <p>
+        At the bow, you’ll find the <span class="em-yellow">jib</span> and <span class="em-yellow">forestay</span>,
+        supporting the mast and distributing wind forces evenly. The <span class="em-yellow">deck</span> is wide and flat,
+        providing comfort and allowing the crew to move easily during maneuvers.
+      </p>
+
+      <p>
+        The <span class="em-yellow">mast</span> is made of lightweight aluminum and can be easily stepped or unstepped.
+        The <span class="em-yellow">boom</span> holds the control lines for the cunningham and outhaul systems, allowing
+        fine-tuning of sail shape in varying wind conditions. The <span class="em-yellow">cockpit</span> is centrally located,
+        housing the sheets, blocks, and control fittings for efficient sail handling.
+      </p>
+
+      <p>
+        The <span class="em-yellow">keel</span> provides excellent stability and minimizes heeling even under strong winds.
+        The <span class="em-yellow">rudder</span> is removable and operated with a tiller for precise steering and
+        maneuverability in tight spaces.
+      </p>
+
+      <p>
+        Inside the hull, there is a small <span class="em-yellow">storage cabin</span> for lifejackets, ropes, and personal gear.
+        Every part of the Manta 19 is ergonomically arranged for safety, comfort, and functionality on the water.
+      </p>
+
+      <p>
+        Overall, the <span class="em-yellow">Manta 19</span> combines the best features of a training sailboat and a small cruiser,
+        offering <span class="em-yellow--underline">comfort, stability, and performance</span> in every voyage.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="manta-crew">
+  <div class="rope-frame">
+
+    <!-- ============ ΕΛΛΗΝΙΚΑ ============ -->
+    <div class="manta__block" data-lang="el">
+      <div style="text-align:center; margin:0 0 1rem;">
+        <img src="IMG_4851.jpg" alt="Πλήρωμα και Ρόλοι του Manta 19"
+             style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p>
+        Το <span class="em-yellow">Manta 19</span> απαιτεί συντονισμένη συνεργασία μεταξύ των μελών του πληρώματος.
+        Η ομαδικότητα και η σωστή επικοινωνία είναι καθοριστικοί παράγοντες για μια ασφαλή και αποδοτική πλεύση.
+        Συνήθως, το σκάφος επανδρώνεται από <span class="em-yellow--underline">δύο έως τρία άτομα</span>, ανάλογα με τις καιρικές συνθήκες και τον σκοπό της πλεύσης.
+      </p>
+
+      <p>
+        Ο <span class="em-yellow">κυβερνήτης (skipper)</span> είναι υπεύθυνος για τη συνολική πορεία και τον έλεγχο του σκάφους.
+        Διαχειρίζεται το <span class="em-yellow">πηδάλιο</span>, ρυθμίζει το πανί του κύριου ιστίου και δίνει οδηγίες στο πλήρωμα.
+        Ο κυβερνήτης πρέπει να έχει καλή αίσθηση της ισορροπίας και να προσαρμόζει την πορεία του σκάφους
+        ανάλογα με τη διεύθυνση και την ένταση του ανέμου.
+      </p>
+
+      <p>
+        Ο <span class="em-yellow">πληρωματικός του φλόκου (jib trimmer)</span> χειρίζεται τις σκότες του φλόκου
+        και είναι υπεύθυνος για τη σωστή ρύθμιση του πανιού στην πλεύση. Συνεργάζεται στενά με τον κυβερνήτη,
+        ώστε να επιτυγχάνεται η μέγιστη απόδοση κατά τη διάρκεια των αλλαγών πορείας (τάκ ή πότζα).
+      </p>
+
+      <p>
+        Αν υπάρχει τρίτο μέλος, αυτό λειτουργεί ως <span class="em-yellow">παρατηρητής / βοηθός</span>,
+        αναλαμβάνοντας μικρές διορθώσεις ή την ισορροπία του σκάφους κατά τις αλλαγές κατεύθυνσης.
+        Παράλληλα, βοηθά στην καθελκύση και την ανάσυρση του σκάφους, καθώς και στη διαχείριση των σχοινιών στο κατάστρωμα.
+      </p>
+
+      <p>
+        Σημαντικό είναι όλοι να γνωρίζουν τη <span class="em-yellow">βασική ναυτική ορολογία</span>,
+        τη λειτουργία των ιστίων και των σχοινιών, καθώς και τη χρήση των κόμπων.
+        Η συνεργασία αυτή όχι μόνο εξασφαλίζει ομαλή πλεύση, αλλά ενισχύει και το ομαδικό πνεύμα του πληρώματος.
+      </p>
+
+      <p>
+        Το πλήρωμα του Manta 19 αποτελεί τον κινητήριο μηχανισμό του σκάφους — 
+        κάθε μέλος παίζει <span class="em-yellow--underline">σημαντικό ρόλο</span> στην ασφάλεια, στην ταχύτητα και στην επιτυχία της πλεύσης.
+      </p>
+    </div>
+
+    <!-- ============ ENGLISH ============ -->
+    <div class="manta__block" data-lang="en" hidden>
+      <div style="text-align:center; margin:0 0 1rem;">
+        <img src="IMG_4850.jpg" alt="Crew and Roles on the Manta 19"
+             style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p>
+        The <span class="em-yellow">Manta 19</span> requires excellent coordination between the crew members.
+        <span class="em-yellow--underline">Teamwork and communication</span> are key elements for safety and performance.
+        Typically, the boat is crewed by <span class="em-yellow">two to three people</span>, depending on wind conditions and sailing purpose.
+      </p>
+
+      <p>
+        The <span class="em-yellow">skipper</span> is responsible for steering and overall control of the boat.
+        They handle the <span class="em-yellow">rudder</span>, trim the mainsail, and guide the crew during maneuvers.
+        A skilled skipper adjusts the boat’s heading according to wind direction and strength while maintaining balance.
+      </p>
+
+      <p>
+        The <span class="em-yellow">jib trimmer</span> manages the jib sheets, ensuring optimal sail trim for each course.
+        This role demands close cooperation with the skipper, particularly during tacks and gybes, to maintain smooth transitions and steady speed.
+      </p>
+
+      <p>
+        If a third member is onboard, they act as an <span class="em-yellow">assistant or observer</span>,
+        helping with balance during maneuvers, launching, and retrieving the boat, as well as handling spare lines or adjusting controls when needed.
+      </p>
+
+      <p>
+        All crew members should understand <span class="em-yellow">basic nautical terminology</span>,
+        the function of sails and control lines, and how to tie essential knots.
+        This shared knowledge ensures smooth sailing and strengthens the cooperative spirit of the crew.
+      </p>
+
+      <p>
+        The Manta 19 crew is the heart of the boat — every person plays a <span class="em-yellow--underline">crucial role</span>
+        in its safety, speed, and sailing success.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="hobby-info">
+  <div class="rope-frame">
+
+    <!-- ============ ΕΛΛΗΝΙΚΑ ============ -->
+    <div class="hobby__block" data-lang="el">
+      <div style="text-align:center; margin:0 0 1rem;">
+        <img src="IMG_4857.jpg" alt="Λίγα λόγια για το Hobby One 14"
+             style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p>
+        Το <span class="em-green">Hobby One 14</span> είναι ένα σύγχρονο, ευέλικτο και αξιόπιστο ιστιοπλοϊκό σκάφος μικρού μεγέθους,
+        σχεδιασμένο για εκπαίδευση αλλά και ψυχαγωγία. Συνδυάζει <span class="em-green--underline">σταθερότητα, ταχύτητα και ασφάλεια</span>,
+        καθιστώντας το ιδανικό για αρχάριους αλλά και πιο έμπειρους ιστιοπλόους που αναζητούν ευκολία και διασκέδαση στο νερό.
+      </p>
+
+      <p>
+        Με μήκος περίπου <span class="em-green">4,20 μέτρα</span> και πλάτος 1,80 μ., το σκάφος είναι ελαφρύ, κατασκευασμένο από υαλονήματα
+        υψηλής αντοχής (fiberglass reinforced plastic). Το μικρό του βάρος το καθιστά εύκολο στη μεταφορά, στην ανέλκυση και στην καθέλκυση,
+        ενώ μπορεί να κινηθεί ακόμα και με ασθενείς ανέμους.
+      </p>
+
+      <p>
+        Το Hobby One 14 διαθέτει <span class="em-green">ένα κύριο πανί (main sail)</span> και έναν <span class="em-green">φλόκο (jib)</span>,
+        τα οποία ρυθμίζονται απλά, χωρίς πολύπλοκους μηχανισμούς. Το πανί είναι εύκολο στο τριμάρισμα, ενώ ο ιστός αφαιρείται
+        και τοποθετείται μέσα σε λίγα λεπτά.
+      </p>
+
+      <p>
+        Το <span class="em-green">κατάστρωμα</span> είναι ευρύχωρο και ασφαλές, με αντιολισθητική επιφάνεια και χώρο για δύο άτομα.
+        Η <span class="em-green">καρίνα</span> είναι σταθερή, ενώ το <span class="em-green">πηδάλιο</span> είναι αποσπώμενο,
+        προσφέροντας ευκολία στους ελιγμούς και σταματώντας άμεσα σε περίπτωση ανάγκης.
+      </p>
+
+      <p>
+        Το <span class="em-green">Hobby One 14</span> έχει σχεδιαστεί έτσι ώστε να προσφέρει την αίσθηση ενός αγωνιστικού σκάφους,
+        διατηρώντας όμως τη φιλικότητα και την απλότητα ενός εκπαιδευτικού. Είναι ιδανικό για <span class="em-green">ναυτικούς ομίλους</span>,
+        σχολές ιστιοπλοΐας και ερασιτέχνες που θέλουν να εξασκηθούν με ασφάλεια.
+      </p>
+
+      <p>
+        Συνδυάζοντας <span class="em-green--underline">ευκολία, σταθερότητα και απόδοση</span>, το Hobby One 14 αποτελεί μία από τις πιο
+        αγαπημένες επιλογές μικρών ιστιοπλοϊκών σκαφών σε όλη την Ευρώπη.
+      </p>
+    </div>
+
+    <!-- ============ ENGLISH ============ -->
+    <div class="hobby__block" data-lang="en" hidden>
+      <div style="text-align:center; margin:0 0 1rem;">
+        <img src="IMG_4856.jpg" alt="About the Hobby One 14"
+             style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p>
+        The <span class="em-green">Hobby One 14</span> is a modern, lightweight and versatile sailing dinghy,
+        designed for both <span class="em-green--underline">training and recreational sailing</span>.
+        It combines excellent stability, safety and performance, making it suitable for beginners and advanced sailors alike.
+      </p>
+
+      <p>
+        Measuring approximately <span class="em-green">4.20 meters</span> in length and 1.80 meters in beam,
+        it’s constructed from high-strength fiberglass-reinforced plastic.
+        Its low weight makes launching, retrieving and trailering extremely easy, while it sails efficiently even in light winds.
+      </p>
+
+      <p>
+        The Hobby One 14 features a <span class="em-green">mainsail</span> and a <span class="em-green">jib</span>,
+        both easily trimmed without complex controls. The mast is lightweight and detachable,
+        allowing the boat to be rigged or derigged within minutes.
+      </p>
+
+      <p>
+        The <span class="em-green">deck</span> is spacious, featuring a non-slip surface and room for two sailors.
+        The <span class="em-green">keel</span> provides excellent balance, while the <span class="em-green">removable rudder</span>
+        ensures responsive handling and control, even in tight maneuvers.
+      </p>
+
+      <p>
+        Designed to offer the sensation of a small racing boat while maintaining the simplicity of a trainer,
+        the <span class="em-green">Hobby One 14</span> is perfect for <span class="em-green">sailing schools</span>,
+        yacht clubs, or recreational sailors seeking easy and fun sailing experiences.
+      </p>
+
+      <p>
+        Combining <span class="em-green--underline">ease of use, balance and efficiency</span>, the Hobby One 14 has become
+        one of the most popular small dinghies across Europe.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="hobby-rigging">
+  <div class="rope-frame">
+
+    <!-- ============ ΕΛΛΗΝΙΚΑ ============ -->
+    <div class="hobby__block" data-lang="el">
+      <div style="text-align:center; margin:0 0 1rem;">
+        <img src="IMG_4861.jpg" alt="Αρματωσιά του Hobby One 14"
+             style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p>
+        Η <span class="em-green">αρματωσιά του Hobby One 14</span> είναι εξαιρετικά απλή και λειτουργική,
+        σχεδιασμένη ώστε να διευκολύνει τόσο τους αρχάριους όσο και τους προχωρημένους ιστιοπλόους.
+        Το σκάφος διαθέτει <span class="em-green--underline">ιστό αλουμινίου</span> ελαφριού τύπου, 
+        ο οποίος τοποθετείται εύκολα στο κέντρο του καταστρώματος και ασφαλίζεται με πείρο βάσης.
+      </p>
+
+      <p>
+        Η <span class="em-green">κουπαστή</span> και η <span class="em-green">καρίνα</span> του σκάφους έχουν σχεδιαστεί 
+        ώστε να διατηρούν το σκάφος σταθερό ακόμη και σε ισχυρούς ανέμους. Ο ιστός υποστηρίζεται από
+        <span class="em-green">σταυρούς (spreaders)</span> και <span class="em-green">συρματόσχοινα</span>
+        που εξασφαλίζουν τη σωστή κάθετη θέση του.
+      </p>
+
+      <p>
+        Το <span class="em-green">κύριο πανί</span> (mainsail) συνδέεται με το άλμπουρο μέσω ράγας και συρόμενων οδηγών,
+        ενώ το <span class="em-green">πανί του φλόκου</span> (jib) δένεται στο πρότονο με κρίκο ή καραμπίνερ,
+        προσφέροντας ευκολία και ταχύτητα στη συναρμολόγηση.
+      </p>
+
+      <p>
+        Ο <span class="em-green">βραχίονας (boom)</span> συνδέεται με ειδικό αρθρωτό μηχανισμό (gooseneck),
+        και διαθέτει <span class="em-green">σύστημα vang</span> για τη ρύθμιση της καμπυλότητας του πανιού.
+        Επιπλέον, το <span class="em-green">outhaul</span> και το <span class="em-green">cunningham</span> 
+        επιτρέπουν στον ιστιοπλόο να προσαρμόζει την τάση του πανιού ανάλογα με τις καιρικές συνθήκες.
+      </p>
+
+      <p>
+        Το <span class="em-green">πηδάλιο</span> και η <span class="em-green">πτερύγια (centerboard)</span>
+        είναι αφαιρούμενα και ρυθμιζόμενα, προσφέροντας υψηλή ευελιξία και έλεγχο στις στροφές.
+        Η σκότα του κύριου ιστίου είναι τοποθετημένη κεντρικά στο cockpit, προσφέροντας εύκολη πρόσβαση
+        στον κυβερνήτη κατά την πλεύση.
+      </p>
+
+      <p>
+        Χάρη στην απλότητα της αρματωσιάς του, το <span class="em-green">Hobby One 14</span> μπορεί να στηθεί και να αποσυναρμολογηθεί
+        σε λιγότερο από 15 λεπτά, καθιστώντας το ιδανικό για σχολές ιστιοπλοΐας και εκπαίδευση νέων πληρωμάτων.
+      </p>
+    </div>
+
+    <!-- ============ ENGLISH ============ -->
+    <div class="hobby__block" data-lang="en" hidden>
+      <div style="text-align:center; margin:0 0 1rem;">
+        <img src="IMG_4860.jpg" alt="Rigging of the Hobby One 14"
+             style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p>
+        The <span class="em-green">rigging of the Hobby One 14</span> is simple, efficient, and ideal for training.
+        It features a <span class="em-green--underline">lightweight aluminum mast</span> that can be stepped or unstepped easily
+        and locks securely into the mast step at the deck’s center.
+      </p>
+
+      <p>
+        The <span class="em-green">hull and keel</span> are designed to maintain excellent balance even in stronger winds.
+        The mast is supported by <span class="em-green">spreaders</span> and <span class="em-green">stainless steel shrouds</span>,
+        ensuring a perfectly upright and stable rig.
+      </p>
+
+      <p>
+        The <span class="em-green">mainsail</span> attaches to the mast with a luff track and slides,
+        while the <span class="em-green">jib</span> clips onto the forestay with a hook or carabiner system,
+        allowing for fast and easy setup.
+      </p>
+
+      <p>
+        The <span class="em-green">boom</span> connects to the mast via a <span class="em-green">gooseneck fitting</span>,
+        and includes a <span class="em-green">vang system</span> to control sail twist.
+        Additionally, the <span class="em-green">outhaul</span> and <span class="em-green">cunningham</span>
+        allow precise sail tension adjustments for various wind conditions.
+      </p>
+
+      <p>
+        The <span class="em-green">rudder</span> and <span class="em-green">centerboard</span> are removable and easily adjustable,
+        providing responsive steering and excellent handling during tacks and gybes.
+        The mainsheet is led to the center of the cockpit for easy access by the skipper.
+      </p>
+
+      <p>
+        Thanks to its <span class="em-green--underline">straightforward and practical rigging</span>,
+        the Hobby One 14 can be rigged or derigged in under 15 minutes — perfect for sailing schools,
+        club training, and recreational sailors seeking simplicity and fun.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="hobby-parts">
+  <div class="rope-frame">
+
+    <!-- ============ ΕΛΛΗΝΙΚΑ ============ -->
+    <div class="hobby__block" data-lang="el">
+      <div style="text-align:center; margin:0 0 1rem;">
+        <img src="IMG_4865.jpg" alt="Μέρη του Hobby One 14"
+             style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p>
+        Το <span class="em-green">Hobby One 14</span> είναι ένα ευέλικτο, εκπαιδευτικό σκάφος με απλή αλλά
+        πλήρη δομή. Παρακάτω θα βρεις τα βασικά του μέρη, οργανωμένα ώστε να κατανοείς
+        γρήγορα τη λειτουργία και τη συντήρησή τους.
+      </p>
+
+      <h3>1) Γάστρα & κατάστρωμα</h3>
+      <ul>
+        <li><b class="em-green">Γάστρα (Hull):</b> Στιβαρή κατασκευή για σταθερότητα και αντοχή.</li>
+        <li><b class="em-green">Κατάστρωμα (Deck):</b> Επίπεδο και εργονομικό για ασφαλείς μετακινήσεις.</li>
+        <li><b class="em-green">Κουπαστές (Gunwales):</b> Ενισχύουν την ακαμψία και προσφέρουν λαβή.</li>
+        <li><b class="em-green">Κλειστά διαμερίσματα:</b> Συμβάλλουν στην πλευστότητα/ασφάλεια.</li>
+        <li><b class="em-green">Χαβούζα (Cockpit):</b> Άνετος χώρος χειρισμών με πρόσβαση στις σκότες.</li>
+      </ul>
+
+      <h3>2) Σύστημα πηδαλιουχίας & έλεγχος πορείας</h3>
+      <ul>
+        <li><b class="em-green">Πηδάλιο (Rudder blade):</b> Αποσπώμενο, με κεφαλή τιμονιού.</li>
+        <li><b class="em-green">Λαγουδέρα (Tiller) & προέκταση:</b> Ελεγχος τιμονιού από όρθια/κρεμαστή θέση.</li>
+        <li><b class="em-green">Πτερύγιο/Σέντρα (Centerboard):</b> Περιορίζει πλαγιολίσθηση, ρυθμιζόμενο.</li>
+        <li><b class="em-green">Καρινόκουτι (Centerboard case):</b> Οδηγός/θήκη της σέντρας.</li>
+      </ul>
+
+      <h3>3) Ιστός & συρματόσχοινα</h3>
+      <ul>
+        <li><b class="em-green">Ιστός (Mast):</b> Αλουμινίου, ελαφρύς, τοποθετείται στη βάση καταρτιού.</li>
+        <li><b class="em-green">Βάση καταρτιού (Mast step):</b> Σημείο στήριξης του ιστού στο κατάστρωμα.</li>
+        <li><b class="em-green">Σταυροί (Spreaders):</b> Στηρίζουν και “ανοίγουν” τα συρματόσχοινα.</li>
+        <li><b class="em-green">Πρότονος & παρατόνια (Forestay/Shrouds):</b> Σταθεροποίηση/ρύθμιση ράκερ.</li>
+      </ul>
+
+      <h3>4) Μπούμα & συνδέσεις</h3>
+      <ul>
+        <li><b class="em-green">Μπούμα (Boom):</b> Απλώνει τη βάση του πανιού.</li>
+        <li><b class="em-green">Gooseneck:</b> Αρθρωτή σύνδεση ιστού–μπούμας.</li>
+        <li><b class="em-green">Vang (Kicker):</b> Έλεγχος twist/κάμψης της μαΐστρας.</li>
+        <li><b class="em-green">Outhaul:</b> Τάση στη βάση της μαΐστρας (foot depth).</li>
+        <li><b class="em-green">Cunningham:</b> Τάση στη λούφα, μετατόπιση draft εμπρός/πίσω.</li>
+      </ul>
+
+      <h3>5) Ιστία & χειρισμοί</h3>
+      <ul>
+        <li><b class="em-green">Κύριο πανί (Mainsail):</b> Με μπανέλες, οδηγούς ή ράγα στη λούφα.</li>
+        <li><b class="em-green">Φλόκος (Jib):</b> Προσδένεται στον πρότονο, βοηθά στην επιτάχυνση/στροφές.</li>
+        <li><b class="em-green">Σκότες (Sheets):</b> Κύρια σκότα/σκότα φλόκου για ρύθμιση γωνίας.</li>
+        <li><b class="em-green">Ράουλα & δαγκάνες:</b> Ευκολία μαζέματος/ασφαλίσματος σκότας.</li>
+        <li><b class="em-green">Ανεμοδείκτες (Tell-tales/Windex):</b> Οπτικός έλεγχος ροής αέρα.</li>
+      </ul>
+
+      <h3>6) Λοιπά στοιχεία</h3>
+      <ul>
+        <li><b class="em-green">Πολύσπαστα/Παραμάνα:</b> Βοηθητικά σε ρυθμίσεις & πρόσδεση.</li>
+        <li><b class="em-green">Τάπες στεγανών:</b> Για έλεγχο/αποστράγγιση υδάτων.</li>
+        <li><b class="em-green">Σημεία πρόσδεσης:</b> Cleats/κρίκοι για ασφαλή δέσιμο.</li>
+      </ul>
+    </div>
+
+    <!-- ============ ENGLISH ============ -->
+    <div class="hobby__block" data-lang="en" hidden>
+      <div style="text-align:center; margin:0 0 1rem;">
+        <img src="IMG_4864.jpg" alt="Parts of the Hobby One 14"
+             style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p>
+        The <span class="em-green">Hobby One 14</span> is a versatile training dinghy with a clean, practical layout.
+        Below is a structured overview of its main components for easier sailing, rigging and maintenance.
+      </p>
+
+      <h3>1) Hull & Deck</h3>
+      <ul>
+        <li><b class="em-green">Hull:</b> Rigid construction for stability and durability.</li>
+        <li><b class="em-green">Deck:</b> Flat, ergonomic surface for safe movement.</li>
+        <li><b class="em-green">Gunwales:</b> Reinforce stiffness and provide a handhold.</li>
+        <li><b class="em-green">Buoyancy chambers:</b> Improve flotation and safety.</li>
+        <li><b class="em-green">Cockpit:</b> Comfortable handling area with central sheet access.</li>
+      </ul>
+
+      <h3>2) Steering & Lateral Control</h3>
+      <ul>
+        <li><b class="em-green">Rudder blade:</b> Removable, with a robust rudder head.</li>
+        <li><b class="em-green">Tiller & extension:</b> Steering control while hiking or standing.</li>
+        <li><b class="em-green">Centerboard:</b> Adjustable foil reducing leeway.</li>
+        <li><b class="em-green">Centerboard case:</b> Guide box for smooth travel and positioning.</li>
+      </ul>
+
+      <h3>3) Mast & Standing Rigging</h3>
+      <ul>
+        <li><b class="em-green">Mast:</b> Lightweight aluminum stepped in the mast step.</li>
+        <li><b class="em-green">Mast step:</b> Secure socket at deck center.</li>
+        <li><b class="em-green">Spreaders:</b> Support shrouds and set mast rake.</li>
+        <li><b class="em-green">Forestay & shrouds:</b> Stainless wires for upright, stable rig.</li>
+      </ul>
+
+      <h3>4) Boom & Controls</h3>
+      <ul>
+        <li><b class="em-green">Boom:</b> Spreads the mainsail foot.</li>
+        <li><b class="em-green">Gooseneck fitting:</b> Articulated mast–boom connection.</li>
+        <li><b class="em-green">Vang (Kicker):</b> Controls sail twist and leech tension.</li>
+        <li><b class="em-green">Outhaul:</b> Adjusts foot depth.</li>
+        <li><b class="em-green">Cunningham:</b> Adjusts luff tension and draft position.</li>
+      </ul>
+
+      <h3>5) Sails & Running Rigging</h3>
+      <ul>
+        <li><b class="em-green">Mainsail:</b> With battens, guided on a luff track or sliders.</li>
+        <li><b class="em-green">Jib:</b> Clips to the forestay; improves acceleration and tacking.</li>
+        <li><b class="em-green">Sheets:</b> Main and jib sheets for precise trim.</li>
+        <li><b class="em-green">Blocks & cleats:</b> Smooth sheeting and secure locking.</li>
+        <li><b class="em-green">Tell-tales & Windex:</b> Visual airflow indicators for trim.</li>
+      </ul>
+
+      <h3>6) Miscellaneous</h3>
+      <ul>
+        <li><b class="em-green">Fairleads/Clips:</b> For neat line routing and quick attachment.</li>
+        <li><b class="em-green">Drain plugs:</b> For inspection and water removal.</li>
+        <li><b class="em-green">Mooring points:</b> Bow/stern fittings and cleats for secure tie-up.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<section id="hobby-crew">
+  <div class="rope-frame">
+
+    <!-- ============ ΕΛΛΗΝΙΚΑ ============ -->
+    <div class="hobby__block" data-lang="el">
+      <div style="text-align:center; margin:0 0 1rem;">
+        <img src="IMG_4870.jpg" alt="Πλήρωμα του Hobby One 14"
+             style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p>
+        Το <span class="em-green">Hobby One 14</span> είναι ένα ιστιοπλοϊκό σκάφος ιδανικό για εκπαίδευση δύο ή τριών ατόμων.
+        Οι <span class="em-green">ρόλοι του πληρώματος</span> είναι σαφώς καθορισμένοι, ώστε να επιτυγχάνεται σωστός
+        συντονισμός και ισορροπία κατά την πλεύση. Η ομαδικότητα και η επικοινωνία είναι το κλειδί για αποδοτική πλεύση.
+      </p>
+
+      <h3>1) Κυβερνήτης (Helmsman)</h3>
+      <p>
+        Ο <span class="em-green">κυβερνήτης</span> είναι υπεύθυνος για τη <b>διεύθυνση του σκάφους</b> μέσω του πηδαλίου
+        και τη <b>διατήρηση της πορείας</b> σε σχέση με τον άνεμο. Χειρίζεται τη <span class="em-green">μαΐστρα</span> 
+        και τις βασικές ρυθμίσεις των πανιών. Πρέπει να έχει καθαρή αντίληψη του αέρα, να γνωρίζει πότε να στρίψει 
+        (τακ / πότζα) και να επικοινωνεί συνεχώς με το πλήρωμα.
+      </p>
+
+      <ul>
+        <li>Χειρίζεται το πηδάλιο και τη σκότα της μαΐστρας.</li>
+        <li>Ελέγχει την ισορροπία του σκάφους μέσω στάσης σώματος και trim.</li>
+        <li>Δίνει εντολές για αλλαγές κατεύθυνσης.</li>
+        <li>Εκπαιδεύει το πλήρωμα σε ελιγμούς και συνεργασία.</li>
+      </ul>
+
+      <h3>2) Πλήρωμα φλόκου (Jib Crew)</h3>
+      <p>
+        Το <span class="em-green">πλήρωμα του φλόκου</span> είναι υπεύθυνο για τη <b>ρύθμιση του μικρού πανιού</b>
+        (jib) και τη <b>διατήρηση της σωστής γωνίας</b> σε σχέση με τον άνεμο.
+        Ενεργεί γρήγορα σε κάθε στροφή — αλλάζει πλευρά, απελευθερώνει και μαζεύει τη σκότα του φλόκου με ακρίβεια.
+      </p>
+
+      <ul>
+        <li>Χειρίζεται τη σκότα του φλόκου στις τακ / πότζες.</li>
+        <li>Παρακολουθεί τις <span class="em-green--underline">ανεμοδείκτες</span> για σωστό trim.</li>
+        <li>Ρυθμίζει τη δύναμη στο πανί ώστε να μην υπερφορτώνεται το σκάφος.</li>
+        <li>Συντονίζεται με τον κυβερνήτη για την πορεία και ταχύτητα.</li>
+      </ul>
+
+      <h3>3) Βοηθός πληρώματος (Crew Assistant / Trimmer)</h3>
+      <p>
+        Σε εκπαίδευση ή αγώνες, υπάρχει συχνά ένας τρίτος ρόλος — ο <span class="em-green">βοηθός πληρώματος</span>.
+        Είναι υπεύθυνος για τη ρύθμιση των λεπτομερειών της <b>αρματωσιάς</b> (vang, outhaul, cunningham),
+        τη <b>μετατόπιση βάρους</b> για σωστό trim και τη βοήθεια σε μανούβρες.
+      </p>
+
+      <ul>
+        <li>Ελέγχει τις ρυθμίσεις τάσης (vang, cunningham, outhaul).</li>
+        <li>Κρατά ισορροπία στο σκάφος μετακινώντας το βάρος του.</li>
+        <li>Επικοινωνεί με τα υπόλοιπα μέλη για τις αλλαγές πανιών.</li>
+        <li>Βοηθά στο ανέβασμα/κατέβασμα των πανιών και στη ρύθμιση του ιστού.</li>
+      </ul>
+
+      <h3>4) Ομαδική συνεργασία</h3>
+      <p>
+        Η επιτυχία στο <span class="em-green">Hobby One 14</span> δεν εξαρτάται μόνο από τη δεξιοτεχνία,
+        αλλά κυρίως από τη <b>συνεννόηση και συνεργασία</b> του πληρώματος.
+        Κάθε μέλος πρέπει να γνωρίζει τον ρόλο του, να ακούει τις οδηγίες και να
+        αντιδρά γρήγορα στις αλλαγές του ανέμου ή της πορείας.
+      </p>
+
+      <p>
+        Η πρακτική εμπειρία μέσα στο νερό είναι αυτή που μετατρέπει μια απλή βόλτα
+        σε μια <span class="em-green--underline">αρμονική ιστιοπλοϊκή εμπειρία</span> γεμάτη ακρίβεια, ισορροπία και ροή.
+      </p>
+    </div>
+
+    <!-- ============ ENGLISH ============ -->
+    <div class="hobby__block" data-lang="en" hidden>
+      <div style="text-align:center; margin:0 0 1rem;">
+        <img src="IMG_4869.jpg" alt="Crew Roles of the Hobby One 14"
+             style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;">
+      </div>
+
+      <p>
+        The <span class="em-green">Hobby One 14</span> is a two- or three-person dinghy, ideal for teamwork and training.
+        Each crew position has a <b>specific function</b> that contributes to balance, performance and control.
+        Team communication and coordination are essential for efficient sailing.
+      </p>
+
+      <h3>1) Helmsman (Skipper)</h3>
+      <p>
+        The <span class="em-green">helmsman</span> steers the boat, maintains course relative to the wind,
+        and trims the <span class="em-green">mainsail</span>. They are the tactical leader, giving clear commands
+        and managing maneuvers such as tacks and gybes.
+      </p>
+
+      <ul>
+        <li>Handles the tiller and mainsheet.</li>
+        <li>Maintains boat balance and trim.</li>
+        <li>Gives timing calls for maneuvers.</li>
+        <li>Communicates effectively with the crew.</li>
+      </ul>
+
+      <h3>2) Jib Crew</h3>
+      <p>
+        The <span class="em-green">jib crew</span> controls the small foresail and keeps it correctly trimmed.
+        Their role is dynamic, switching sides and adjusting sheets during every tack or gybe.
+      </p>
+
+      <ul>
+        <li>Trims and releases the jib sheet smoothly.</li>
+        <li>Reads <span class="em-green--underline">tell-tales</span> for correct airflow.</li>
+        <li>Assists in balancing the boat in gusts.</li>
+        <li>Coordinates with the helmsman for proper sail power.</li>
+      </ul>
+
+      <h3>3) Crew Assistant / Trimmer</h3>
+      <p>
+        The <span class="em-green">crew assistant</span> adjusts sail controls like vang, outhaul and cunningham,
+        balances crew weight, and assists with hoisting and lowering sails.
+        In training, this position teaches teamwork and rig awareness.
+      </p>
+
+      <ul>
+        <li>Fine-tunes rig tension and sail shape controls.</li>
+        <li>Moves body weight to maintain even heel.</li>
+        <li>Helps manage halyards, sheets and hardware.</li>
+        <li>Communicates adjustments during maneuvers.</li>
+      </ul>
+
+      <h3>4) Teamwork & Communication</h3>
+      <p>
+        Successful sailing on the <span class="em-green">Hobby One 14</span> relies not only on individual skill
+        but on <b>team coordination</b>. Every member must anticipate changes, listen, and respond together.
+      </p>
+
+      <p>
+        Through practice, coordination and balance, the crew develops
+        a <span class="em-green--underline">flowing rhythm</span> that transforms a simple sail
+        into a smooth and efficient experience on the water.
+      </p>
+    </div>
+
+  </div>
+</section>
+
 </main>
 
 <script>
-
-
-// ===== Burger menu logic (μένει όπως το έχεις) =====
-const burger = document.querySelector('.burger');
-const sidebar = document.getElementById('sidebar');
-function setOpen(open){
-  if(!sidebar) return;
-  sidebar.classList.toggle('is-open',open);
-  document.body.classList.toggle('menu-open',open);
-  burger?.setAttribute('aria-expanded',String(open));
-}
-burger?.addEventListener('click',()=>setOpen(!sidebar.classList.contains('is-open')));
-document.addEventListener('click',(e)=>{
-  if (
-    window.innerWidth<=980 &&
-    sidebar?.classList.contains('is-open') &&
-    !sidebar.contains(e.target) &&
-    !burger.contains(e.target)
-  ){
-    setOpen(false);
-  }
-});
-
 
 // ================== Υπομενού: μόνο ένα ανοιχτό ==================
 const MENUS = {
   laser: {
     toggle:  document.getElementById('menu-laser'),
     sub:     document.getElementById('laser-submenu'),
-    // ids sections που αν τα δει στο URL hash, ανοίγει το Laser
-    sections:['#rigging','#parts','#terms','#knots','#maneuvers','#about-laser','#laser']
+    sections:[
+      '#rigging','#parts','#terms','#knots','#maneuvers',
+      '#about-laser','#laser'
+    ]
   },
   soling: {
     toggle:  document.getElementById('menu-soling'),
     sub:     document.getElementById('soling-submenu'),
-    sections:['#soling-info','#soling-rigging','#soling-parts','#soling-crew','#soling']
+    // υποστήριξη και των δύο anchors που έχεις χρησιμοποιήσει
+    sections:[
+      '#soling-info','#soling-rigging','#soling-rig',
+      '#soling-parts','#soling-crew','#soling'
+    ]
   },
   yngling: {
     toggle:  document.getElementById('menu-yngling'),
     sub:     document.getElementById('yngling-submenu'),
-    sections:['#yngling-info','#yngling-rigging','#yngling-parts','#yngling-crew','#yngling']
+    sections:[
+      '#yngling-info','#yngling-rigging','#yngling-rig',
+      '#yngling-parts','#yngling-crew','#yngling'
+    ]
+  },
+  // ====== ΝΕΑ ΜΕΝΟΥ ======
+  manta: {
+    toggle:  document.getElementById('menu-manta'),
+    sub:     document.getElementById('manta-submenu'),
+    sections:[
+      '#manta-info','#manta-rigging','#manta-rig',
+      '#manta-parts','#manta-crew','#manta'
+    ]
+  },
+  hobby: {
+    toggle:  document.getElementById('menu-hobby'),
+    sub:     document.getElementById('hobby-submenu'),
+    sections:[
+      '#hobby-info','#hobby-rigging','#hobby-rig',
+      '#hobby-parts','#hobby-crew','#hobby'
+    ]
   }
 };
 
@@ -2689,7 +3829,7 @@ function isOpen(key){
   return m?.toggle?.getAttribute('aria-expanded') === 'true';
 }
 
-// listeners για τα τρία κουμπιά
+// listeners για όλα τα κουμπιά υπομενού
 Object.entries(MENUS).forEach(([key, m])=>{
   m.toggle?.addEventListener('click', (e)=>{
     e.preventDefault();
@@ -2740,7 +3880,7 @@ Object.values(MENUS).forEach(({sub})=>{
   });
 });
 
-
+ 
 // ===== I18N =====
 const I18N = {
   el: {
@@ -2771,7 +3911,23 @@ const I18N = {
     "menu.yngling.rigging": "Αρματωσιά",
     "menu.yngling.parts": "Μέρη σκάφους",
     "menu.yngling.crew": "Πλήρωμα / Ρόλοι",
-    "menu.yngling.specs": "Τεχνικά χαρακτηριστικά",   // 🆕 ΝΕΟ κουμπί
+    "menu.yngling.specs": "Τεχνικά χαρακτηριστικά",
+
+    // ===== Υπομενού Manta 19 =====
+    "menu.manta": "Manta 19",
+    "menu.manta.info": "Πληροφορίες",
+    "menu.manta.rigging": "Αρματωσιά",
+    "menu.manta.parts": "Μέρη σκάφους",
+    "menu.manta.crew": "Πλήρωμα / Ρόλοι",
+    "menu.manta.specs": "Τεχνικά χαρακτηριστικά",
+
+    // ===== Υπομενού Hobby One 14 =====
+    "menu.hobby": "Hobby One 14",
+    "menu.hobby.info": "Πληροφορίες",
+    "menu.hobby.rigging": "Αρματωσιά",
+    "menu.hobby.parts": "Μέρη σκάφους",
+    "menu.hobby.crew": "Πλήρωμα / Ρόλοι",
+    "menu.hobby.specs": "Τεχνικά χαρακτηριστικά",
 
     // ===== Footer =====
     "footer.contact": "info@notk.gr • +30 210 481-0390",
@@ -2811,7 +3967,21 @@ const I18N = {
     "yngling.rigging.title": "Αρματωσιά του Yngling",
     "yngling.parts.title": "Μέρη του Yngling",
     "yngling.crew.title": "Πλήρωμα και Ρόλοι στο Yngling",
-    "yngling.specs.title": "Τεχνικά χαρακτηριστικά του Yngling"  // 🆕 ΝΕΟ
+    "yngling.specs.title": "Τεχνικά χαρακτηριστικά του Yngling",
+
+    // ===== Τίτλοι Ενοτήτων (Manta 19) =====
+    "manta.info.title": "Πληροφορίες για το Manta 19",
+    "manta.rigging.title": "Αρματωσιά του Manta 19",
+    "manta.parts.title": "Μέρη του Manta 19",
+    "manta.crew.title": "Πλήρωμα και Ρόλοι στο Manta 19",
+    "manta.specs.title": "Τεχνικά χαρακτηριστικά του Manta 19",
+
+    // ===== Τίτλοι Ενοτήτων (Hobby One 14) =====
+    "hobby.info.title": "Πληροφορίες για το Hobby One 14",
+    "hobby.rigging.title": "Αρματωσιά του Hobby One 14",
+    "hobby.parts.title": "Μέρη του Hobby One 14",
+    "hobby.crew.title": "Πλήρωμα και Ρόλοι στο Hobby One 14",
+    "hobby.specs.title": "Τεχνικά χαρακτηριστικά του Hobby One 14"
   },
 
   en: {
@@ -2842,7 +4012,23 @@ const I18N = {
     "menu.yngling.rigging": "Rigging",
     "menu.yngling.parts": "Parts",
     "menu.yngling.crew": "Crew / Roles",
-    "menu.yngling.specs": "Technical specifications",  // 🆕 ΝΕΟ κουμπί
+    "menu.yngling.specs": "Technical specifications",
+
+    // ===== Manta 19 Submenu =====
+    "menu.manta": "Manta 19",
+    "menu.manta.info": "Info",
+    "menu.manta.rigging": "Rigging",
+    "menu.manta.parts": "Parts",
+    "menu.manta.crew": "Crew / Roles",
+    "menu.manta.specs": "Technical specifications",
+
+    // ===== Hobby One 14 Submenu =====
+    "menu.hobby": "Hobby One 14",
+    "menu.hobby.info": "Info",
+    "menu.hobby.rigging": "Rigging",
+    "menu.hobby.parts": "Parts",
+    "menu.hobby.crew": "Crew / Roles",
+    "menu.hobby.specs": "Technical specifications",
 
     // ===== Footer =====
     "footer.contact": "info@notk.gr • +30 210 481-0390",
@@ -2882,7 +4068,21 @@ const I18N = {
     "yngling.rigging.title": "Rigging of the Yngling",
     "yngling.parts.title": "Parts of the Yngling",
     "yngling.crew.title": "Crew and Roles on the Yngling",
-    "yngling.specs.title": "Technical specifications of the Yngling"  // 🆕 ΝΕΟ
+    "yngling.specs.title": "Technical specifications of the Yngling",
+
+    // ===== Section Titles (Manta 19) =====
+    "manta.info.title": "About the Manta 19",
+    "manta.rigging.title": "Rigging of the Manta 19",
+    "manta.parts.title": "Parts of the Manta 19",
+    "manta.crew.title": "Crew and Roles on the Manta 19",
+    "manta.specs.title": "Technical specifications of the Manta 19",
+
+    // ===== Section Titles (Hobby One 14) =====
+    "hobby.info.title": "About the Hobby One 14",
+    "hobby.rigging.title": "Rigging of the Hobby One 14",
+    "hobby.parts.title": "Parts of the Hobby One 14",
+    "hobby.crew.title": "Crew and Roles on the Hobby One 14",
+    "hobby.specs.title": "Technical specifications of the Hobby One 14"
   }
 };
 
