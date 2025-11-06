@@ -986,6 +986,7 @@ section[id^="hobby-"] button.cta:hover {
 
 
 
+
 </style>
 </head>
 <body>
@@ -1109,7 +1110,7 @@ section[id^="hobby-"] button.cta:hover {
 
   <ul class="submenu" id="hobby-submenu" hidden>
     <li><a class="menu__item submenu__item" href="#hobby-info"  data-i18n="menu.hobby.info">Πληροφορίες</a></li>
-    <li><a class="menu__item submenu__item" href="#hobby-rig"   data-i18n="menu.hobby.rigging">Αρματωσιά</a></li>
+    <li><a class="menu__item submenu__item" href="#hobby-rigging"   data-i18n="menu.hobby.rigging">Αρματωσιά</a></li>
     <li><a class="menu__item submenu__item" href="#hobby-parts" data-i18n="menu.hobby.parts">Μέρη σκάφους</a></li>
     <li><a class="menu__item submenu__item" href="#hobby-crew"  data-i18n="menu.hobby.crew">Πλήρωμα / Ρόλοι</a></li>
   </ul>
@@ -3760,419 +3761,378 @@ section[id^="hobby-"] button.cta:hover {
 </main>
 
 <script>
+document.addEventListener('DOMContentLoaded', () => {
+  // =========================
+  // Burger (mobile sidebar)
+  // =========================
+  const burger  = document.querySelector('.burger');
+  const sidebar = document.getElementById('sidebar');
 
-// ================== Υπομενού: μόνο ένα ανοιχτό ==================
-const MENUS = {
-  laser: {
-    toggle:  document.getElementById('menu-laser'),
-    sub:     document.getElementById('laser-submenu'),
-    sections:[
-      '#rigging','#parts','#terms','#knots','#maneuvers',
-      '#about-laser','#laser'
-    ]
-  },
-  soling: {
-    toggle:  document.getElementById('menu-soling'),
-    sub:     document.getElementById('soling-submenu'),
-    // υποστήριξη και των δύο anchors που έχεις χρησιμοποιήσει
-    sections:[
-      '#soling-info','#soling-rigging','#soling-rig',
-      '#soling-parts','#soling-crew','#soling'
-    ]
-  },
-  yngling: {
-    toggle:  document.getElementById('menu-yngling'),
-    sub:     document.getElementById('yngling-submenu'),
-    sections:[
-      '#yngling-info','#yngling-rigging','#yngling-rig',
-      '#yngling-parts','#yngling-crew','#yngling'
-    ]
-  },
-  // ====== ΝΕΑ ΜΕΝΟΥ ======
-  manta: {
-    toggle:  document.getElementById('menu-manta'),
-    sub:     document.getElementById('manta-submenu'),
-    sections:[
-      '#manta-info','#manta-rigging','#manta-rig',
-      '#manta-parts','#manta-crew','#manta'
-    ]
-  },
-  hobby: {
-    toggle:  document.getElementById('menu-hobby'),
-    sub:     document.getElementById('hobby-submenu'),
-    sections:[
-      '#hobby-info','#hobby-rigging','#hobby-rig',
-      '#hobby-parts','#hobby-crew','#hobby'
-    ]
+  function setOpen(open){
+    if (!sidebar) return;
+    sidebar.classList.toggle('is-open', open);
+    document.body.classList.toggle('menu-open', open);
+    burger?.setAttribute('aria-expanded', String(open));
   }
-};
 
-// βοηθητικό: άνοιγμα/κλείσιμο συγκεκριμένου
-function setSubmenuOpen(toggleBtn, submenu, open){
-  if(!toggleBtn || !submenu) return;
-  toggleBtn.setAttribute('aria-expanded', String(open));
-  submenu.hidden = !open;
-}
-// κλείσε όλα
-function closeAll(){
-  Object.values(MENUS).forEach(({toggle,sub})=> setSubmenuOpen(toggle,sub,false));
-}
-// άνοιξε ένα (και κλείσε τα υπόλοιπα)
-function openOnly(key){
-  closeAll();
-  const m = MENUS[key];
-  if(m) setSubmenuOpen(m.toggle, m.sub, true);
-}
-// επιστρέφει αν το συγκεκριμένο είναι ανοιχτό
-function isOpen(key){
-  const m = MENUS[key];
-  return m?.toggle?.getAttribute('aria-expanded') === 'true';
-}
-
-// listeners για όλα τα κουμπιά υπομενού
-Object.entries(MENUS).forEach(([key, m])=>{
-  m.toggle?.addEventListener('click', (e)=>{
-    e.preventDefault();
-    const willOpen = !isOpen(key);
-    if (willOpen) openOnly(key);
-    else setSubmenuOpen(m.toggle, m.sub, false);
+  burger?.addEventListener('click', (e)=>{
+    e.stopPropagation();
+    setOpen(!sidebar.classList.contains('is-open'));
   });
-});
 
-// ===== Κλείσιμο όλων όταν κάνεις κλικ εκτός (σε mobile) =====
-document.addEventListener('click', (e)=>{
-  const isMobileMenuOpen = document.body.classList.contains('menu-open');
-  if (window.innerWidth <= 980 && isMobileMenuOpen){
-    if (!sidebar.contains(e.target) && !burger.contains(e.target)) {
-      closeAll();
+  // Κλείσιμο sidebar όταν κλικάρεις εκτός (μόνο σε mobile)
+  document.addEventListener('click', (e)=>{
+    const isMobileMenuOpen = document.body.classList.contains('menu-open');
+    if (window.innerWidth <= 980 && isMobileMenuOpen){
+      if (!sidebar?.contains(e.target) && !burger?.contains(e.target)) {
+        closeAll();
+        setOpen(false);
+      }
     }
+  });
+
+  // ==========================================
+  // Υπομενού: μόνο ένα ανοιχτό κάθε φορά
+  // ==========================================
+  const MENUS = {
+    laser: {
+      toggle:  document.getElementById('menu-laser'),
+      sub:     document.getElementById('laser-submenu'),
+      sections:['#rigging','#parts','#terms','#knots','#maneuvers','#about-laser','#laser']
+    },
+    soling: {
+      toggle:  document.getElementById('menu-soling'),
+      sub:     document.getElementById('soling-submenu'),
+      sections:['#soling-info','#soling-rigging','#soling-rig','#soling-parts','#soling-crew','#soling']
+    },
+    yngling: {
+      toggle:  document.getElementById('menu-yngling'),
+      sub:     document.getElementById('yngling-submenu'),
+      sections:['#yngling-info','#yngling-rigging','#yngling-rig','#yngling-parts','#yngling-crew','#yngling','#yngling-specs']
+    },
+    // ====== ΝΕΑ ΜΕΝΟΥ ======
+    manta: {
+      toggle:  document.getElementById('menu-manta'),
+      sub:     document.getElementById('manta-submenu'),
+      sections:['#manta-info','#manta-rigging','#manta-rig','#manta-parts','#manta-crew','#manta','#manta-specs']
+    },
+    hobby: {
+      toggle:  document.getElementById('menu-hobby'),
+      sub:     document.getElementById('hobby-submenu'),
+      sections:['#hobby-info','#hobby-rigging','#hobby-rig','#hobby-parts','#hobby-crew','#hobby','#hobby-specs']
+    }
+  };
+
+  // Helpers για υπομενού
+  function setSubmenuOpen(toggleBtn, submenu, open){
+    if(!toggleBtn || !submenu) return;
+    toggleBtn.setAttribute('aria-expanded', String(open));
+    submenu.hidden = !open;
   }
-});
+  function closeAll(){
+    Object.values(MENUS).forEach(({toggle,sub})=> setSubmenuOpen(toggle,sub,false));
+  }
+  function openOnly(key){
+    closeAll();
+    const m = MENUS[key];
+    if(m) setSubmenuOpen(m.toggle, m.sub, true);
+  }
+  function isOpen(key){
+    const m = MENUS[key];
+    return m?.toggle?.getAttribute('aria-expanded') === 'true';
+  }
 
-// ===== Active item + auto-άνοιγμα από hash =====
-function applyActiveFromHash(){
-  const { hash } = location;
+  // Listeners για ΟΛΑ τα κουμπιά υπομενού
+  Object.entries(MENUS).forEach(([key, m])=>{
+    m.toggle?.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const willOpen = !isOpen(key);
+      if (willOpen) openOnly(key);
+      else setSubmenuOpen(m.toggle, m.sub, false);
+    });
+  });
 
-  // ενεργό στοιχείο σε κάθε submenu
+  // Active item + auto-άνοιγμα από hash
+  function applyActiveFromHash(){
+    const { hash } = location;
+
+    // Highlight active link
+    Object.values(MENUS).forEach(({sub})=>{
+      sub?.querySelectorAll('.submenu__item').forEach(a=>{
+        a.classList.toggle('active', a.getAttribute('href') === hash);
+      });
+    });
+
+    // Άνοιξε το σωστό υπομενού με βάση το hash
+    for (const [key, m] of Object.entries(MENUS)){
+      if (m.sections.includes(hash)) {
+        openOnly(key);
+        break;
+      }
+    }
+
+    // Επίσης, στο main menu (anchor links) βάλε active
+    document.querySelectorAll('.menu .menu__item').forEach(l=>{
+      if (l.id === 'lang-switch') return;
+      if (l.tagName.toLowerCase() === 'a' && l.getAttribute('href')?.startsWith('#')) {
+        l.classList.toggle('active', l.getAttribute('href') === hash);
+      }
+    });
+  }
+  window.addEventListener('hashchange', applyActiveFromHash);
+  applyActiveFromHash();
+
+  // Σε mobile: όταν πατάς item υπομενού, κλείνει το burger
   Object.values(MENUS).forEach(({sub})=>{
     sub?.querySelectorAll('.submenu__item').forEach(a=>{
-      a.classList.toggle('active', a.getAttribute('href') === hash);
+      a.addEventListener('click', ()=>{
+        if (window.innerWidth <= 980) setOpen(false);
+      });
     });
   });
 
-  // βρες σε ποιο menu ανήκει το hash και άνοιξέ το
-  for (const [key, m] of Object.entries(MENUS)){
-    if (m.sections.includes(hash)) {
-      openOnly(key);
-      break;
-    }
-  }
-}
-window.addEventListener('hashchange', applyActiveFromHash);
-window.addEventListener('load', applyActiveFromHash);
+  // ==================================================
+  // I18N (με σωστό link για τις φωτογραφίες της ομάδας)
+  // ==================================================
+  const I18N = {
+    el: {
+      "menu.home": "Αρχική",
+      "menu.team": "Η ομάδα",
+      "menu.chat": "Συνομιλία",
 
-// ===== Σε mobile: όταν πατάς item υπομενού, κλείνει το burger =====
-Object.values(MENUS).forEach(({sub})=>{
-  sub?.querySelectorAll('.submenu__item').forEach(a=>{
-    a.addEventListener('click', ()=>{
-      if (window.innerWidth <= 980 && typeof setOpen === 'function') setOpen(false);
+      "menu.laser": "Laser",
+      "menu.laser.rigging": "Αρματωσιά",
+      "menu.laser.parts": "Ονοματολογία",
+      "menu.laser.terms": "Ναυτικοί όροι",
+      "menu.laser.knots": "Κόμποι",
+      "menu.laser.maneuvers": "Στροφές (Τακ/Πότζα)",
+      "menu.laser.info": "Πληροφορίες",
+
+      "menu.soling": "Soling",
+      "menu.soling.info": "Πληροφορίες",
+      "menu.soling.rigging": "Αρματωσιά",
+      "menu.soling.parts": "Μέρη σκάφους",
+      "menu.soling.crew": "Πλήρωμα / Ρόλοι",
+
+      "menu.yngling": "Yngling",
+      "menu.yngling.info": "Πληροφορίες",
+      "menu.yngling.rigging": "Αρματωσιά",
+      "menu.yngling.parts": "Μέρη σκάφους",
+      "menu.yngling.crew": "Πλήρωμα / Ρόλοι",
+      "menu.yngling.specs": "Τεχνικά χαρακτηριστικά",
+
+      "menu.manta": "Manta 19",
+      "menu.manta.info": "Πληροφορίες",
+      "menu.manta.rigging": "Αρματωσιά",
+      "menu.manta.parts": "Μέρη σκάφους",
+      "menu.manta.crew": "Πλήρωμα / Ρόλοι",
+      "menu.manta.specs": "Τεχνικά χαρακτηριστικά",
+
+      "menu.hobby": "Hobby One 14",
+      "menu.hobby.info": "Πληροφορίες",
+      "menu.hobby.rigging": "Αρματωσιά",
+      "menu.hobby.parts": "Μέρη σκάφους",
+      "menu.hobby.crew": "Πλήρωμα / Ρόλοι",
+      "menu.hobby.specs": "Τεχνικά χαρακτηριστικά",
+
+      "footer.contact": "info@notk.gr • +30 210 481-0390",
+
+      "hero.title": "Ιστιοπλοΐα Laser στην πράξη ⚓️",
+      "hero.subtitle": "Ασφάλεια, τεχνική και διασκέδαση στα κύματα. Τμήματα ILCA 4/6/7.",
+      "hero.cta1": "Κλείσε δοκιμαστικό",
+      "hero.cta2": "Δες προγράμματα",
+
+      "team.title": "Η ομάδα",
+      "team.text": "Ο προπονητής και το επιτελείο της Ακαδημίας NOTK Laser.",
+      "team.photos.link": "Πατήστε εδώ",
+      "team.photos.text": "— εδώ θα ανεβάζουμε φωτογραφίες της ομάδας!",
+
+      "chat.title": "Συνομιλία",
+      "chat.text": "💬 Ελάτε και εσείς στην παρέα μας στο Viber!",
+      "chat.whatsapp": "Άνοιγμα ομαδικής Viber",
+      "chatViber": "Άνοιγμα ομαδικής Viber",
+
+      "rigging.title": "Αρματωσιά του Laser",
+      "parts.title": "Ονοματολογία του Laser",
+      "terms.title": "Ναυτικοί όροι του Laser",
+      "knots.title": "Κόμποι για το Laser",
+      "maneuvers.title": "Στροφές: Τακ & Πότζα",
+      "info.title": "Πληροφορίες για το Laser",
+
+      "soling.info.title": "Πληροφορίες για το Soling",
+      "soling.rigging.title": "Αρματωσιά του Soling",
+      "soling.parts.title": "Μέρη του Soling",
+      "soling.crew.title": "Πλήρωμα και Ρόλοι στο Soling",
+
+      "yngling.info.title": "Πληροφορίες για το Yngling",
+      "yngling.rigging.title": "Αρματωσιά του Yngling",
+      "yngling.parts.title": "Μέρη του Yngling",
+      "yngling.crew.title": "Πλήρωμα και Ρόλοι στο Yngling",
+      "yngling.specs.title": "Τεχνικά χαρακτηριστικά του Yngling",
+
+      "manta.info.title": "Πληροφορίες για το Manta 19",
+      "manta.rigging.title": "Αρματωσιά του Manta 19",
+      "manta.parts.title": "Μέρη του Manta 19",
+      "manta.crew.title": "Πλήρωμα και Ρόλοι στο Manta 19",
+      "manta.specs.title": "Τεχνικά χαρακτηριστικά του Manta 19",
+
+      "hobby.info.title": "Πληροφορίες για το Hobby One 14",
+      "hobby.rigging.title": "Αρματωσιά του Hobby One 14",
+      "hobby.parts.title": "Μέρη του Hobby One 14",
+      "hobby.crew.title": "Πλήρωμα και Ρόλοι στο Hobby One 14",
+      "hobby.specs.title": "Τεχνικά χαρακτηριστικά του Hobby One 14"
+    },
+    en: {
+      "menu.home": "Home",
+      "menu.team": "The Team",
+      "menu.chat": "Chat",
+
+      "menu.laser": "Laser",
+      "menu.laser.rigging": "Rigging",
+      "menu.laser.parts": "Parts",
+      "menu.laser.terms": "Nautical terms",
+      "menu.laser.knots": "Knots",
+      "menu.laser.maneuvers": "Maneuvers: Tack / Gybe",
+      "menu.laser.info": "Info",
+
+      "menu.soling": "Soling",
+      "menu.soling.info": "Info",
+      "menu.soling.rigging": "Rigging",
+      "menu.soling.parts": "Parts",
+      "menu.soling.crew": "Crew / Roles",
+
+      "menu.yngling": "Yngling",
+      "menu.yngling.info": "Info",
+      "menu.yngling.rigging": "Rigging",
+      "menu.yngling.parts": "Parts",
+      "menu.yngling.crew": "Crew / Roles",
+      "menu.yngling.specs": "Technical specifications",
+
+      "menu.manta": "Manta 19",
+      "menu.manta.info": "Info",
+      "menu.manta.rigging": "Rigging",
+      "menu.manta.parts": "Parts",
+      "menu.manta.crew": "Crew / Roles",
+      "menu.manta.specs": "Technical specifications",
+
+      "menu.hobby": "Hobby One 14",
+      "menu.hobby.info": "Info",
+      "menu.hobby.rigging": "Rigging",
+      "menu.hobby.parts": "Parts",
+      "menu.hobby.crew": "Crew / Roles",
+      "menu.hobby.specs": "Technical specifications",
+
+      "footer.contact": "info@notk.gr • +30 210 481-0390",
+
+      "hero.title": "Laser Sailing in Action ⚓️",
+      "hero.subtitle": "Safety, technique and fun on the waves. ILCA 4/6/7 groups.",
+      "hero.cta1": "Book a trial",
+      "hero.cta2": "See programs",
+
+      "team.title": "The Team",
+      "team.text": "Coach and support team of the NOTK Laser Academy.",
+      "team.photos.link": "Click here",
+      "team.photos.text": "— this is where we’ll upload team photos!",
+
+      "chat.title": "Chat",
+      "chat.text": "💬 Join our community on Viber!",
+      "chat.whatsapp": "Open group on Viber",
+      "chatViber": "Open group on Viber",
+
+      "rigging.title": "Rigging of the Laser",
+      "parts.title": "Parts of the Laser",
+      "terms.title": "Nautical Terms of the Laser",
+      "knots.title": "Knots for the Laser",
+      "maneuvers.title": "Maneuvers: Tack & Gybe",
+      "info.title": "Laser Information",
+
+      "soling.info.title": "About the Soling",
+      "soling.rigging.title": "Rigging of the Soling",
+      "soling.parts.title": "Parts of the Soling",
+      "soling.crew.title": "Crew and Roles on the Soling",
+
+      "yngling.info.title": "About the Yngling",
+      "yngling.rigging.title": "Rigging of the Yngling",
+      "yngling.parts.title": "Parts of the Yngling",
+      "yngling.crew.title": "Crew and Roles on the Yngling",
+      "yngling.specs.title": "Technical specifications of the Yngling",
+
+      "manta.info.title": "About the Manta 19",
+      "manta.rigging.title": "Rigging of the Manta 19",
+      "manta.parts.title": "Parts of the Manta 19",
+      "manta.crew.title": "Crew and Roles on the Manta 19",
+      "manta.specs.title": "Technical specifications of the Manta 19",
+
+      "hobby.info.title": "About the Hobby One 14",
+      "hobby.rigging.title": "Rigging of the Hobby One 14",
+      "hobby.parts.title": "Parts of the Hobby One 14",
+      "hobby.crew.title": "Crew and Roles on the Hobby One 14",
+      "hobby.specs.title": "Technical specifications of the Hobby One 14"
+    }
+  };
+
+  // ===== I18N storage key & refs =====
+  const LANG_KEY = "notk_lang";
+  const brandImg = document.querySelector(".brand__img");
+  const langBtn  = document.getElementById("lang-switch");
+
+  // === ΕΦΑΡΜΟΓΗ ΓΛΩΣΣΑΣ ===
+  function applyLang(lang) {
+    // 1) Γέμισε όλα τα data-i18n
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const key = el.getAttribute("data-i18n");
+      const val = I18N?.[lang]?.[key];
+      if (val !== undefined) el.textContent = val;
     });
-  });
-});
 
- 
-// ===== I18N =====
-const I18N = {
-  el: {
-    // ===== Μενού =====
-    "menu.home": "Αρχική",
-    "menu.team": "Η ομάδα",
-    "menu.chat": "Συνομιλία",
-
-    // ===== Υπομενού Laser =====
-    "menu.laser": "Laser",
-    "menu.laser.rigging": "Αρματωσιά",
-    "menu.laser.parts": "Ονοματολογία",
-    "menu.laser.terms": "Ναυτικοί όροι",
-    "menu.laser.knots": "Κόμποι",
-    "menu.laser.maneuvers": "Στροφές (Τακ/Πότζα)",
-    "menu.laser.info": "Πληροφορίες",
-
-    // ===== Υπομενού Soling =====
-    "menu.soling": "Soling",
-    "menu.soling.info": "Πληροφορίες",
-    "menu.soling.rigging": "Αρματωσιά",
-    "menu.soling.parts": "Μέρη σκάφους",
-    "menu.soling.crew": "Πλήρωμα / Ρόλοι",
-
-    // ===== Υπομενού Yngling =====
-    "menu.yngling": "Yngling",
-    "menu.yngling.info": "Πληροφορίες",
-    "menu.yngling.rigging": "Αρματωσιά",
-    "menu.yngling.parts": "Μέρη σκάφους",
-    "menu.yngling.crew": "Πλήρωμα / Ρόλοι",
-    "menu.yngling.specs": "Τεχνικά χαρακτηριστικά",
-
-    // ===== Υπομενού Manta 19 =====
-    "menu.manta": "Manta 19",
-    "menu.manta.info": "Πληροφορίες",
-    "menu.manta.rigging": "Αρματωσιά",
-    "menu.manta.parts": "Μέρη σκάφους",
-    "menu.manta.crew": "Πλήρωμα / Ρόλοι",
-    "menu.manta.specs": "Τεχνικά χαρακτηριστικά",
-
-    // ===== Υπομενού Hobby One 14 =====
-    "menu.hobby": "Hobby One 14",
-    "menu.hobby.info": "Πληροφορίες",
-    "menu.hobby.rigging": "Αρματωσιά",
-    "menu.hobby.parts": "Μέρη σκάφους",
-    "menu.hobby.crew": "Πλήρωμα / Ρόλοι",
-    "menu.hobby.specs": "Τεχνικά χαρακτηριστικά",
-
-    // ===== Footer =====
-    "footer.contact": "info@notk.gr • +30 210 481-0390",
-
-    // ===== Hero Section =====
-    "hero.title": "Ιστιοπλοΐα Laser στην πράξη ⚓️",
-    "hero.subtitle": "Ασφάλεια, τεχνική και διασκέδαση στα κύματα. Τμήματα ILCA 4/6/7.",
-    "hero.cta1": "Κλείσε δοκιμαστικό",
-    "hero.cta2": "Δες προγράμματα",
-
-    // ===== Ομάδα / Συνομιλία =====
-    "team.title": "Η ομάδα",
-    "team.text": "Ο προπονητής και το επιτελείο της Ακαδημίας NOTK Laser.",
-    "team.photos.link": "Πατήστε εδώ",
-    "team.photos.text": "— εδώ θα ανεβάζουμε φωτογραφίες της ομάδας!",
-    "chat.title": "Συνομιλία",
-    "chat.text": "💬 Ελάτε και εσείς στην παρέα μας στο Viber!",
-    "chat.whatsapp": "Άνοιγμα ομαδικής Viber",
-    "chatViber": "Άνοιγμα ομαδικής Viber",
-
-    // ===== Τίτλοι Ενοτήτων (Laser) =====
-    "rigging.title": "Αρματωσιά του Laser",
-    "parts.title": "Ονοματολογία του Laser",
-    "terms.title": "Ναυτικοί όροι του Laser",
-    "knots.title": "Κόμποι για το Laser",
-    "maneuvers.title": "Στροφές: Τακ & Πότζα",
-    "info.title": "Πληροφορίες για το Laser",
-
-    // ===== Τίτλοι Ενοτήτων (Soling) =====
-    "soling.info.title": "Πληροφορίες για το Soling",
-    "soling.rigging.title": "Αρματωσιά του Soling",
-    "soling.parts.title": "Μέρη του Soling",
-    "soling.crew.title": "Πλήρωμα και Ρόλοι στο Soling",
-
-    // ===== Τίτλοι Ενοτήτων (Yngling) =====
-    "yngling.info.title": "Πληροφορίες για το Yngling",
-    "yngling.rigging.title": "Αρματωσιά του Yngling",
-    "yngling.parts.title": "Μέρη του Yngling",
-    "yngling.crew.title": "Πλήρωμα και Ρόλοι στο Yngling",
-    "yngling.specs.title": "Τεχνικά χαρακτηριστικά του Yngling",
-
-    // ===== Τίτλοι Ενοτήτων (Manta 19) =====
-    "manta.info.title": "Πληροφορίες για το Manta 19",
-    "manta.rigging.title": "Αρματωσιά του Manta 19",
-    "manta.parts.title": "Μέρη του Manta 19",
-    "manta.crew.title": "Πλήρωμα και Ρόλοι στο Manta 19",
-    "manta.specs.title": "Τεχνικά χαρακτηριστικά του Manta 19",
-
-    // ===== Τίτλοι Ενοτήτων (Hobby One 14) =====
-    "hobby.info.title": "Πληροφορίες για το Hobby One 14",
-    "hobby.rigging.title": "Αρματωσιά του Hobby One 14",
-    "hobby.parts.title": "Μέρη του Hobby One 14",
-    "hobby.crew.title": "Πλήρωμα και Ρόλοι στο Hobby One 14",
-    "hobby.specs.title": "Τεχνικά χαρακτηριστικά του Hobby One 14"
-  },
-
-  en: {
-    // ===== Menu =====
-    "menu.home": "Home",
-    "menu.team": "The Team",
-    "menu.chat": "Chat",
-
-    // ===== Laser Submenu =====
-    "menu.laser": "Laser",
-    "menu.laser.rigging": "Rigging",
-    "menu.laser.parts": "Parts",
-    "menu.laser.terms": "Nautical terms",
-    "menu.laser.knots": "Knots",
-    "menu.laser.maneuvers": "Maneuvers: Tack / Gybe",
-    "menu.laser.info": "Info",
-
-    // ===== Soling Submenu =====
-    "menu.soling": "Soling",
-    "menu.soling.info": "Info",
-    "menu.soling.rigging": "Rigging",
-    "menu.soling.parts": "Parts",
-    "menu.soling.crew": "Crew / Roles",
-
-    // ===== Yngling Submenu =====
-    "menu.yngling": "Yngling",
-    "menu.yngling.info": "Info",
-    "menu.yngling.rigging": "Rigging",
-    "menu.yngling.parts": "Parts",
-    "menu.yngling.crew": "Crew / Roles",
-    "menu.yngling.specs": "Technical specifications",
-
-    // ===== Manta 19 Submenu =====
-    "menu.manta": "Manta 19",
-    "menu.manta.info": "Info",
-    "menu.manta.rigging": "Rigging",
-    "menu.manta.parts": "Parts",
-    "menu.manta.crew": "Crew / Roles",
-    "menu.manta.specs": "Technical specifications",
-
-    // ===== Hobby One 14 Submenu =====
-    "menu.hobby": "Hobby One 14",
-    "menu.hobby.info": "Info",
-    "menu.hobby.rigging": "Rigging",
-    "menu.hobby.parts": "Parts",
-    "menu.hobby.crew": "Crew / Roles",
-    "menu.hobby.specs": "Technical specifications",
-
-    // ===== Footer =====
-    "footer.contact": "info@notk.gr • +30 210 481-0390",
-
-    // ===== Hero Section =====
-    "hero.title": "Laser Sailing in Action ⚓️",
-    "hero.subtitle": "Safety, technique and fun on the waves. ILCA 4/6/7 groups.",
-    "hero.cta1": "Book a trial",
-    "hero.cta2": "See programs",
-
-    // ===== Team / Chat =====
-    "team.title": "The Team",
-    "team.text": "Coach and support team of the NOTK Laser Academy.",
-    "team.photos.link": "Click here",
-    "team.photos.text": "— this is where we’ll upload team photos!",
-    "chat.title": "Chat",
-    "chat.text": "💬 Join our community on Viber!",
-    "chat.whatsapp": "Open group on Viber",
-    "chatViber": "Open group on Viber",
-
-    // ===== Section Titles (Laser) =====
-    "rigging.title": "Rigging of the Laser",
-    "parts.title": "Parts of the Laser",
-    "terms.title": "Nautical Terms of the Laser",
-    "knots.title": "Knots for the Laser",
-    "maneuvers.title": "Maneuvers: Tack & Gybe",
-    "info.title": "Laser Information",
-
-    // ===== Section Titles (Soling) =====
-    "soling.info.title": "About the Soling",
-    "soling.rigging.title": "Rigging of the Soling",
-    "soling.parts.title": "Parts of the Soling",
-    "soling.crew.title": "Crew and Roles on the Soling",
-
-    // ===== Section Titles (Yngling) =====
-    "yngling.info.title": "About the Yngling",
-    "yngling.rigging.title": "Rigging of the Yngling",
-    "yngling.parts.title": "Parts of the Yngling",
-    "yngling.crew.title": "Crew and Roles on the Yngling",
-    "yngling.specs.title": "Technical specifications of the Yngling",
-
-    // ===== Section Titles (Manta 19) =====
-    "manta.info.title": "About the Manta 19",
-    "manta.rigging.title": "Rigging of the Manta 19",
-    "manta.parts.title": "Parts of the Manta 19",
-    "manta.crew.title": "Crew and Roles on the Manta 19",
-    "manta.specs.title": "Technical specifications of the Manta 19",
-
-    // ===== Section Titles (Hobby One 14) =====
-    "hobby.info.title": "About the Hobby One 14",
-    "hobby.rigging.title": "Rigging of the Hobby One 14",
-    "hobby.parts.title": "Parts of the Hobby One 14",
-    "hobby.crew.title": "Crew and Roles on the Hobby One 14",
-    "hobby.specs.title": "Technical specifications of the Hobby One 14"
-  }
-};
-
-
-// ===== I18N storage key & refs =====
-const LANG_KEY = "notk_lang";
-const brandImg = document.querySelector(".brand__img");
-const langBtn  = document.getElementById("lang-switch");
-
-
-// === ΕΦΑΡΜΟΓΗ ΓΛΩΣΣΑΣ ===
-function applyLang(lang) {
-  // 1) Γέμισε όλα τα data-i18n
-  document.querySelectorAll("[data-i18n]").forEach(el => {
-    const key = el.getAttribute("data-i18n");
-    const val = I18N?.[lang]?.[key];
-    if (val !== undefined) {
-      el.textContent = val;   // απλό κείμενο
+    // 2) Team photos link + text
+    const photosLink = document.getElementById("team-photos-link");
+    const photosText = document.getElementById("team-photos-text");
+    if (photosLink) {
+      photosLink.href = (lang === "en") ? "team-photos-en.html" : "team-photos.html";
+      const linkLabel = I18N?.[lang]?.["team.photos.link"];
+      if (linkLabel) photosLink.textContent = linkLabel;
     }
-  });
+    if (photosText) {
+      const textLabel = I18N?.[lang]?.["team.photos.text"];
+      if (textLabel) photosText.textContent = textLabel;
+    }
 
-  // 2) Ειδική ρύθμιση για το link των φωτογραφιών
-  const photosLink = document.getElementById("team-photos-link");   // <a id="team-photos-link">
-  const photosText = document.getElementById("team-photos-text");   // <span id="team-photos-text" data-i18n="team.photos.text">
-  if (photosLink) {
-    photosLink.href = (lang === "en") ? "team-photos-en.html" : "team-photos.html";
-    photosLink.textContent = I18N[lang]["team.photos.link"];
-  }
-  // Το συνοδευτικό κειμενάκι (αν δεν καλύπτεται ήδη από το data-i18n πιο πάνω)
-  if (photosText) {
-    photosText.textContent = I18N[lang]["team.photos.text"];
-  }
+    // 3) Λογότυπο
+    if (brandImg){
+      brandImg.src = (lang === "en") ? "notk-logo-en.png" : "notk-logo-gr.png";
+      brandImg.alt = (lang === "en") ? "NOTK Laser Academy" : "NOTK Ακαδημία Laser";
+    }
 
-  // 3) Λογότυπο
-  if (brandImg){
-    brandImg.src = (lang === "en") ? "notk-logo-en.png" : "notk-logo-gr.png";
-    brandImg.alt = (lang === "en") ? "NOTK Laser Academy" : "NOTK Ακαδημία Laser";
-  }
+    // 4) Κουμπί γλώσσας (label & aria)
+    if (langBtn){
+      langBtn.textContent = (lang === "en") ? "Ελληνικά" : "English";
+      langBtn.setAttribute("aria-pressed", (lang === "en") ? "true" : "false");
+    }
 
-  // 4) Κουμπί γλώσσας (label & aria)
-  if (langBtn){
-    langBtn.textContent = (lang === "en") ? "Ελληνικά" : "English";
-    langBtn.setAttribute("aria-pressed", lang === "en" ? "true" : "false");
-  }
-
-  // 5) Εμφάνιση/απόκρυψη μπλοκ ανά γλώσσα, αν τα χρησιμοποιείς
-  document.querySelectorAll("[data-lang]").forEach(el=>{
-    el.hidden = el.getAttribute("data-lang") !== lang;
-  });
-
-  document.documentElement.setAttribute("lang", (lang === "en") ? "en" : "el");
-  localStorage.setItem(LANG_KEY, lang);
-}
-
-// Αρχικοποίηση
-const startLang = localStorage.getItem(LANG_KEY) || "el";
-applyLang(startLang);
-
-// Toggle γλώσσας
-langBtn?.addEventListener("click", () => {
-  const current = localStorage.getItem(LANG_KEY) || "el";
-  const next = current === "el" ? "en" : "el";
-  applyLang(next);
-});
-
-
-// ===== ACTIVE state στα links του μενού (anchor σελίδας) =====
-const menuLinks = document.querySelectorAll('.menu .menu__item');
-menuLinks.forEach(link => {
-  if (link.tagName.toLowerCase() === 'a' && link.getAttribute('href')?.startsWith('#')) {
-    link.addEventListener('click', () => {
-      menuLinks.forEach(l => { if (l.id !== 'lang-switch') l.classList.remove('active'); });
-      if (link.id !== 'lang-switch') link.classList.add('active');
+    // 5) Εμφάνιση/απόκρυψη μπλοκ ανά γλώσσα
+    document.querySelectorAll("[data-lang]").forEach(el=>{
+      el.hidden = el.getAttribute("data-lang") !== lang;
     });
+
+    // 6) HTML lang + αποθήκευση
+    document.documentElement.setAttribute("lang", (lang === "en") ? "en" : "el");
+    localStorage.setItem(LANG_KEY, lang);
   }
+
+  // ===== Αρχικοποίηση γλώσσας =====
+  const startLang = localStorage.getItem(LANG_KEY) || "el";
+  applyLang(startLang);
+
+  // ===== Toggle γλώσσας =====
+  langBtn?.addEventListener("click", () => {
+    const current = localStorage.getItem(LANG_KEY) || "el";
+    const next = (current === "el") ? "en" : "el";
+    applyLang(next);
+  });
 });
 
-// Hash on load
-window.addEventListener('load', () => {
-  const hash = window.location.hash;
-  if (hash) {
-    const activeLink = document.querySelector('.menu .menu__item[href="' + hash + '"]');
-    if (activeLink && activeLink.id !== 'lang-switch') {
-      menuLinks.forEach(l => { if (l.id !== 'lang-switch') l.classList.remove('active'); });
-      activeLink.classList.add('active');
-    }
-  }
-});
 
-// ===== Εμφάνιση animation για Ομάδα =====
 const omadaElements = document.querySelectorAll('#team .omada-animate');
 const omadaObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('omada-visible'); });
@@ -4186,7 +4146,9 @@ const chatObserver = new IntersectionObserver((entries) => {
 }, { threshold:0.2 });
 chatElements.forEach(el => chatObserver.observe(el));
 
+
 </script>
+
 
 <script src="chat.js"></script>
 
