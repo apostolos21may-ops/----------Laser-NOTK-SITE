@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Φωτογραφίες Ομάδας - NOTK Laser</title>
   <link rel="icon" href="notk.png" />
+
   <style>
     body {
       margin: 0;
-      font-family: system-ui, sans-serif;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, 'Noto Sans', sans-serif;
       background-image: url("90.jpg");
       background-size: cover;
       background-position: center;
@@ -23,213 +24,150 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    header {
-      background: rgba(0, 0, 60, 0.75);
-      padding: 1rem;
-      font-weight: bold;
-      font-size: 1.5rem;
-      border-bottom: 2px solid rgba(255,255,255,0.3);
+    /* Επικεφαλίδα */
+    .photos-title {
+      background: rgba(11,42,102,0.8);
+      color: #fff;
+      padding: 1rem 1.5rem;
+      margin: 0;
+      font-size: 1.4rem;
+      font-weight: 700;
+      line-height: 1.4;
+      text-shadow: 0 2px 6px rgba(0,0,0,.7);
+      border-bottom: 2px solid rgba(255,255,255,.3);
       letter-spacing: 0.5px;
     }
 
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 15px;
-      padding: 2rem;
+    /* Κουμπί “Πίσω” */
+    .back-row {
+      margin: 1rem 0 2rem;
+    }
+    .back-link {
+      display: inline-block;
+      background: #fff;
+      color: #0b2a66;
+      font-weight: 600;
+      font-size: .95rem;
+      text-decoration: none;
+      border-radius: 8px;
+      padding: .6rem 1rem;
+      box-shadow: 0 6px 18px rgba(0,0,0,.3);
+      border: 1px solid rgba(0,0,0,.15);
+      transition: all .25s ease;
+    }
+    .back-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,.35);
     }
 
-    .gallery img {
-      width: 100%;
+    /* Πλέγμα φωτογραφιών */
+    .photo-grid {
+      max-width: 1200px;
+      margin: 0 auto 4rem;
+      padding: 0 1rem 4rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(260px,100%), 1fr));
+      gap: 1.5rem;
+    }
+
+    /* Κάρτα φωτογραφίας */
+    .photo-card {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(6px);
       border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-      transition: transform 0.3s ease, opacity 0.5s;
+      box-shadow: 0 30px 60px rgba(0,0,0,.6), 0 2px 4px rgba(0,0,0,.4) inset;
+      border: 1px solid rgba(255,255,255,.4);
+      overflow: hidden;
+      text-align: left;
+      color: #fff;
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      border-bottom: 1px solid rgba(255,255,255,.3);
       opacity: 0;
+      transform: scale(.99);
       animation: appear 1s forwards;
     }
-
-    .gallery img:nth-child(1) { animation-delay: 0.3s; }
-    .gallery img:nth-child(2) { animation-delay: 0.6s; }
-    .gallery img:nth-child(3) { animation-delay: 0.9s; }
-    .gallery img:nth-child(4) { animation-delay: 1.2s; }
+    .photo-card:nth-child(1) img { animation-delay: .3s; }
+    .photo-card:nth-child(2) img { animation-delay: .6s; }
+    .photo-card:nth-child(3) img { animation-delay: .9s; }
+    .photo-card:nth-child(4) img { animation-delay: 1.2s; }
+    .photo-card:nth-child(5) img { animation-delay: 1.5s; }
+    .photo-card:nth-child(6) img { animation-delay: 1.8s; }
+    .photo-card:nth-child(7) img { animation-delay: 2.1s; }
+    .photo-card:nth-child(8) img { animation-delay: 2.4s; }
 
     @keyframes appear {
       to { opacity: 1; transform: scale(1); }
     }
 
-    .gallery img:hover {
-      transform: scale(1.05);
+    .photo-card figcaption {
+      font-size: .9rem;
+      line-height: 1.4;
+      padding: .75rem .9rem 1rem;
+      color: #fff;
+      text-shadow: 0 2px 4px rgba(0,0,0,.8);
     }
 
-    a.back {
-      display: inline-block;
-      margin: 20px auto 40px;
-      padding: 10px 20px;
-      background: rgba(255,255,255,0.9);
-      color: #0b2a66;
-      font-weight: bold;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: 0.3s;
+    @media (min-width: 768px) {
+      .photo-card img { height: 220px; }
     }
-
-    a.back:hover {
-      background: white;
-      transform: scale(1.05);
-    }
-
-.back-btn {
-  display: inline-block;
-  margin: 2rem auto;
-  padding: 0.7rem 1.4rem;
-  background: rgba(255, 255, 255, 0.85);
-  color: #0b2a66;
-  border-radius: 10px;
-  text-decoration: none;
-  font-weight: 700;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  transition: all 0.25s ease;
-}
-
-.back-btn:hover {
-  background: #fff;
-  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
-  transform: translateY(-2px);
-}
-
-body {
-  margin:0;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, 'Noto Sans', sans-serif;
-  /* κρατάς ήδη το background με τις άγκυρες αν το έχεις στο body */
-  color:#fff;
-  text-align:center;
-}
-
-/* τίτλος επάνω */
-.photos-title {
-  background: rgba(11,42,102,0.8); /* μπλε navy ημιδιάφανο */
-  color:#fff;
-  padding:1rem 1.5rem;
-  margin:0;
-  font-size:1.2rem;
-  font-weight:700;
-  line-height:1.4;
-  text-shadow:0 2px 6px rgba(0,0,0,.7);
-}
-
-/* κουμπί "πίσω" */
-.back-row {
-  margin:1rem 0 2rem;
-}
-.back-link {
-  display:inline-block;
-  background:#fff;
-  color:#0b2a66;
-  font-weight:600;
-  font-size:.9rem;
-  text-decoration:none;
-  border-radius:6px;
-  padding:.5rem .75rem;
-  box-shadow:0 6px 18px rgba(0,0,0,.3);
-  border:1px solid rgba(0,0,0,.15);
-}
-
-/* το grid με τις φωτογραφίες */
-.photo-grid {
-  max-width:1200px;
-  margin:0 auto 4rem;
-  padding:0 1rem 4rem;
-
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));
-  gap:1.5rem;
-}
-
-/* κάθε κάρτα φωτογραφίας */
-.photo-card {
-  background:rgba(255,255,255,0.08); /* λίγο γυαλάδα πάνω από το pattern */
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-
-  border-radius:12px;
-  box-shadow:
-    0 30px 60px rgba(0,0,0,.6),
-    0 2px 4px rgba(0,0,0,.4) inset;
-  border:1px solid rgba(255,255,255,.4);
-
-  overflow:hidden;
-  text-align:left;
-  color:#fff;
-}
-
-/* η εικόνα */
-.photo-card img {
-  width:100%;
-  height:200px;
-  object-fit:cover;
-  display:block;
-  border-bottom:1px solid rgba(255,255,255,.3);
-}
-
-/* λεζάντα */
-.photo-card figcaption {
-  font-size:.9rem;
-  line-height:1.4;
-  padding:.75rem .9rem 1rem;
-  color:#fff;
-  text-shadow:0 2px 4px rgba(0,0,0,.8);
-}
-
-/* responsive λίγο */
-@media (min-width:768px){
-  .photos-title {
-    font-size:1.4rem;
-  }
-  .photo-card img {
-    height:220px;
-  }
-}
-
   </style>
 </head>
 
-
-<section class="photos-page">
-  <h1 class="photos-title">
-    📸 Φωτογραφίες της Ομάδας NOTK Laser
-  </h1>
-
-  <!-- κουμπί πίσω -->
-  <p class="back-row">
-    <a class="back-link" href="index.html">← Επιστροφή στην Ακαδημία</a>
-  </p>
-
-  <!-- εδώ η συλλογή -->
-  <div class="photo-grid">
-    <figure class="photo-card">
-      <img src="IMG_4251.JPG" alt="Sailing 1" />
-      <figcaption>Σκάφη Laser στην προπόνηση</figcaption>
-    </figure>
-
-    <figure class="photo-card">
-      <img src="IMG_4252.JPG" alt="Sailing 2" />
-      <figcaption>Στιγμή πάνω στο Laser</figcaption>
-    </figure>
-
-    <figure class="photo-card">
-      <img src="IMG_4253.jpg" alt="Sailing 3" />
-      <figcaption>Ομάδα στη θάλασσα</figcaption>
-    </figure>
-
-    <figure class="photo-card">
-      <img src="IMG_4254.JPG" alt="Sailing 4" />
-      <figcaption>Solo Laser</figcaption>
-    </figure>
-  </div>
-</section>
-
 <body>
+  <section class="photos-page">
+    <h1 class="photos-title">📸 Φωτογραφίες της Ομάδας NOTK Laser</h1>
 
- 
+    <p class="back-row">
+      <a class="back-link" href="index.html">← Επιστροφή στην Ακαδημία</a>
+    </p>
+
+    <div class="photo-grid">
+      <figure class="photo-card">
+        <img src="IMG_4251.JPG" alt="Προπόνηση με σκάφη Laser">
+        <figcaption>Σκάφη Laser στην προπόνηση</figcaption>
+      </figure>
+
+      <figure class="photo-card">
+        <img src="IMG_4252.JPG" alt="Ιστιοπλόος πάνω στο Laser">
+        <figcaption>Στιγμή πάνω στο Laser</figcaption>
+      </figure>
+
+      <figure class="photo-card">
+        <img src="IMG_4253.jpg" alt="Ομάδα σε ιστιοπλοΐα">
+        <figcaption>Η ομάδα στη θάλασσα</figcaption>
+      </figure>
+
+      <figure class="photo-card">
+        <img src="IMG_4254.JPG" alt="Μονό Laser εν πλω">
+        <figcaption>Solo Laser</figcaption>
+      </figure>
+
+      <figure class="photo-card">
+        <img src="IMG_4871.jpg" alt="Laser στην προπόνηση με σύννεφα">
+        <figcaption>Προπόνηση με φόντο τα σύννεφα</figcaption>
+      </figure>
+
+      <figure class="photo-card">
+        <img src="IMG_4872.jpg" alt="Κύματα και ορίζοντας">
+        <figcaption>Κύματα και ήρεμη θάλασσα</figcaption>
+      </figure>
+
+      <figure class="photo-card">
+        <img src="IMG_4873.jpg" alt="Ηλιοβασίλεμα στη θάλασσα">
+        <figcaption>Ιστιοπλοΐα στο ηλιοβασίλεμα</figcaption>
+      </figure>
+
+      <figure class="photo-card">
+        <img src="IMG_4874.jpg" alt="Ήρεμη ιστιοπλοΐα στη θάλασσα">
+        <figcaption>Ήρεμες στιγμές στη θάλασσα</figcaption>
+      </figure>
+    </div>
+  </section>
 </body>
 </html>

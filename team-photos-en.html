@@ -7,18 +7,15 @@
   <link rel="icon" href="notk.png"/>
 
   <style>
-    /* base */
     body{
       margin:0;
       font-family:system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, 'Noto Sans', sans-serif;
       color:#fff;
       text-align:center;
-
       background-image:url("90.jpg");
       background-size:cover;
       background-position:center;
       background-attachment:fixed;
-
       animation:fadeIn 1.5s ease-in-out;
     }
     @keyframes fadeIn{
@@ -26,7 +23,6 @@
       to{opacity:1; transform:translateY(0)}
     }
 
-    /* page title bar */
     .photos-title{
       background:rgba(11,42,102,0.8);
       color:#fff;
@@ -40,7 +36,6 @@
       letter-spacing:.3px;
     }
 
-    /* back button row */
     .back-row{ margin:1rem 0 2rem; }
     .back-link{
       display:inline-block;
@@ -60,22 +55,18 @@
       box-shadow:0 8px 20px rgba(0,0,0,.35);
     }
 
-    /* grid */
     .photo-grid{
       max-width:1200px;
       margin:0 auto 4rem;
       padding:0 1rem 4rem;
-
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(min(260px,100%), 1fr));
       gap:1.5rem;
     }
 
-    /* card */
     .photo-card{
       background:rgba(255,255,255,0.08);
       backdrop-filter:blur(6px);
-      -webkit-backdrop-filter:blur(6px);
       border-radius:12px;
       box-shadow:0 30px 60px rgba(0,0,0,.6), 0 2px 4px rgba(0,0,0,.4) inset;
       border:1px solid rgba(255,255,255,.4);
@@ -97,6 +88,10 @@
     .photo-card:nth-child(2) img{ animation-delay:.6s; }
     .photo-card:nth-child(3) img{ animation-delay:.9s; }
     .photo-card:nth-child(4) img{ animation-delay:1.2s; }
+    .photo-card:nth-child(5) img{ animation-delay:1.5s; }
+    .photo-card:nth-child(6) img{ animation-delay:1.8s; }
+    .photo-card:nth-child(7) img{ animation-delay:2.1s; }
+    .photo-card:nth-child(8) img{ animation-delay:2.4s; }
 
     @keyframes appear{
       to{ opacity:1; transform:scale(1); }
@@ -144,6 +139,27 @@
       <figure class="photo-card">
         <img src="IMG_4254.JPG" alt="Single Laser dinghy sailing">
         <figcaption>Solo Laser</figcaption>
+      </figure>
+
+      <!-- ΝΕΕΣ ΦΩΤΟ -->
+      <figure class="photo-card">
+        <img src="IMG_4871.jpg" alt="Laser sailing in cloudy weather">
+        <figcaption>Training under clouds</figcaption>
+      </figure>
+
+      <figure class="photo-card">
+        <img src="IMG_4872.jpg" alt="Sea waves at sunset">
+        <figcaption>Waves and horizon</figcaption>
+      </figure>
+
+      <figure class="photo-card">
+        <img src="IMG_4873.jpg" alt="Sailing at sunset">
+        <figcaption>Evening sailing</figcaption>
+      </figure>
+
+      <figure class="photo-card">
+        <img src="IMG_4874.jpg" alt="Sailboats in calm sea">
+        <figcaption>Calm sea moments</figcaption>
       </figure>
     </div>
   </section>
