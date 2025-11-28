@@ -1026,6 +1026,41 @@ section[id^="hobby-"] button.cta:hover {
   background: #fff;             /* άσπρο πίσω και μέσα */
 }
 
+/* ===== LASER TECHNIQUE SECTION ===== */
+
+.laser-rules {
+  text-align: left;
+  line-height: 1.55;
+  font-size: 1rem;
+  padding: 0 1rem;
+}
+
+.laser-rules li {
+  margin-bottom: 0.9rem;
+}
+
+.em-red {
+  color: #ff2b2b;
+  font-weight: 600;
+}
+
+/* Εικόνες επικεφαλίδας */
+.laser-tech-header img {
+  max-width: 720px;
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto 1.5rem auto;
+}
+
+.em-red { color:#ff3b3b; font-weight:700; }
+.laser-rules li { margin: 0.6rem 0; line-height:1.45; }
+.laser-subtitle { 
+  margin-top:1.4rem;
+  margin-bottom:0.6rem;
+  color:#1e3a8a;
+  font-weight:700;
+}
 
 </style>
 </head>
@@ -1068,6 +1103,7 @@ section[id^="hobby-"] button.cta:hover {
       <li><a class="menu__item submenu__item" href="#parts"   data-i18n="menu.laser.parts">Ονοματολογία</a></li>
       <li><a class="menu__item submenu__item" href="#knots"   data-i18n="menu.laser.knots">Κόμποι</a></li>
       <li><a class="menu__item submenu__item" href="#about-laser"  data-i18n="menu.laser.info">Πληροφορίες</a></li>
+      <li><a class="menu__item submenu__item" href="#laser-rules" data-i18n="menu.laser.rules">Βασικοί Κανόνες</a></li>
       <li><a class="menu__item submenu__item" href="#terms"   data-i18n="menu.laser.terms">Ναυτικοί όροι</a></li><!-- ✅ ΝΕΟ -->
       <li><a class="menu__item submenu__item" href="#maneuvers" data-i18n="menu.laser.maneuvers">Στροφές (Τακ/Πότζα)</a></li>
     </ul>
@@ -1315,7 +1351,7 @@ section[id^="hobby-"] button.cta:hover {
 
       <p>Το Laser είναι το πιο δημοφιλές σκάφος παγκοσμίως, σχεδιάστηκε από τον Καναδό <b>(BRUCE KIRBY)</b> και παρουσιάστηκε στις αγορές στην αρχή της δεκαετίας του <b>(1970)</b>.</p>
 
-      <p>Σύντομα το αγκάλιασαν αθλητές, λάτρες της θάλασσας και ιστιοπλόοι κυρίως για την εύκολη χρήση του, το απλό του τριμμάρισμα και την εύκολη μεταφορά του, γιατί το άλμπουρό του <b>(κατάρτι)</b> χωρίζεται στα δύο. Τα οποία μαζί με τα υπόλοιπα και τη γάστρα τοποθετούνται εύκολα στη σχάρα ακόμη και σε ένα μικρό αυτοκίνητο.</p>
+      <p>Σύντομα το αγκάλιασαν αθλητές, λάτρες της θάλασσας και ιστιοπλόοι κυρίως για την εύκολη χρήση του, το απλό του τριμμάρισμα και την εύκολη μεταφορά του, γιατί το άλμπουρό του <b>(καντάρτι)</b> χωρίζεται στα δύο. Τα οποία μαζί με τα υπόλοιπα και τη γάστρα τοποθετούνται εύκολα στη σχάρα ακόμη και σε ένα μικρό αυτοκίνητο.</p>
 
       <p>Άλλο πλεονέκτημά του είναι ότι στην ίδια γάστρα τοποθετούμε τρεις διαφορετικές αρματωσιές. Αυτές αφορούν το μέγεθος του πανιού και το κάτω μέρος του άλμπουρου, έτσι μπορούμε να συμμετέχουμε σε τρεις διαφορετικές κατηγορίες αγώνων.</p>
 
@@ -1355,81 +1391,158 @@ section[id^="hobby-"] button.cta:hover {
   </div>
 </section>
 
-<section id="rigging">
+<!-- ====================================================== -->
+<!-- 🟦 LASER — ΒΑΣΙΚΟΙ ΚΑΝΟΝΕΣ / BASIC RULES -->
+<!-- ====================================================== -->
+<section id="laser-rules">
   <div class="rope-frame">
 
     <!-- ============ ΕΛΛΗΝΙΚΑ ============ -->
-    <div class="rigging__block" data-lang="el">
-      <div class="rigging__heading" style="text-align:center; margin:0 0 1rem;">
-        <img src="IMG_4660.jpg" alt="Η αρματωσιά του Laser"
-             style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;">
+    <div class="laser__block" data-lang="el">
+      
+      <!-- Εικόνα τίτλου -->
+      <div style="text-align:center; margin-bottom:1.2rem;">
+        <img src="IMG_1223.png" alt="Βασικοί κανόνες Laser"
+             style="max-width:700px;width:100%;height:auto;">
       </div>
 
-      <p><b>Αρματωσιά</b> λέγεται ο εξοπλισμός/η εξάρτηση του σκάφους. Στο <b>Laser</b> χωρίζεται σε δύο μέρη:</p>
+      <ol class="laser-rules">
+        <li>Δεν στρίβουμε ποτέ το τιμόνι μέχρι τέρμα — σε αυτή τη θέση το σκάφος <span class="em-red">δεν στρίβει</span>.</li>
 
-      <h4>α) Σκληρή αρματωσιά</h4>
-      <ul>
-        <li><b>Κατάρτι (άλμπουρο)</b> δύο τμημάτων: <i>άνω</i> και <i>κάτω</i> σωλήνας (STD / Radial / 4.7).</li>
-        <li><b>Μπούμα (boom)</b>.</li>
-        <li><b>Σέγκα (centerboard)</b> — όχι καρίνα.</li>
-        <li><b>Τιμόνι</b>: <i>πτερύγιο</i>, <i>κεφαλή</i>, <i>λαγουδέρα</i>, <i>προέκταση</i>.</li>
-      </ul>
+        <li>Για να περιορίσουμε μεγάλες κινήσεις του τιμονιού, ακουμπάμε το χέρι με την προέκταση στο πόδι μας και δουλεύουμε μόνο με τον <span class="em-red">καρπό</span>.</li>
 
-      <h4>β) Μαλακή αρματωσιά</h4>
-      <ul>
-        <li><b>Πανί</b>: Standard 7.06 m², Radial 5.76 m², 4.7 m².</li>
-        <li><b>Ζώνη κρεμάσματος</b> (hiking strap).</li>
-        <li><b>Σχοινιά & συστήματα</b>: σκότα, traveler, cunningham, outhaul, vang.</li>
-      </ul>
+        <li>Όσο λιγότερο γέρνει το σκάφος, τόσο πιο πολύ <span class="em-red">τρέχει</span>.</li>
 
-      <p>Με τα σχοινιά φτιάχνουμε τα <b>συστήματα τριμαρίσματος</b> του Laser:</p>
-      <ul class="rigging__systems">
-        <li><b>Cunningham</b>: τεντώνει τη λούφα ⇒ πιο επίπεδο πανί / draft μπροστά.</li>
-        <li><b>Outhaul</b>: ρυθμίζει το άνοιγμα ποδιάς ⇒ fuller vs flatter.</li>
-        <li><b>Vang</b>: κρατά χαμηλά τη μπούμα, ελέγχει twist.</li>
-        <li><b>Σκότα</b>: ανοίγει/κλείνει πανί, άμεσος έλεγχος ισχύος.</li>
-        <li><b>Traveler</b>: σταθεροποιεί γωνία έλξης σκότας στην πρύμη.</li>
-      </ul>
+        <li>Βαθύ πανί στον πολύ αέρα — <span class="em-red">ρηχό πανί</span> στον λίγο αέρα.</li>
+
+        <li>Έλεγχος τριμαρίσματος: καθόμαστε στο κέντρο, η καρένα κάτω, δεν πειράζουμε τη σκότα, αφήνουμε τη λαγουδέρα και το σκάφος μόνο του ορτσάρει μέχρι τη <span class="em-red">νεκρή ζώνη</span>.</li>
+
+        <li>Δεν στηριζόμαστε στο τιμόνι. Αν μπαίνουμε σε φάση ανατροπής, <span class="em-red">λασκάρουμε</span> τη σκότα και <span class="em-red">ορτσάρουμε</span>.  
+        Αν τραβάμε τη σκότα για στήριξη, επιταχύνουμε το τουμπάρισμα.</li>
+
+        <li>Σε ανατροπή: γυρίζουμε ΑΜΕΣΑ το σκάφος από την καρένα.  
+        Προσοχή — η πλάτη μας πρέπει να είναι <span class="em-red">πάνω στον άνεμο</span> για να μην πέσει το σκάφος πάνω μας.</li>
+
+        <li><span class="em-red">Πραγματικός άνεμος</span> = ο άνεμος όταν είμαστε ακίνητοι.</li>
+
+        <li><span class="em-red">Φαινόμενος άνεμος</span> = ο άνεμος που αισθανόμαστε όταν ταξιδεύουμε.</li>
+
+        <li><span class="em-red">Φάτσα</span>: ο άνεμος έρχεται πιο πλώρα → ποδίζουμε.</li>
+
+        <li><span class="em-red">Σιγοντό</span>: ο άνεμος έρχεται πιο πρίμα → ορτσάρουμε.</li>
+
+        <!-- ===== ΛΙΓΟΣ ΑΕΡΑΣ ===== -->
+        <h3 class="laser-subtitle">Λίγος Αέρας</h3>
+
+        <li>Τριμάρουμε το πανί βαθύ. Cunningham & outhaul χαλαρά — boom-vang φερμαρισμένο.</li>
+
+        <li>Στο ύψος των ράουλων: ~40 cm απόσταση. Καθόμαστε σταβέντο, μπροστά από τις δαγκάνες.</li>
+
+        <li>Πλαγιοδρομία: λίγο λασκάρισμα vang & cunningham.</li>
+
+        <li>Πρίμα: κρατάμε το σκάφος γυρτό σταβέντο, η σκότα να μην ακουμπάει νερό.</li>
+
+        <!-- ===== ΜΕΤΡΙΟΣ ΑΕΡΑΣ ===== -->
+        <h3 class="laser-subtitle">Μέτριος Αέρας</h3>
+
+        <li>Παρόμοιο τριμάρισμα με λίγο αέρα.</li>
+
+        <li>Όρτσα: ράουλα 10–20 cm. Σε κυματισμό, σφίγγουμε boom-vang.</li>
+
+        <li>Πρίμα & πλαγιοδρομία: όπως στον λίγο αέρα.  
+        Πρίμα απαιτεί λίγο επιπλέον vang για σταθερότητα.</li>
+
+        <!-- ===== ΔΥΝΑΤΟΣ ΑΕΡΑΣ ===== -->
+        <h3 class="laser-subtitle">Δυνατός Αέρας</h3>
+
+        <li><b>Το βάρος και η φυσική κατάσταση του αθλητή είναι κρίσιμα.</b></li>
+
+        <li>Όρτσα: Cunningham πολύ φερμαρισμένο, boom-vang δυνατό, outhaul ελαφρά ανοιχτό για λίγο βάθος.</li>
+
+        <li>Πριν το γύρισμα σε πλαγιοδρομία/πρίμα: λασκάρουμε το vang για να μην σπάσει ο εξοπλισμός.</li>
+
+        <li>Πλαγιοδρομία: λασκάρουμε τη σκότα στις σπιλιάδες — ορθαρμόρουμε όταν πέσει ο άνεμος.</li>
+
+        <li>Πρίμα: σταθεροποιούμε το σκάφος μετακινώντας το σώμα μας.  
+        Αν χαθεί ο έλεγχος → λίγο καρένα, λίγο vang, μικρό ορθάρισμα.</li>
+
+      </ol>
     </div>
 
+
+
+
     <!-- ============ ENGLISH ============ -->
-    <div class="rigging__block" data-lang="en" hidden>
-      <div class="rigging__heading" style="text-align:center; margin:0 0 1rem;">
-        <img src="IMG_4661.jpg" alt="Setup of the Laser"
-             style="max-width:620px;width:100%;height:auto;display:block;margin:0 auto;">
+    <div class="laser__block" data-lang="en" hidden>
+      
+      <div style="text-align:center; margin-bottom:1.2rem;">
+        <img src="IMG_1224.png" alt="Basic Laser Rules"
+             style="max-width:700px;width:100%;height:auto;">
       </div>
 
-      <p><b>Rigging</b> is the full equipment of a boat. On the <b>Laser</b> it’s split in two:</p>
+      <ol class="laser-rules">
 
-      <h4>a) Hard rig</h4>
-      <ul>
-        <li><b>Mast</b> in two sections (upper/lower) per STD / Radial / 4.7.</li>
-        <li><b>Boom</b>.</li>
-        <li><b>Centerboard</b> (daggerboard) — slides in the case.</li>
-        <li><b>Rudder assembly</b>: blade, head, tiller, tiller extension.</li>
-      </ul>
+        <li>Never turn the tiller fully — in that position the boat <span class="em-red">cannot turn</span>.</li>
 
-      <h4>b) Soft rig</h4>
-      <ul>
-        <li><b>Sail</b>: Standard 7.06 m², Radial 5.76 m², 4.7 m².</li>
-        <li><b>Hiking strap</b> in the cockpit.</li>
-        <li><b>Lines & controls</b>: mainsheet, traveler, cunningham, outhaul, vang.</li>
-      </ul>
+        <li>To avoid big tiller movements, rest the extension hand on your leg and steer using only the <span class="em-red">wrist</span>.</li>
 
-      <p>The lines form the Laser’s <b>trimming systems</b>:</p>
-      <ul class="rigging__systems">
-        <li><b>Cunningham</b>: tensions the luff ⇒ flattens / moves draft forward.</li>
-        <li><b>Outhaul</b>: sets foot depth ⇒ fuller vs flatter.</li>
-        <li><b>Vang</b>: pulls boom down, controls twist.</li>
-        <li><b>Mainsheet</b>: opens/closes sail, primary power control.</li>
-        <li><b>Traveler</b>: stabilizes sheet lead at the transom.</li>
-      </ul>
+        <li>The less the boat heels, the more <span class="em-red">speed</span> it keeps.</li>
+
+        <li><span class="em-red">Deeper sail</span> in strong wind — <span class="em-red">flatter sail</span> in light wind.</li>
+
+        <li>To check trim: sit in the middle, daggerboard down, do not touch the sheet, release the tiller — the boat will luff into the <span class="em-red">no-go zone</span>.</li>
+
+        <li>Never support your weight on the tiller. If the boat is overpowered, <span class="em-red">ease sheet</span> and <span class="em-red">head up</span>.  
+        Pulling the sheet to hold yourself increases the chance of capsizing.</li>
+
+        <li>If capsized: right the boat immediately from the daggerboard.  
+        Keep your <span class="em-red">back</span> to the wind so the boat doesn’t flip onto you.</li>
+
+        <li><span class="em-red">True wind</span> = wind felt when still.</li>
+
+        <li><span class="em-red">Apparent wind</span> = wind felt while moving.</li>
+
+        <li><span class="em-red">Head-on</span>: wind comes more from the bow → bear away.</li>
+
+        <li><span class="em-red">Aft wind</span>: wind comes from the stern → head up.</li>
+
+        <h3 class="laser-subtitle">Light Wind</h3>
+
+        <li>Trim deeper sail. Cunningham & outhaul loose — vang tight.</li>
+
+        <li>Upwind: blocks ~40 cm apart. Sit windward, minimal movement.</li>
+
+        <li>Reaching: slightly ease vang & cunningham.</li>
+
+        <li>Downwind: keep boat slightly heeled windward, sheet off the water.</li>
+
+        <h3 class="laser-subtitle">Moderate Wind</h3>
+
+        <li>Similar trim to light wind.</li>
+
+        <li>Upwind: blocks 10–20 cm apart. Tighten vang in waves.</li>
+
+        <li>Downwind & reaching: like light wind; a bit more vang downwind adds stability.</li>
+
+        <h3 class="laser-subtitle">Strong Wind</h3>
+
+        <li><b>Sailor’s weight & fitness are important.</b></li>
+
+        <li>Upwind: strong cunningham, strong vang, outhaul slightly open.</li>
+
+        <li>Before rounding to reach/downwind: ease vang to protect mast & boom.</li>
+
+        <li>Reaching: ease sheet on gusts — sheet in again when wind drops.</li>
+
+        <li>Downwind: maintain balance with body movement.  
+        If uncontrollable → daggerboard slightly down, vang in, small heading up.</li>
+
+      </ol>
+
     </div>
 
   </div>
 </section>
-
-
 
 <section id="parts" class="card card--redframe" style="margin-top:2rem;">
   <div class="rope-frame">
@@ -3990,6 +4103,7 @@ document.addEventListener('DOMContentLoaded', () => {
       "menu.laser.knots": "Κόμποι",
       "menu.laser.maneuvers": "Στροφές (Τακ/Πότζα)",
       "menu.laser.info": "Πληροφορίες",
+      "menu.laser.rules": "Βασικοί Κανόνες",
 
       "menu.soling": "Soling",
       "menu.soling.info": "Πληροφορίες",
@@ -4077,6 +4191,7 @@ document.addEventListener('DOMContentLoaded', () => {
       "menu.laser.knots": "Knots",
       "menu.laser.maneuvers": "Maneuvers: Tack / Gybe",
       "menu.laser.info": "Info",
+      "menu.laser.rules": "Basics rules",
 
       "menu.soling": "Soling",
       "menu.soling.info": "Info",
@@ -4236,4 +4351,4 @@ chatElements.forEach(el => chatObserver.observe(el));
 <script src="chat.js"></script>
 
 </body>
-</html>  
+</html>
